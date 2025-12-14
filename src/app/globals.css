@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ACCESSIBILITÉ SENIOR : Base de 18px (112.5%) */
+html {
+  font-size: 112.5%; 
+}
+
+body {
+  /* On passe sur un fond clair (Slate-50) pour le contraste papier */
+  @apply bg-slate-50 text-slate-900;
+}
