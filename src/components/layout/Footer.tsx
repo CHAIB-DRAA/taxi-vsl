@@ -56,6 +56,11 @@ export default function Footer() {
                   <ArrowRight size={16} className="text-slate-600" /> Demander un devis
                 </Link>
               </li>
+              <li>
+  <Link href="/blog" className="flex items-center gap-2 hover:text-taxi-500 transition-colors">
+    <ArrowRight size={16} className="text-slate-600" /> Blog & Conseils
+  </Link>
+</li>
             </ul>
           </div>
 
