@@ -4,7 +4,7 @@ import { Phone, Clock, CheckCircle2, AlertCircle, MapPin, Calendar, User, Car, A
 import { useForm, ValidationError } from '@formspree/react';
 
 export default function BookingForm() {
-  // Votre ID Formspree actuel
+  // Votre ID Formspree
   const [state, handleSubmit] = useForm("mvgeydbp");
 
   if (state.succeeded) {
@@ -46,7 +46,7 @@ export default function BookingForm() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             
-            {/* 1. Choix du Type de Transport (Radio Buttons stylisés) */}
+            {/* 1. Choix du Type de Transport */}
             <div className="grid grid-cols-2 gap-4">
               <label className="cursor-pointer">
                 <input type="radio" name="type_transport" value="Medical_CPAM" className="peer sr-only" defaultChecked />
@@ -171,8 +171,8 @@ export default function BookingForm() {
 
           </form>
           
-          {/* Gestion des erreurs */}
-          {state.errors && state.errors.length > 0 && (
+          {/* ✅ CORRECTION ICI : On vérifie juste si "state.errors" existe, sans .length */}
+          {state.errors && (
             <div className="mt-4 p-3 bg-red-50 text-red-600 rounded-lg flex items-center gap-2 text-sm justify-center">
               <AlertCircle size={16} />
               Vérifiez que tous les champs sont remplis.
