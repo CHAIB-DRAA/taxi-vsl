@@ -1,25 +1,40 @@
 import { MetadataRoute } from 'next';
+import { articles } from '@/lib/articles';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // ✅ 1. Ton VRAI domaine (Crucial pour le SEO)
-  const baseUrl = 'https://taxi-31-toulouse.fr';
+  // ✅ Ton domaine officiel
+  const baseUrl = 'https://www.taxi-31-toulouse.fr';
 
-  return [
+  // 1. Les pages statiques (Accueil, Mentions...)
+  const staticPages = [
     {
-      // La Page d'Accueil (La plus importante)
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'weekly', // On dit à Google qu'on est actifs
-      priority: 1, // Priorité MAXIMALE
+      changeFrequency: 'weekly' as const,
+      priority: 1,
     },
     {
-      // Les Mentions Légales
+      url: `${baseUrl}/blog`, // La liste des articles
+      lastModified: new Date(),
+      changeFrequency: 'daily' as const,
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/mentions-legales`,
       lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3, // Moins important pour le classement
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
     },
-    // 💡 NOTE : Si plus tard tu ajoutes un blog, on décommentera cette partie.
-    // Pour l'instant, on laisse propre pour éviter les erreurs de compilation.
   ];
+
+  // 2. Génération dynamique pour tes 69 articles (Villes + Hôpitaux)
+  const blogPages = articles.map((article) => ({
+    url: `${baseUrl}/blog/${article.slug}`,
+    lastModified: new Date(article.date),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7, // Bonne priorité pour le SEO local
+  }));
+
+  // On fusionne tout
+  return [...staticPages, ...blogPages];
 }
