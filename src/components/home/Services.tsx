@@ -2,25 +2,41 @@ import { HeartPulse, Plane, Briefcase, CheckCircle2 } from 'lucide-react';
 
 const services = [
   {
-    title: "Médical Conventionné",
-    description: "Transport Assis (TAP) remboursé par la Sécurité Sociale. Nous vous accompagnons jusqu'au service de soins.",
-    icon: <HeartPulse className="h-8 w-8 text-medical-600" />,
-    color: "bg-medical-50 border-medical-100", // Style spécifique bleu
-    features: ["Dialyse, Rayons, Consultations", "Tiers payant intégral", "Aide à la marche", "Accompagnement administratif"],
+    title: "Transport Médical (VSL)",
+    description: "Taxi conventionné CPAM pour vos rendez-vous médicaux, dialyses, radiothérapies et hospitalisations.",
+    icon: <HeartPulse className="h-8 w-8 text-blue-600" />,
+    // Mise en avant visuelle pour le service principal (Bleu médical)
+    color: "bg-blue-50 border-blue-200 shadow-blue-100", 
+    features: [
+      "Prise en charge à 100% (Tiers Payant)",
+      "Aucune avance de frais",
+      "Aide à la marche & administratif",
+      "Toutes cliniques Toulouse & 31"
+    ],
   },
   {
-    title: "Gares & Aéroports",
-    description: "Liaisons fiables vers Blagnac et Matabiau. Idéal pour ne pas stresser avant un départ.",
-    icon: <Plane className="h-8 w-8 text-taxi-500" />,
+    title: "Gare & Aéroport Blagnac",
+    description: "Navette fiable vers l'aéroport Toulouse-Blagnac et la Gare Matabiau. Ne ratez jamais votre départ.",
+    icon: <Plane className="h-8 w-8 text-yellow-500" />,
     color: "bg-white border-slate-200",
-    features: ["Ponctualité garantie", "Aide aux bagages", "Attente panneau (sur demande)", "Siège bébé disponible"],
+    features: [
+      "Ponctualité garantie",
+      "Calcul d'itinéraire en temps réel",
+      "Aide au portage des bagages",
+      "Siège enfant sur demande"
+    ],
   },
   {
     title: "Privé & Business",
-    description: "Berline confort pour vos rendez-vous d'affaires ou déplacements personnels.",
+    description: "Berline confort pour vos déplacements professionnels ou personnels en Haute-Garonne.",
     icon: <Briefcase className="h-8 w-8 text-slate-700" />,
     color: "bg-white border-slate-200",
-    features: ["Conduite souple", "Véhicule impeccable", "Discrétion assurée", "Longue distance possible"],
+    features: [
+      "Conduite souple et sécurisée",
+      "Véhicule climatisé et propre",
+      "Discrétion assurée",
+      "Mise à disposition possible"
+    ],
   }
 ];
 
@@ -30,15 +46,15 @@ export default function Services() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center mb-16">
-          <span className="text-medical-600 font-bold tracking-wide uppercase text-sm bg-medical-50 px-3 py-1 rounded-full">
+          <span className="text-blue-600 font-bold tracking-wide uppercase text-sm bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">
             Nos Prestations
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mt-4 mb-6">
-            Un service adapté à <span className="text-taxi-500">chaque besoin</span>
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mt-6 mb-6">
+            Un taxi adapté à <span className="text-yellow-500">chaque besoin</span>
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto text-xl leading-relaxed">
-            Du transport médical délicat au transfert aéroportuaire efficace, 
-            nous adaptons notre conduite et notre attention.
+            Spécialiste du transport médical assis sur Toulouse et ses environs. 
+            Nous assurons aussi vos trajets privés avec le même niveau d'exigence.
           </p>
         </div>
 
@@ -47,7 +63,7 @@ export default function Services() {
             <div 
               key={index}
               className={`
-                p-8 rounded-2xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl
+                p-8 rounded-2xl border-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl
                 ${service.color}
               `}
             >
@@ -56,18 +72,18 @@ export default function Services() {
               </div>
 
               <h3 className="text-2xl font-bold text-slate-900 mb-3">{service.title}</h3>
-              <p className="text-slate-600 mb-8 text-lg leading-relaxed">
+              <p className="text-slate-600 mb-8 text-lg leading-relaxed h-24">
                 {service.description}
               </p>
 
-              <ul className="space-y-4">
+              <div className="space-y-4">
                 {service.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-3 text-slate-700 font-medium">
+                  <div key={idx} className="flex items-start gap-3 text-slate-700 font-medium">
                     <CheckCircle2 size={20} className="text-green-500 shrink-0 mt-0.5" />
                     <span>{feature}</span>
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>
