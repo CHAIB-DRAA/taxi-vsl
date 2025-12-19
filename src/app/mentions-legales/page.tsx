@@ -38,14 +38,16 @@ export default function LegalPage() {
             <div className="text-slate-600 space-y-2">
               <p>Le site <strong>taxi-31-toulouse.fr</strong> est édité par :</p>
               <ul className="list-disc pl-5 space-y-1 mt-2">
-                <li><strong>Raison sociale / Nom :</strong> [TON NOM OU NOM DE SOCIÉTÉ]</li>
-                <li><strong>Statut Juridique :</strong> [Ex: Artisan Taxi / Auto-entrepreneur]</li>
-                <li><strong>Adresse :</strong> [TON ADRESSE À TOULOUSE OU ENVIRONS]</li>
-                <li><strong>SIRET :</strong> [TON NUMÉRO SIRET]</li>
-                <li><strong>Numéro ADS (Autorisation de Stationnement) :</strong> [TON NUMÉRO DE LICENCE] (Commune de rattachement)</li>
-                <li><strong>Responsable de publication :</strong> [TON NOM]</li>
+                <li><strong>Raison sociale :</strong> OCCITANIE MEDI MOBILITY </li>
+                <li><strong>Forme Juridique :</strong> SASU (Société par actions simplifiée à associé unique) [cite: 18]</li>
+                <li><strong>Capital social :</strong> 100,00 € [cite: 13]</li>
+                <li><strong>Adresse du siège :</strong> 6 rue Buissonnière Bat A, 31140 Fonbeauzard [cite: 20]</li>
+                <li><strong>Immatriculation :</strong> 994 307 486 R.C.S. Toulouse [cite: 16]</li>
+                <li><strong>Numéro SIREN :</strong> 994 307 486 [cite: 16]</li>
+                
+                <li><strong>Responsable de publication :</strong> M. Chaib Draa Laid [cite: 34]</li>
                 <li><strong>Email :</strong> contact@taxi-31-toulouse.fr</li>
-                <li><strong>Téléphone :</strong> [TON NUMÉRO DE TÉLÉPHONE]</li>
+                <li><strong>Téléphone :</strong> 07 72 33 98 92</li>
               </ul>
             </div>
           </section>
@@ -69,13 +71,13 @@ export default function LegalPage() {
             </h2>
             <div className="text-slate-600 space-y-4">
               <p>
-                Dans le cadre de la réservation de transport médical conventionné (CPAM), <strong>Taxi 31 Toulouse</strong> est amené à collecter des données personnelles (Nom, Téléphone, Adresses de prise en charge, Informations de santé strictes nécessaires au transport).
+                Dans le cadre de la réservation de transport de voyageurs par taxi et transport médical assis[cite: 25], <strong>OCCITANIE MEDI MOBILITY</strong> est amenée à collecter des données personnelles (Nom, Téléphone, Adresses de prise en charge, Informations de santé strictes nécessaires au transport).
               </p>
               <p>
                 <strong>Finalité :</strong> Ces données servent uniquement à la gestion de votre course, à la facturation et à la télétransmission à la CPAM (Tiers Payant). Elles ne sont jamais vendues à des tiers.
               </p>
               <p>
-                <strong>Vos droits :</strong> Conformément à la loi "Informatique et Libertés", vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, contactez-nous par email.
+                <strong>Vos droits :</strong> Conformément à la loi "Informatique et Libertés", vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, contactez-nous par email ou à notre siège social à Fonbeauzard[cite: 20].
               </p>
             </div>
           </section>
