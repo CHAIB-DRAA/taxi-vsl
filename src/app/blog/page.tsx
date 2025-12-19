@@ -1,28 +1,24 @@
 import { articles } from "@/lib/articles";
 import Link from "next/link";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { Calendar, ArrowRight, MapPin } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog & Actualités - Taxi Occitanie",
-  description: "Conseils sur le transport médical, guide des hôpitaux et actualités du taxi en Haute-Garonne.",
+  title: "Blog & Actualités Transport Médical | Taxi 31 Toulouse",
+  description: "Guides pratiques sur le transport VSL, remboursement CPAM, et zones d'intervention en Haute-Garonne.",
 };
 
-export default function BlogIndex() {
+export default function BlogList() {
   return (
-    <main className="min-h-screen bg-slate-50 py-24">
+    <main className="bg-slate-50 min-h-screen py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center p-3 bg-taxi-100 rounded-xl mb-4 text-taxi-600">
-             <BookOpen size={32} />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-            Guide & Conseils
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            Infos & <span className="text-yellow-500">Guides Pratiques</span>
           </h1>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            Retrouvez toutes les informations sur le transport médical conventionné, 
-            les remboursements CPAM et nos zones d'intervention.
+            Tout savoir sur le transport médical conventionné, les démarches CPAM et nos zones d'intervention autour de Toulouse.
           </p>
         </div>
 
@@ -31,20 +27,29 @@ export default function BlogIndex() {
             <Link 
               key={post.slug} 
               href={`/blog/${post.slug}`}
-              className="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block"
+              className="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
             >
-              <div className="p-8">
-                <div className="text-sm text-medical-600 font-bold mb-3 uppercase tracking-wider">
-                  Conseil Taxi
+              <div className="p-8 flex-1 flex flex-col">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs font-bold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full uppercase tracking-wider">
+                    {post.category}
+                  </span>
+                  <span className="text-slate-400 text-xs flex items-center gap-1">
+                    <Calendar size={12} /> {new Date(post.date).getFullYear()}
+                  </span>
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-taxi-500 transition-colors">
+
+                <h2 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
                   {post.title}
                 </h2>
-                <p className="text-slate-600 line-clamp-3 mb-6 leading-relaxed">
-                  {post.excerpt}
+                
+                {/* ✅ CORRECTION ICI : post.description au lieu de post.excerpt */}
+                <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
+                  {post.description}
                 </p>
-                <div className="flex items-center text-slate-900 font-bold text-sm">
-                  Lire l'article <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+
+                <div className="flex items-center text-blue-600 font-bold text-sm mt-auto group-hover:gap-2 transition-all">
+                  Lire l'article <ArrowRight size={16} className="ml-1" />
                 </div>
               </div>
             </Link>
