@@ -1,11 +1,11 @@
 import { articles } from "@/lib/articles";
 import Link from "next/link";
-import { Calendar, ArrowRight, MapPin } from "lucide-react";
+import { Calendar, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog & Actualités Transport Médical | Taxi 31 Toulouse",
-  description: "Guides pratiques sur le transport VSL, remboursement CPAM, et zones d'intervention en Haute-Garonne.",
+  title: "Blog & Actualités | Taxi 31 Toulouse",
+  description: "Guides pratiques sur le transport VSL, remboursement CPAM et zones d'intervention.",
 };
 
 export default function BlogList() {
@@ -18,7 +18,7 @@ export default function BlogList() {
             Infos & <span className="text-yellow-500">Guides Pratiques</span>
           </h1>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            Tout savoir sur le transport médical conventionné, les démarches CPAM et nos zones d'intervention autour de Toulouse.
+            Nos conseils d'experts sur le transport médical.
           </p>
         </div>
 
@@ -27,11 +27,11 @@ export default function BlogList() {
             <Link 
               key={post.slug} 
               href={`/blog/${post.slug}`}
-              className="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+              className="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col"
             >
               <div className="p-8 flex-1 flex flex-col">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full uppercase tracking-wider">
+                  <span className="text-xs font-bold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full uppercase">
                     {post.category}
                   </span>
                   <span className="text-slate-400 text-xs flex items-center gap-1">
@@ -43,7 +43,7 @@ export default function BlogList() {
                   {post.title}
                 </h2>
                 
-                {/* ✅ CORRECTION ICI : post.description au lieu de post.excerpt */}
+                {/* 👇 CORRECTION ICI (description au lieu d'excerpt) */}
                 <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
                   {post.description}
                 </p>

@@ -1,28 +1,29 @@
-import { articles } from "@/lib/articles";
 import { notFound } from "next/navigation";
+import { articles } from "@/lib/articles";
+import { ArrowLeft, Calendar, User, Tag } from "lucide-react";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Phone } from "lucide-react";
-import type { Metadata } from "next";
+import ContactCTA from "../../../components/home/ContactCTA";
 
-// 1. Génération des URLs statiques pour le SEO (Google adore ça)
 export async function generateStaticParams() {
   return articles.map((post) => ({
     slug: post.slug,
   }));
 }
 
-// 2. Méta-données dynamiques (Titre de l'onglet)
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }) {
   const post = articles.find((p) => p.slug === params.slug);
   if (!post) return {};
-  
+
   return {
-    title: `${post.title} - Taxi Occitanie`,
-    description: post.excerpt,
+    title: `${post.title} | Taxi 31 Toulouse`,
+    // 👇 C'EST ICI LA CORRECTION (description au lieu d'excerpt)
+    description: post.description, 
+    alternates: {
+      canonical: `https://taxi-31-toulouse.fr/blog/${post.slug}`,
+    },
   };
 }
 
-// 3. Le contenu de la page
 export default function BlogPost({ params }: { params: { slug: string } }) {
   const post = articles.find((p) => p.slug === params.slug);
 
@@ -31,57 +32,48 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 py-24">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main className="bg-slate-50 min-h-screen pt-24 pb-12">
+      <article className="max-w-3xl mx-auto px-4 sm:px-6">
         
-        {/* Navigation Retour */}
         <Link 
           href="/blog" 
-          className="inline-flex items-center gap-2 text-medical-600 hover:text-medical-700 font-bold mb-8 transition-colors"
+          className="inline-flex items-center gap-2 text-slate-500 hover:text-yellow-600 transition-colors mb-8 font-medium"
         >
           <ArrowLeft size={20} />
           Retour aux articles
         </Link>
 
-        {/* En-tête de l'article */}
         <header className="mb-10">
-          <div className="flex items-center gap-2 text-slate-500 text-sm mb-4 font-medium">
-            <Calendar size={16} />
-            {post.date}
+          <div className="flex flex-wrap gap-4 text-sm text-slate-500 mb-4">
+            <span className="flex items-center gap-1 bg-white px-3 py-1 rounded-full border border-slate-200">
+              <Calendar size={14} />
+              {new Date(post.date).getFullYear()}
+            </span>
+            <span className="flex items-center gap-1 bg-yellow-50 text-yellow-700 px-3 py-1 rounded-full border border-yellow-200 font-bold">
+              <Tag size={14} />
+              {post.category}
+            </span>
           </div>
-          <h1 className="text-3xl md:text-5xl font-bold text-slate-900 leading-tight mb-6">
+
+          <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-6">
             {post.title}
           </h1>
-          <p className="text-xl text-slate-600 leading-relaxed border-l-4 border-taxi-500 pl-6 italic">
-            {post.excerpt}
+
+          {/* 👇 CORRECTION ICI AUSSI */}
+          <p className="text-xl text-slate-600 leading-relaxed border-l-4 border-yellow-500 pl-6 italic">
+            {post.description}
           </p>
         </header>
 
-        {/* Contenu de l'article (HTML injecté) */}
-        <article 
-          className="prose prose-lg prose-slate max-w-none 
-          prose-headings:font-bold prose-headings:text-slate-900 
-          prose-p:text-slate-700 prose-p:leading-8
-          prose-a:text-medical-600 prose-a:no-underline hover:prose-a:underline
-          prose-li:text-slate-700"
+        <div 
+          className="prose prose-lg prose-slate max-w-none bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
-        {/* Call to Action Spécifique au milieu du blog */}
-        <div className="mt-16 bg-medical-50 border border-medical-100 rounded-2xl p-8 text-center">
-          <h3 className="text-2xl font-bold text-slate-900 mb-4">Besoin d'un trajet pour ce motif ?</h3>
-          <p className="text-slate-600 mb-6">
-            Nous sommes disponibles pour vous conduire. Réservation simple et rapide.
-          </p>
-          <a 
-            href="tel:+33600000000"
-            className="inline-flex items-center gap-2 bg-taxi-500 hover:bg-taxi-400 text-slate-900 font-bold px-8 py-4 rounded-xl transition-transform hover:scale-105 shadow-lg"
-          >
-            <Phone size={20} />
-            Appeler maintenant
-          </a>
-        </div>
+      </article>
 
+      <div className="mt-16">
+        <ContactCTA />
       </div>
     </main>
   );
