@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
       
-      {/* 1. Image de fond avec Overlay Adapté */}
+      {/* 1. Image de fond avec Overlay */}
       <div 
         className="absolute inset-0 z-0"
         style={{
@@ -14,7 +14,6 @@ export default function Hero() {
           backgroundSize: 'cover',
         }}
       >
-        {/* Overlay sombre pour faire ressortir le texte blanc */}
         <div className="absolute inset-0 bg-slate-900/90" />
       </div>
 
@@ -31,7 +30,7 @@ export default function Hero() {
             </span>
           </div>
 
-          {/* Titre H1 Optimisé pour taxi-31-toulouse.fr */}
+          {/* Titre H1 Optimisé */}
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1]">
             Taxi Conventionné <br />
             <span className="text-yellow-400">
@@ -39,7 +38,6 @@ export default function Hero() {
             </span>
           </h1>
 
-          {/* Sous-titre rassurant */}
           <p className="max-w-3xl mx-auto text-xl md:text-2xl text-slate-300 font-medium leading-relaxed">
             Votre transport médical vers les hôpitaux et cliniques de la région.
             <br className="hidden md:block" />
@@ -47,32 +45,37 @@ export default function Hero() {
           </p>
 
           {/* Zone d'action (Boutons) */}
-          <div className="flex flex-col items-center gap-4 mt-8">
-            <div className="flex flex-col sm:flex-row gap-5 justify-center items-center w-full">
-              
-              {/* Bouton Appel Direct */}
-              <a 
-                href="tel:0772339892"
-                className="w-full sm:w-auto px-8 py-5 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-extrabold text-lg rounded-xl transition-all transform hover:scale-105 shadow-xl shadow-yellow-500/20 flex items-center justify-center gap-3"
-              >
-                <Phone size={24} className="fill-slate-900" />
-                <span>COMMANDER AU 07 72 33 98 92</span>
-              </a>
-              
-              {/* Bouton Documents */}
-              <Link 
-                href="#documents"
-                className="w-full sm:w-auto px-8 py-5 bg-white hover:bg-slate-100 text-slate-900 font-bold text-lg rounded-xl transition-all shadow-xl flex items-center justify-center gap-3"
-              >
-                <FileCheck size={24} className="text-blue-600" />
-                <span>Documents requis</span>
-              </Link>
-            </div>
+          <div className="flex flex-col items-center gap-6 mt-12">
             
-            {/* Petit texte sous le bouton pour rassurer sur la dispo */}
-            <p className="text-slate-400 text-sm font-medium">
-              Réponse rapide • Déplacement toutes distances (31)
-            </p>
+            {/* Bouton d'appel "Le Hub" */}
+            <div className="group relative w-full max-w-md">
+              <div className="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+              
+              <div className="relative flex flex-col items-center bg-slate-900 border border-white/10 rounded-2xl p-2 shadow-2xl">
+                <span className="text-slate-500 text-[10px] uppercase tracking-[0.2em] font-bold py-2">
+                  Besoin d'un taxi maintenant ?
+                </span>
+                
+                <a 
+                  href="tel:0772339892"
+                  className="w-full flex items-center justify-center gap-4 py-5 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-400 hover:to-amber-400 text-slate-950 rounded-xl transition-all shadow-lg active:scale-95"
+                >
+                  <div className="bg-slate-950/10 p-2 rounded-lg">
+                    <Phone size={24} strokeWidth={3} />
+                  </div>
+                  <span className="font-black text-2xl tracking-tighter">07 72 33 98 92</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Lien secondaire discret */}
+            <Link 
+              href="#documents"
+              className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-semibold underline underline-offset-8 decoration-slate-800 hover:decoration-blue-500"
+            >
+              <FileCheck size={18} />
+              Quels documents préparer ? 
+            </Link>
           </div>
 
           {/* Arguments de réassurance */}

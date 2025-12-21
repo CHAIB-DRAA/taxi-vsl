@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     // 👇 C'EST ICI LA CORRECTION (description au lieu d'excerpt)
     description: post.description, 
     alternates: {
-      canonical: `https://taxi-31-toulouse.fr/blog/${post.slug}`,
+      canonical: `/blog/${params.slug}`,
     },
   };
 }

@@ -31,7 +31,9 @@ export default function Navbar() {
             <Link href="#documents" className="text-slate-600 hover:text-blue-600 font-medium transition-colors text-lg">
               Documents
             </Link>
-            
+            <Link href="/blog" className="text-slate-600 hover:text-blue-600 font-medium transition-colors">
+              Nos Destinations
+            </Link>
             {/* Bouton Appel : Ton 07 mis en avant */}
             <a 
               href="tel:0772339892" 

@@ -48,6 +48,8 @@ export default function Footer() {
                   <ArrowRight size={16} className="text-slate-600" /> Transport Médical
                 </Link>
               </li>
+              <li><Link href="/blog" className="flex items-center gap-2 hover:text-yellow-500 transition-colors">
+              <ArrowRight size={16} className="text-slate-600" /> Zones d'intervention & Hôpitaux</Link></li>
               <li>
                 <Link href="/#documents" className="flex items-center gap-2 hover:text-yellow-500 transition-colors">
                   <ArrowRight size={16} className="text-slate-600" /> Documents à fournir

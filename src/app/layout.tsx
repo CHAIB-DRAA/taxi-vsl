@@ -18,7 +18,9 @@ export const metadata: Metadata = {
   },
   // On ne met plus la propriété 'icons' ici si le fichier est dans src/app/icon.png
   description: "Taxi conventionné CPAM à Toulouse et Haute-Garonne (31). Transport médical assis (TAP) vers hôpitaux et cliniques. Tiers payant intégral avec OCCITANIE MEDI MOBILITY.",
-  
+  alternates: {
+    canonical: '/', 
+  },
   openGraph: {
     title: 'Taxi 31 Toulouse - Transport Médical Conventionné',
     description: 'Votre taxi VSL conventionné en Haute-Garonne avec OCCITANIE MEDI MOBILITY. Prise en charge 100% et Tiers payant.',
