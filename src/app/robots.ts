@@ -1,16 +1,25 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  // ✅ Mise à jour critique : Ton vrai nom de domaine
-  const baseUrl = 'https://taxi-31-toulouse.fr'; 
+  // Utilisation de l'URL officielle (www pour le SEO)
+  const baseUrl = 'https://www.taxi-31-toulouse.fr'; 
 
   return {
     rules: {
-      userAgent: '*', // Tous les robots (Google, Bing, Yahoo...)
-      allow: '/',     // Ils ont le droit de tout visiter
-      disallow: '/private/', // Sauf les dossiers privés (admin, etc.)
+      userAgent: '*',
+      allow: [
+        '/',            // Autorise l'accueil
+        '/blog/',       // ✅ PRIORITÉ : Tes 69 pages de villes et hôpitaux
+        '/blog/*',      // Accès complet aux sous-pages
+      ],
+      disallow: [
+        '/_next/',      // Interdit l'indexation du code technique Next.js
+        '/api/',        // Interdit les routes API
+        '/private/',    // Ton dossier privé
+        '/static/',     // Fichiers bruts
+      ],
     },
-    // Indique à Google où trouver la carte complète du site
+    // Indique le GPS du site aux robots
     sitemap: `${baseUrl}/sitemap.xml`,
   };
 }
