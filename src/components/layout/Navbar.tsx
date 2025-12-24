@@ -25,10 +25,10 @@ export default function Navbar() {
 
           {/* Navigation Desktop */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="#services" className="text-slate-600 hover:text-blue-600 font-medium transition-colors text-lg">
+            <Link href="/#services" className="text-slate-600 hover:text-blue-600 font-medium transition-colors text-lg">
               Services
             </Link>
-            <Link href="#documents" className="text-slate-600 hover:text-blue-600 font-medium transition-colors text-lg">
+            <Link href="/#documents" className="text-slate-600 hover:text-blue-600 font-medium transition-colors text-lg">
               Documents
             </Link>
             <Link href="/blog" className="text-slate-600 hover:text-blue-600 font-medium transition-colors">

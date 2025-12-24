@@ -2,6 +2,7 @@ import { articles } from "@/lib/articles";
 import Link from "next/link";
 import { Calendar, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
+import StickyMobileBar from "../../components/layout/StickyMobileBar"; // Import Nouveau
 
 export const metadata: Metadata = {
   title: "Blog & Actualités | Taxi 31 Toulouse",
@@ -57,6 +58,7 @@ export default function BlogList() {
         </div>
 
       </div>
+      <StickyMobileBar />
     </main>
   );
 }

@@ -3,6 +3,7 @@ import { articles } from "@/lib/articles";
 import { ArrowLeft, Calendar, User, Tag } from "lucide-react";
 import Link from "next/link";
 import ContactCTA from "../../../components/home/ContactCTA";
+import StickyMobileBar from "../../../components/layout/StickyMobileBar"; // Import Nouveau
 
 export async function generateStaticParams() {
   return articles.map((post) => ({
@@ -75,6 +76,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
       <div className="mt-16">
         <ContactCTA />
       </div>
+      <StickyMobileBar />
     </main>
   );
 }
