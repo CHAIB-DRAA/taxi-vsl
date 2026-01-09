@@ -65,6 +65,21 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             <Phone size={24} fill="currentColor" /> 07 72 33 98 92
           </a>
         </div>
+        {/* Section liens internes pour booster l'indexation */}
+<section className="mt-12 pt-8 border-t border-slate-100">
+  <h3 className="text-lg font-bold text-slate-900 mb-4">Nos autres zones d'intervention :</h3>
+  <div className="flex flex-wrap gap-2">
+    {articles.slice(0, 6).map((item) => (
+      <Link 
+        key={item.slug} 
+        href={`/blog/${item.slug}`}
+        className="text-sm bg-slate-50 hover:bg-blue-50 text-slate-600 hover:text-blue-600 px-3 py-1 rounded-full border border-slate-200 transition-colors"
+      >
+        Taxi {item.city || "Haute-Garonne"}
+      </Link>
+    ))}
+  </div>
+</section>
       </div>
     </main>
   );
