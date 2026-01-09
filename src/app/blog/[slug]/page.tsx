@@ -50,16 +50,14 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           </h1>
         </header>
 
-        <article className="prose prose-lg prose-slate max-w-none mb-12">
-          {/* On utilise description ou content selon ta structure lib/articles */}
-          <p className="text-xl text-slate-600 leading-relaxed">
-            {post.description}
-          </p>
-          <div className="mt-8 whitespace-pre-wrap text-slate-700">
-            {post.content} 
-          </div>
-        </article>
-
+       {/* Contenu de l'article avec rendu HTML */}
+<article className="prose prose-lg prose-slate max-w-none mb-12">
+  {/* On utilise dangerouslySetInnerHTML pour interpréter le HTML de ton fichier articles.ts */}
+  <div 
+    className="text-slate-700 leading-relaxed"
+    dangerouslySetInnerHTML={{ __html: post.content }} 
+  />
+</article>
         {/* CTA de conversion */}
         <div className="bg-slate-900 rounded-3xl p-8 text-center shadow-2xl">
           <h2 className="text-2xl font-bold text-white mb-4">Besoin d'un transport ?</h2>
