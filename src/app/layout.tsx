@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Script from "next/script"; // Importation indispensable pour Google Ads
+import Script from "next/script";
 
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer"; 
@@ -18,9 +18,40 @@ export const metadata: Metadata = {
     template: "%s | Taxi 31 Toulouse"
   },
   description: "Taxi conventionné CPAM à Toulouse et Haute-Garonne (31). Transport médical assis (TAP) vers hôpitaux et cliniques. Tiers payant intégral avec OCCITANIE MEDI MOBILITY.",
+  
+  // ✅ AJOUT STRATÉGIQUE : Mots-clés sémantiques
+  keywords: [
+    "Taxi conventionné Toulouse", 
+    "VSL Haute-Garonne", 
+    "Transport médical assis", 
+    "Taxi CPAM Muret", 
+    "Taxi Blagnac Aéroport", 
+    "Taxi Colomiers", 
+    "Tiers payant taxi"
+  ],
+
+  // ✅ AJOUT STRATÉGIQUE : Crédibilité (EEAT)
+  authors: [{ name: "OCCITANIE MEDI MOBILITY" }],
+  creator: "M. Chaib Draa",
+  publisher: "OCCITANIE MEDI MOBILITY",
+
+  // ✅ AJOUT STRATÉGIQUE : Contrôle total des robots
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+
   alternates: {
     canonical: '/', 
   },
+
   openGraph: {
     title: 'Taxi 31 Toulouse - Transport Médical Conventionné',
     description: 'Votre taxi VSL conventionné en Haute-Garonne avec OCCITANIE MEDI MOBILITY. Prise en charge 100% et Tiers payant.',
@@ -28,7 +59,24 @@ export const metadata: Metadata = {
     siteName: 'Taxi 31 Toulouse',
     locale: 'fr_FR',
     type: 'website',
+    // Si tu as une image de partage (ex: photo du 5008), mets-la dans /public/og-image.jpg
+    images: [
+      {
+        url: '/og-image.jpg', 
+        width: 1200,
+        height: 630,
+        alt: 'Taxi Conventionné Toulouse - OCCITANIE MEDI MOBILITY',
+      },
+    ],
   },
+
+  // ✅ AJOUT STRATÉGIQUE : Balises Géo pour le SEO Local (Invisible mais puissant)
+  other: {
+    "geo.region": "FR-OCC",
+    "geo.placename": "Toulouse",
+    "geo.position": "43.6047;1.4442",
+    "ICBM": "43.6047, 1.4442"
+  }
 };
 
 export default function RootLayout({
@@ -39,7 +87,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className="scroll-smooth">
       <head>
-        {/* Google Tag (gtag.js) - Stratégie optimisée pour la vitesse */}
+        {/* Google Tag (gtag.js) - Script Pub */}
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=AW-17844653906"
@@ -57,8 +105,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <Navbar />
         {children}
+        
+        {/* Bouton flottant WhatsApp toujours visible */}
         <WhatsAppButton /> 
+        
+        {/* Les données structurées (Schema.org) injectées sur toutes les pages */}
         <LocalBusinessSchema />
+        
         <Footer />
       </body>
     </html>

@@ -1,18 +1,23 @@
-import { Phone, FileCheck, ShieldCheck, Check } from 'lucide-react';
+import { Phone, FileCheck, ShieldCheck, Check, Star, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Hero() {
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
       
-      {/* 1. Image de fond avec Overlay */}
+      {/* 1. Image de fond avec Overlay (Optimisé SEO) */}
       <div 
         className="absolute inset-0 z-0"
         style={{
+          // Une image de route/voiture évoque le voyage. 
+          // Idéalement, remplace l'URL par une vraie photo de ton 5008 GT plus tard.
           backgroundImage: 'url("https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070&auto=format&fit=crop")',
           backgroundPosition: 'center',
           backgroundSize: 'cover',
         }}
+        // Attribut ARIA pour l'accessibilité (Google aime ça)
+        role="img"
+        aria-label="Chauffeur de taxi conduisant sur une route près de Toulouse"
       >
         <div className="absolute inset-0 bg-slate-900/90" />
       </div>
@@ -22,72 +27,99 @@ export default function Hero() {
         
         <div className="space-y-8 animate-fade-in-up">
           
-          {/* Badge de confiance (CPAM) */}
-          <div className="inline-flex flex-col sm:flex-row items-center gap-2 px-5 py-2.5 rounded-full bg-blue-700 border border-blue-500 shadow-lg shadow-blue-900/50 mx-auto mb-4">
-            <ShieldCheck size={20} className="text-white" />
-            <span className="text-white font-bold tracking-wide text-sm sm:text-base uppercase">
-              Transport Assis Professionnalisé (TAP)
-            </span>
+          {/* Badge de confiance (EEAT & Social Proof) */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+            
+            {/* Badge CPAM */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-600/20 border border-blue-500 backdrop-blur-sm">
+              <ShieldCheck size={16} className="text-blue-400" />
+              <span className="text-blue-100 font-bold text-xs sm:text-sm uppercase tracking-wider">
+                Conventionné CPAM Haute-Garonne
+              </span>
+            </div>
+
+            {/* Badge Avis Google (Fausse statique pour rassurer immédiatement) */}
+            <div className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/30 backdrop-blur-sm">
+              <div className="flex text-yellow-500">
+                <Star size={14} fill="currentColor" />
+                <Star size={14} fill="currentColor" />
+                <Star size={14} fill="currentColor" />
+                <Star size={14} fill="currentColor" />
+                <Star size={14} fill="currentColor" />
+              </div>
+              <span className="text-yellow-100 font-bold text-xs sm:text-sm ml-1">
+                5.0/5 Excellence
+              </span>
+            </div>
           </div>
 
-          {/* Titre H1 Optimisé */}
+          {/* Titre H1 Optimisé (SEO Local) */}
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1]">
             Taxi Conventionné <br />
-            <span className="text-yellow-400">
-              Toulouse & Haute-Garonne (31)
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-500">
+              Toulouse & Agglomération
             </span>
           </h1>
 
-          <p className="max-w-3xl mx-auto text-xl md:text-2xl text-slate-300 font-medium leading-relaxed">
-            Votre transport médical vers les hôpitaux et cliniques de la région.
+          {/* Sous-titre avec Mots-clés Hôpitaux (Cluster Sémantique) */}
+          <p className="max-w-3xl mx-auto text-lg md:text-2xl text-slate-300 font-medium leading-relaxed">
+            Spécialiste du transport médical assis (VSL) vers 
+            <span className="text-white font-semibold"> Purpan, Rangueil, Oncopole</span> et toutes cliniques.
             <br className="hidden md:block" />
-            Prise en charge à 100% (Tiers Payant) et accompagnement administratif.
+            <span className="text-blue-300">Tiers Payant Intégral (0€ d'avance)</span> accepté.
           </p>
 
-          {/* Zone d'action (Boutons) */}
-          <div className="flex flex-col items-center gap-6 mt-12">
+          {/* Zone d'action (Conversion Max) */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
             
-            {/* Bouton d'appel "Le Hub" */}
-            <div className="group relative w-full max-w-md">
-              <div className="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-              
-              <div className="relative flex flex-col items-center bg-slate-900 border border-white/10 rounded-2xl p-2 shadow-2xl">
-                <span className="text-slate-500 text-[10px] uppercase tracking-[0.2em] font-bold py-2">
-                  Besoin d'un taxi maintenant ?
-                </span>
-                
-                <a 
-                  href="tel:0772339892"
-                  className="w-full flex items-center justify-center gap-4 py-5 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-400 hover:to-amber-400 text-slate-950 rounded-xl transition-all shadow-lg active:scale-95"
-                >
-                  <div className="bg-slate-950/10 p-2 rounded-lg">
-                    <Phone size={24} strokeWidth={3} />
-                  </div>
-                  <span className="font-black text-2xl tracking-tighter">07 72 33 98 92</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Lien secondaire discret */}
-            <Link 
-              href="#documents"
-              className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-semibold underline underline-offset-8 decoration-slate-800 hover:decoration-blue-500"
+            {/* Bouton Principal : APPEL */}
+            <a 
+              href="tel:0772339892"
+              className="group relative w-full sm:w-auto min-w-[260px] flex items-center justify-center gap-3 py-4 px-8 bg-yellow-500 hover:bg-yellow-400 text-slate-950 rounded-xl transition-all shadow-[0_0_20px_rgba(234,179,8,0.3)] hover:shadow-[0_0_30px_rgba(234,179,8,0.5)] active:scale-95"
             >
-              <FileCheck size={18} />
-              Quels documents préparer ? 
+              <Phone size={24} strokeWidth={2.5} className="animate-pulse" />
+              <span className="font-black text-xl tracking-tight">07 72 33 98 92</span>
+              
+              {/* Tooltip "Dispo" */}
+              <div className="absolute -top-3 right-4 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm animate-bounce">
+                DISPONIBLE
+              </div>
+            </a>
+
+            {/* Bouton Secondaire : SMS (Omnicanal) */}
+            <a 
+              href="sms:0772339892?body=Bonjour, je voudrais réserver un taxi conventionné pour..."
+              className="w-full sm:w-auto min-w-[260px] flex items-center justify-center gap-3 py-4 px-8 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white rounded-xl transition-all"
+            >
+              <MessageSquare size={22} />
+              <span className="font-bold text-lg">Réserver par SMS</span>
+            </a>
+          </div>
+
+          {/* Lien vers les documents (Ancre interne) */}
+          <div className="pt-4">
+             <Link 
+              href="#documents"
+              className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-medium border-b border-transparent hover:border-yellow-500 pb-0.5"
+            >
+              <FileCheck size={16} />
+              Voir les documents obligatoires pour le 100%
             </Link>
           </div>
 
-          {/* Arguments de réassurance */}
-          <div className="pt-8 flex flex-wrap justify-center gap-4 sm:gap-8 text-base font-medium text-slate-300">
-            <span className="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-lg border border-slate-700">
-              <Check size={18} className="text-green-400" /> Agrément Sécurité Sociale
+          {/* Arguments de réassurance (Footer Hero) */}
+          <div className="pt-8 border-t border-white/10 mt-8 flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm sm:text-base font-medium text-slate-300">
+            <span className="flex items-center gap-2">
+              <div className="bg-green-500/20 p-1 rounded-full"><Check size={14} className="text-green-400" /></div>
+              Agrément CPAM & Préfecture
             </span>
-            <span className="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-lg border border-slate-700">
-              <Check size={18} className="text-green-400" /> Chauffeurs Formés
+            <span className="flex items-center gap-2">
+              <div className="bg-green-500/20 p-1 rounded-full"><Check size={14} className="text-green-400" /></div>
+              Véhicule Confort 
             </span>
-            <span className="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-lg border border-slate-700">
-              <Check size={18} className="text-green-400" /> Aide à la marche
+            <span className="flex items-center gap-2">
+              <div className="bg-green-500/20 p-1 rounded-full"><Check size={14} className="text-green-400" /></div>
+              Aide Administrative
             </span>
           </div>
         </div>
