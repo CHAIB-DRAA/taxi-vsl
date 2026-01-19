@@ -19,9 +19,59 @@ const hospitals = [
   "Clinique Saint-Exupéry", "Hôpital Marchant"
 ];
 
-// --- GÉNÉRATEUR D'ARTICLES VILLES (SEO LOCAL PUISSANT) ---
+// Helper pour générer les slugs (URL) proprement
+const createSlug = (text: string, prefix: string = "") => {
+  const cleanText = text.toLowerCase()
+    .replace(/ /g, '-')
+    .replace(/['\(\)]/g, '')
+    .replace(/[éèê]/g, 'e')
+    .replace(/[àâ]/g, 'a')
+    .replace(/[ïî]/g, 'i');
+  return prefix ? `${prefix}-${cleanText}` : cleanText;
+};
+
+// --- 1. GÉNÉRATEUR ARTICLES HÔPITAUX (SATELLITES) ---
+const hospitalArticles = hospitals.map(hospital => {
+  const slug = createSlug(hospital, "transport-taxi");
+  
+  return {
+    slug: slug,
+    title: `Taxi pour ${hospital} : Dépose, Accès et Remboursement`,
+    description: `Comment aller à ${hospital} en taxi conventionné ? Guide complet : points de dépose, admission et prise en charge CPAM avec Taxi 31 Toulouse.`,
+    date: new Date().toISOString(),
+    category: "Hôpitaux",
+    content: `
+      <p>Vous avez une convocation pour une consultation ou une hospitalisation à <strong>${hospital}</strong> ? Laissez-vous conduire par un expert du transport médical toulousain.</p>
+      
+      <h2>Se rendre à ${hospital} sans stress</h2>
+      <p>Les parkings de ${hospital} sont souvent saturés et coûteux. En choisissant un <strong>Taxi Conventionné</strong>, vous évitez la fatigue de la conduite et le stress du stationnement. Votre chauffeur vous dépose au plus près de l'entrée de votre service.</p>
+      
+      <div class="bg-blue-50 border-l-4 border-blue-600 p-4 my-6">
+        <p class="font-bold text-blue-800 m-0">💡 Le conseil du chauffeur :</p>
+        <p class="text-sm text-blue-700 m-0">N'oubliez pas votre "Bon de Transport" signé par le médecin AVANT de monter dans le véhicule. C'est obligatoire pour le remboursement.</p>
+      </div>
+
+      <h3>Où se fait la dépose taxi à ${hospital} ?</h3>
+      <p>Contrairement aux véhicules personnels, les taxis conventionnés ont accès aux zones réservées. Selon votre convocation, nous vous déposerons :</p>
+      <ul>
+        <li>Devant l'entrée principale pour les admissions classiques.</li>
+        <li>À l'accès "Ambulances/VSL" pour les séances de dialyse ou chimiothérapie (accès de plain-pied).</li>
+        <li>Aux urgences si nécessaire.</li>
+      </ul>
+      
+      <h2>Prise en charge à 100% pour vos trajets vers ${hospital}</h2>
+      <p>Si votre état de santé le justifie, votre médecin vous a prescrit un bon de transport. ${hospital} étant un établissement de soins agréé, vos trajets aller et retour sont couverts par la CPAM.</p>
+      
+      <p>Pour comprendre vos droits, consultez notre guide complet sur <a href="/blog/remboursement-transport-ald-100-tiers-payant" class="text-blue-600 underline hover:text-blue-800">le remboursement à 100% et l'ALD</a>.</p>
+
+      <h3>Le retour : Nous vous attendons</h3>
+      <p>Une fois votre examen terminé à ${hospital}, il suffit de nous appeler au <strong>07 72 33 98 92</strong>. Si le médecin a du retard, pas de panique : nous adaptons notre planning pour assurer votre retour à domicile en toute sérénité.</p>
+    `
+  };
+});
+
+// --- 2. GÉNÉRATEUR ARTICLES VILLES (PILIERS LOCAUX) ---
 const cityArticles = cities.map((city, index) => {
-  // Petite variation pour éviter que tous les titres soient identiques à 100%
   const variations = [
     `Besoin d'un transport médical au départ de ${city} ?`,
     `Votre Taxi VSL conventionné sur le secteur de ${city}`,
@@ -30,7 +80,7 @@ const cityArticles = cities.map((city, index) => {
   const subTitle = variations[index % 3];
 
   return {
-    slug: `taxi-conventionne-vsl-${city.toLowerCase().replace(/ /g, '-').replace(/'/g, '').replace(/é/g, 'e').replace(/è/g, 'e').replace(/à/g, 'a')}`,
+    slug: createSlug(city, "taxi-conventionne-vsl"),
     title: `Taxi Conventionné ${city} (31) : Transport Médical VSL`,
     description: `Réservez votre taxi conventionné CPAM à ${city}. Transport médical assis vers les hôpitaux de Toulouse. Tiers payant intégral, aucune avance de frais.`,
     date: new Date().toISOString(),
@@ -45,58 +95,33 @@ const cityArticles = cities.map((city, index) => {
       <ul>
         <li><strong>Zéro avance de frais :</strong> Grâce au Tiers Payant, si vous êtes à 100% (ALD), vous ne payez rien à bord.</li>
         <li><strong>Ponctualité garantie :</strong> Nous connaissons les temps de trajet exacts entre ${city} et la rocade toulousaine aux heures de pointe.</li>
-        <li><strong>Confort Berline :</strong> Voyagez dans un véhicule discret et climatisé, bien plus agréable qu'un véhicule sanitaire blanc classique.</li>
+        <li><strong>Confort Berline :</strong> Voyagez dans un <strong>Peugeot 5008 GT</strong> (véhicule haut de gamme), bien plus agréable qu'un véhicule sanitaire blanc classique.</li>
         <li><strong>Aide administrative :</strong> Nous vous aidons à remplir les formalités d'entrée à l'hôpital.</li>
       </ul>
 
+      <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 my-6">
+        <p class="font-bold text-yellow-800 m-0">🚗 Note sur le trajet :</p>
+        <p class="text-sm text-yellow-700 m-0">Depuis ${city}, nous privilégions les itinéraires fluides pour éviter les bouchons du périphérique et garantir votre arrivée à l'heure à votre rendez-vous.</p>
+      </div>
+
       <h2>Les trajets fréquents depuis ${city}</h2>
-      <p>Nos chauffeurs effectuent très régulièrement les navettes suivantes. Nous connaissons les raccourcis pour éviter les bouchons du périphérique :</p>
+      <p>Nos chauffeurs effectuent très régulièrement les navettes suivantes. Cliquez sur votre destination pour plus d'infos :</p>
       <ul>
-        <li>Taxi ${city} ↔ <strong>CHU Purpan</strong> (Urgences, Consultations, Pierre-Paul Riquet)</li>
-        <li>Taxi ${city} ↔ <strong>Oncopole</strong> (Institut Claudius Regaud)</li>
-        <li>Taxi ${city} ↔ <strong>Clinique Pasteur</strong> et Clinique de l'Union</li>
-        <li>Taxi ${city} ↔ <strong>Hôpital Rangueil</strong></li>
+        <li>Taxi ${city} ↔ <a href="/blog/transport-taxi-hopital-purpan-chu" class="text-blue-600 hover:underline">CHU Purpan</a> (Urgences, Riquet)</li>
+        <li>Taxi ${city} ↔ <a href="/blog/transport-taxi-oncopole-claudius-regaud" class="text-blue-600 hover:underline">Oncopole (Institut Claudius Regaud)</a></li>
+        <li>Taxi ${city} ↔ <a href="/blog/transport-taxi-clinique-pasteur" class="text-blue-600 hover:underline">Clinique Pasteur</a></li>
+        <li>Taxi ${city} ↔ <a href="/blog/transport-taxi-hopital-rangueil" class="text-blue-600 hover:underline">Hôpital Rangueil</a></li>
       </ul>
 
       <h3>Comment réserver votre taxi VSL à ${city} ?</h3>
       <p>Pour bénéficier du tiers payant au départ de ${city}, vous devez simplement avoir votre <strong>Prescription Médicale de Transport</strong> (Bon de transport) signée par votre médecin, ainsi que votre Carte Vitale.</p>
+      <p>Vous ne savez pas si vous avez droit au VSL ou au Taxi ? <a href="/blog/difference-taxi-conventionne-vsl-ambulance" class="text-blue-600 underline">Lisez notre comparatif ici</a>.</p>
       <p>Contactez-nous au <strong>07 72 33 98 92</strong> pour bloquer votre créneau horaire. Nous venons vous chercher directement à votre domicile.</p>
     `
   };
 });
 
-// --- GÉNÉRATEUR D'ARTICLES HÔPITAUX (GUIDES PRATIQUES) ---
-const hospitalArticles = hospitals.map(hospital => ({
-  slug: `transport-taxi-${hospital.toLowerCase().replace(/ /g, '-').replace(/[\(\)']/g, '').replace(/é/g, 'e')}`,
-  title: `Taxi pour ${hospital} : Dépose, Accès et Remboursement`,
-  description: `Comment aller à ${hospital} en taxi conventionné ? Guide complet : points de dépose, admission et prise en charge CPAM avec Taxi 31 Toulouse.`,
-  date: new Date().toISOString(),
-  category: "Hôpitaux",
-  content: `
-    <p>Vous avez une convocation pour une consultation ou une hospitalisation à <strong>${hospital}</strong> ? Laissez-vous conduire par un expert du transport médical toulousain.</p>
-    
-    <h2>Se rendre à ${hospital} sans stress</h2>
-    <p>Les parkings de ${hospital} sont souvent saturés et coûteux. En choisissant un <strong>Taxi Conventionné</strong>, vous évitez la fatigue de la conduite et le stress du stationnement. Votre chauffeur vous dépose au plus près de l'entrée de votre service.</p>
-    
-    <h3>Où se fait la dépose taxi à ${hospital} ?</h3>
-    <p>Contrairement aux véhicules personnels, les taxis conventionnés ont accès aux zones réservées. Selon votre convocation, nous vous déposerons :</p>
-    <ul>
-      <li>Devant l'entrée principale pour les admissions classiques.</li>
-      <li>À l'accès "Ambulances/VSL" pour les séances de dialyse ou chimiothérapie (accès de plain-pied).</li>
-      <li>Aux urgences si nécessaire.</li>
-    </ul>
-    
-    <h2>Prise en charge à 100% pour vos trajets vers ${hospital}</h2>
-    <p>Si votre état de santé le justifie, votre médecin vous a prescrit un bon de transport. ${hospital} étant un établissement de soins agréé, vos trajets aller et retour sont couverts par la CPAM.</p>
-    <p><strong>Rappel important :</strong> Pour ne pas avancer les frais, présentez au chauffeur votre attestation de droits à jour.</p>
-
-    <h3>Le retour : Nous vous attendons</h3>
-    <p>Une fois votre examen terminé à ${hospital}, il suffit de nous appeler ou de nous envoyer un SMS. Si le médecin a du retard, pas de panique : nous adaptons notre planning pour assurer votre retour à domicile en toute sérénité.</p>
-  `
-}));
-
-// --- ARTICLES MANUELS (PILLAR CONTENT - CONTENU PILIER) ---
-// Ces articles doivent être très longs et très détaillés pour asseoir l'autorité du site.
+// --- 3. ARTICLES MANUELS (CONTENU EXPERT / EEAT) ---
 const manualArticles = [
   {
     slug: "difference-taxi-conventionne-vsl-ambulance",
@@ -109,7 +134,7 @@ const manualArticles = [
       <p>Lorsqu'un médecin vous prescrit un "Transport Assis Professionnalisé" (TAP), vous avez le choix entre un VSL (Véhicule Sanitaire Léger) et un Taxi Conventionné. Beaucoup de patients pensent à tort que le VSL est obligatoire pour être remboursé. C'est faux.</p>
       
       <h3>Tableau comparatif</h3>
-      <table class="w-full border-collapse border border-slate-200 my-6">
+      <table class="w-full border-collapse border border-slate-200 my-6 text-sm">
         <thead>
           <tr class="bg-slate-100">
             <th class="border p-3 text-left">Critère</th>
@@ -120,23 +145,18 @@ const manualArticles = [
         <tbody>
           <tr>
             <td class="border p-3 font-bold">Remboursement CPAM</td>
-            <td class="border p-3 text-green-600 font-bold">OUI (Identique)</td>
-            <td class="border p-3 text-green-600 font-bold">OUI (Identique)</td>
+            <td class="border p-3 text-green-600 font-bold">OUI (100% Identique)</td>
+            <td class="border p-3 text-green-600 font-bold">OUI (100% Identique)</td>
           </tr>
           <tr>
             <td class="border p-3 font-bold">Véhicule</td>
-            <td class="border p-3">Berline confort (Mercedes, Tesla...)</td>
+            <td class="border p-3">Berline confort (Peugeot 5008 GT...)</td>
             <td class="border p-3">Petite voiture blanche utilitaire</td>
           </tr>
           <tr>
             <td class="border p-3 font-bold">Discrétion</td>
             <td class="border p-3">Totale (Véhicule banalisé)</td>
             <td class="border p-3">Faible (Croix bleue visible)</td>
-          </tr>
-          <tr>
-            <td class="border p-3 font-bold">Hygiène</td>
-            <td class="border p-3">Stricte (Normes COVID)</td>
-            <td class="border p-3">Stricte</td>
           </tr>
         </tbody>
       </table>
@@ -170,8 +190,10 @@ const manualArticles = [
         <li><strong>Votre Carte Vitale à jour :</strong> Elle permet au chauffeur de vérifier vos droits en direct via son lecteur.</li>
       </ol>
       
-      <h3>Et si je ne suis pas à 100% ?</h3>
-      <p>Si votre transport est prescrit mais que vous n'êtes pas en ALD (ex: jambe cassée, rééducation ponctuelle), la Sécurité Sociale rembourse généralement 65%. Les 35% restants sont souvent couverts par votre mutuelle santé. Dans ce cas, nous pouvons aussi pratiquer le tiers payant sur la part obligatoire.</p>
+      <div class="bg-red-50 border-l-4 border-red-500 p-4 my-6">
+        <p class="font-bold text-red-800 m-0">⚠️ Important :</p>
+        <p class="text-sm text-red-700 m-0">Si vous n'avez pas votre prescription papier lors de la montée dans le taxi, le chauffeur ne pourra pas appliquer le tiers payant et vous devrez avancer les frais.</p>
+      </div>
     `
   },
   {
@@ -195,7 +217,7 @@ const manualArticles = [
       <h3>Les avantages Taxi 31 Toulouse</h3>
       <ul>
         <li><strong>Ponctualité :</strong> Pour un vol à 6h00 du matin, nous sommes devant chez vous à 4h00 précises.</li>
-        <li><strong>Van & Berline :</strong> Vous avez beaucoup de bagages ? Signalez-le nous, nous adapterons le véhicule.</li>
+        <li><strong>Van & Berline 7 places :</strong> Idéal pour les familles ou beaucoup de bagages (Peugeot 5008 GT).</li>
         <li><strong>Sièges enfants :</strong> Disponibles gratuitement sur demande à la réservation.</li>
       </ul>
     `
@@ -211,7 +233,7 @@ const manualArticles = [
       
       <h2>Un accompagnement sécurisé de A à Z</h2>
       <p>Nous ne nous contentons pas de conduire. Pour les enfants, notre service inclut :</p>
-      <ol>
+      <ol class="list-decimal pl-6 space-y-2 my-4">
         <li>La récupération de l'enfant (à l'école ou à la maison).</li>
         <li>Le trajet sécurisé en réhausseur ou siège auto adapté.</li>
         <li><strong>L'accompagnement physique</strong> jusqu'à la salle d'attente du praticien (nous ne laissons jamais l'enfant seul sur le trottoir).</li>
