@@ -1,5 +1,7 @@
+'use client';
+
 import Link from 'next/link';
-import { Phone, MapPin } from 'lucide-react';
+import { Phone, MapPin, Calendar } from 'lucide-react';
 
 export default function Navbar() {
   return (
@@ -7,9 +9,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           
-          {/* Logo : Mis à jour pour Taxi 31 Toulouse */}
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            {/* Icône MapPin jaune */}
             <div className="bg-yellow-500 p-2 rounded-lg text-slate-900 group-hover:scale-105 transition-transform">
               <MapPin size={24} />
             </div>
@@ -24,7 +25,7 @@ export default function Navbar() {
           </Link>
 
           {/* Navigation Desktop */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             <Link href="/#services" className="text-slate-600 hover:text-blue-600 font-medium transition-colors text-lg">
               Services
             </Link>
@@ -34,14 +35,28 @@ export default function Navbar() {
             <Link href="/blog" className="text-slate-600 hover:text-blue-600 font-medium transition-colors">
               Nos Destinations
             </Link>
-            {/* Bouton Appel : Ton 07 mis en avant */}
-            <a 
-              href="tel:0772339892" 
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg shadow-blue-600/20"
-            >
-              <Phone size={20} />
-              <span>07 72 33 98 92</span>
-            </a>
+
+            <div className="flex items-center gap-3">
+              {/* Bouton Appel */}
+              <a 
+                href="tel:0772339892" 
+                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg shadow-blue-600/20"
+              >
+                <Phone size={18} />
+                <span>07 72 33 98 92</span>
+              </a>
+
+              {/* NOUVEAU : Bouton Réserver */}
+              <a 
+                href="https://vsl-taxi.onrender.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-slate-900 px-5 py-2.5 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg shadow-yellow-500/30"
+              >
+                <Calendar size={18} />
+                <span>Réserver</span>
+              </a>
+            </div>
           </div>
 
         </div>
