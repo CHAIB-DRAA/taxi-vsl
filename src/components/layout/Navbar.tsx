@@ -48,8 +48,8 @@ export default function Navbar() {
 
               {/* NOUVEAU : Bouton Réserver */}
               <a 
-                href="https://vsl-taxi.onrender.com/" 
-                target="_blank" 
+                href="/reserver" 
+                
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-slate-900 px-5 py-2.5 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg shadow-yellow-500/30"
               >
