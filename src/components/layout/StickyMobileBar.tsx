@@ -8,8 +8,8 @@ export default function StickyMobileNav() {
       
       {/* Bouton RÉSERVER (Bleu Médical) */}
       <a 
-        href="https://vsl-taxi.onrender.com/"
-        target="_blank"
+        href="/reserver"
+        
         rel="noopener noreferrer"
         className="flex-1 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white py-3.5 rounded-2xl flex items-center justify-center gap-2 font-bold transition-all shadow-lg shadow-blue-600/20"
       >
