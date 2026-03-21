@@ -1,35 +1,30 @@
 import { Phone, MessageCircle } from 'lucide-react';
 
-export default function StickyMobileBar() {
+export default function StickyMobileNav() {
   return (
-    <div className="fixed bottom-0 left-0 w-full z-50 md:hidden pb-safe">
-      {/* pb-safe gère l'espace pour la barre en bas des iPhones récents */}
-      
-      <div className="bg-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] flex h-20">
-        
-        {/* Bouton Gauche : WhatsApp (Vert pour l'habitude utilisateur) */}
-        <a 
-          href="https://wa.me/33772339892"
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="flex-1 flex flex-col items-center justify-center gap-1 bg-slate-50 active:bg-green-50 hover:bg-green-50 transition-colors border-r border-slate-200"
-        >
-          <MessageCircle size={24} className="text-[#25D366]" />
-          <span className="text-xs font-bold text-slate-600">WhatsApp</span>
-        </a>
+    <div className="fixed bottom-0 inset-x-0 md:hidden bg-white/95 backdrop-blur-sm border-t border-slate-200 p-3 pb-6 flex gap-3 z-50 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
+      {/* Note: pb-6 ajoute un peu d'espace en bas pour les iPhones récents sans barre physique */}
 
-        {/* Bouton Droit : APPEL PRIORITAIRE (Jaune Taxi) */}
-        <a 
-          href="tel:0772339892"
-          className="flex-[1.6] flex flex-col items-center justify-center gap-1 bg-yellow-500 active:bg-yellow-600 text-slate-900 transition-colors"
-        >
-          <Phone size={24} className="fill-slate-900 animate-pulse" />
-          <span className="text-sm font-extrabold uppercase tracking-wide">
-            APPELER LE TAXI
-          </span>
-        </a>
+      {/* Bouton WhatsApp (Vert) */}
+      <a 
+        className="flex-1 bg-green-500 hover:bg-green-600 active:scale-95 text-white py-3 rounded-xl flex items-center justify-center gap-2 font-bold transition-all" 
+        href="https://wa.me/33772339892"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <MessageCircle size={20} /> 
+        <span className="text-sm">WhatsApp</span>
+      </a>
 
-      </div>
+      {/* Bouton Appeler (Jaune Taxi - Plus large et plus visible) */}
+      <a 
+        className="flex-[1.5] bg-yellow-400 hover:bg-yellow-500 active:scale-95 text-slate-900 py-3 rounded-xl flex items-center justify-center gap-2 font-extrabold shadow-sm transition-all" 
+        href="tel:0772339892"
+      >
+        <Phone size={20} className="fill-slate-900" /> 
+        <span className="text-sm">APPELER</span>
+      </a>
+
     </div>
   );
 }
