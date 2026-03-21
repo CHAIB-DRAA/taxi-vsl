@@ -23,7 +23,8 @@ export default function StickyMobileNav() {
         className="flex-[1.2] bg-yellow-400 hover:bg-yellow-500 active:scale-95 text-slate-900 py-3.5 rounded-2xl flex items-center justify-center gap-2 font-black transition-all shadow-lg shadow-yellow-400/20"
       >
         <Phone size={18} className="fill-slate-900" /> 
-        <span className="text-sm">APPELER</span>
+        <span className="text-sm">APPELER mhlgkf
+        </span>
       </a>
 
     </div>
