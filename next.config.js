@@ -3,10 +3,14 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        // Ce que l'utilisateur tape dans son navigateur
-        source: '/reserver', 
-        // L'endroit où le contenu est réellement hébergé (Render)
-        destination: 'https://vsl-taxi.onrender.com/', 
+        // Affiche la page de réservation
+        source: '/reserver',
+        destination: 'https://vsl-taxi.onrender.com/',
+      },
+      {
+        // Redirige les envois de formulaire vers Render de manière invisible
+        source: '/api/rides/:path*',
+        destination: 'https://vsl-taxi.onrender.com/api/rides/:path*',
       },
     ];
   },
