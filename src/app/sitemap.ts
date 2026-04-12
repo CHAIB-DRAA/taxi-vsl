@@ -1,49 +1,94 @@
 import { MetadataRoute } from 'next';
 import { articles } from '@/lib/articles';
 
+/**
+ * STRATÉGIE SEO 2026 :
+ * 1. Priorité 1.0 : Home (Conversion immédiate)
+ * 2. Priorité 0.9 : Blog & Hôpitaux (Mots-clés à forte intention médicale)
+ * 3. Priorité 0.8 : Gares & Aéroport (Mots-clés business/urgence)
+ * 4. Priorité 0.7 : Villes Régionales (SEO Longue traîne)
+ */
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.taxi-31-toulouse.fr';
-  const currentDate = new Date(); // Date du jour pour signaler une mise à jour récente
+  const currentDate = new Date();
 
-  // 1. Pages stratégiques (Priorité Maximale)
-  const staticPages = [
+  // 1. Pages Statiques Fondamentales
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: currentDate,
-      changeFrequency: 'daily' as const, // On dit à Google de passer tous les jours
+      changeFrequency: 'daily',
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/blog`, 
+      url: `${baseUrl}/blog`,
       lastModified: currentDate,
-      changeFrequency: 'daily' as const, // Crucial : c'est la porte d'entrée vers tes 69 pages
+      changeFrequency: 'daily',
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/reservation`, // Si tu as une page dédiée
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
   ];
 
-  // 2. Génération dynamique (Tes 69 Landing Pages Locales)
-  const blogPages = articles.map((article) => {
-    // Si la date de l'article est trop vieille, on utilise la date du jour 
-    // pour simuler une mise à jour de contenu (très efficace pour l'indexation rapide)
-    const lastMod = article.date ? new Date(article.date) : currentDate;
+  // 2. Génération Dynamique Intelligente (Articles de blog & Landing Pages)
+  const blogPages: MetadataRoute.Sitemap = articles.map((article) => {
+    // Calcul de la priorité selon la catégorie
+    let priority = 0.7;
+    let freq: 'daily' | 'weekly' | 'monthly' = 'weekly';
+
+    switch (article.category) {
+      case 'Hôpitaux':
+        priority = 0.9; // Priorité maximale pour le transport sanitaire
+        freq = 'daily';
+        break;
+      case 'Aéroport':
+      case 'Gares':
+        priority = 0.8;
+        freq = 'weekly';
+        break;
+      case 'Région':
+        priority = 0.75;
+        freq = 'weekly';
+        break;
+      default:
+        priority = 0.7;
+        freq = 'weekly';
+    }
 
     return {
       url: `${baseUrl}/blog/${article.slug}`,
-      lastModified: lastMod,
-      changeFrequency: 'weekly' as const, // 'weekly' est plus incitatif que 'monthly'
-      priority: 0.8, // On monte à 0.8 pour dire que ces pages sont importantes
+      lastModified: article.date ? new Date(article.date) : currentDate,
+      changeFrequency: freq,
+      priority: priority,
     };
   });
 
-  // 3. Pages secondaires
-  const secondaryPages = [
+  // 3. Pages de conformité (Signaux de confiance Google)
+  const legalPages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/mentions-legales`,
       lastModified: currentDate,
-      changeFrequency: 'yearly' as const,
-      priority: 0.2,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/politique-confidentialite`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
   ];
 
-  return [...staticPages, ...blogPages, ...secondaryPages];
+  // Fusion et filtrage (pour éviter les URLs cassées ou doublons)
+  const allPages = [...staticPages, ...blogPages, ...legalPages];
+  
+  // Suppression des doublons potentiels par URL
+  return allPages.filter((page, index, self) =>
+    index === self.findIndex((p) => p.url === page.url)
+  );
 }
