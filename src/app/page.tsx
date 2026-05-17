@@ -29,23 +29,23 @@ export default function Home() {
       {/* 1. Accroche visuelle + CTAs principaux */}
       <Hero />
 
-      {/* 2. Nos deux services : médical & privé */}
+      {/* 2. Réservation en ligne — formulaire direct vers l'application */}
+      <ReservationForm />
+
+      {/* 3. Nos deux services : médical & privé */}
       <Services />
 
-      {/* 3. Le chauffeur : l'humain derrière le service */}
+      {/* 4. Le chauffeur : l'humain derrière le service */}
       <About />
 
-      {/* 4. Preuve sociale — témoignages patients & clients */}
+      {/* 5. Preuve sociale — témoignages patients & clients */}
       <Testimonials />
 
-      {/* 5. Zone d'intervention — SEO local */}
+      {/* 6. Zone d'intervention — SEO local */}
       <Zones />
 
-      {/* 6. Documents nécessaires — éducation patient */}
+      {/* 7. Documents nécessaires — éducation patient */}
       <Documents />
-
-      {/* 7. Réservation en ligne — formulaire direct vers l'application */}
-      <ReservationForm />
 
       {/* 8. Questions fréquentes — conversion & rich snippets */}
       <FAQ />
