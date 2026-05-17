@@ -55,7 +55,7 @@ export default function Navbar() {
                 07 72 33 98 92
               </a>
               <a
-                href="/reserver"
+                href="/#reserver"
                 className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-slate-900 px-4 py-2.5 rounded-xl font-bold text-sm transition-all hover:scale-105 shadow-md shadow-yellow-500/20"
               >
                 Réserver
@@ -96,7 +96,7 @@ export default function Navbar() {
               <Phone size={18} /> 07 72 33 98 92
             </a>
             <a
-              href="/reserver"
+              href="/#reserver"
               className="flex items-center justify-center gap-2 bg-yellow-500 text-slate-900 px-4 py-3 rounded-xl font-bold"
               onClick={() => setOpen(false)}
             >

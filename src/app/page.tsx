@@ -5,6 +5,7 @@ import About from "../components/home/About";
 import Testimonials from "../components/home/Testimonials";
 import Zones from "../components/home/Zones";
 import Documents from "../components/home/Documents";
+import ReservationForm from "../components/home/ReservationForm";
 import FAQ from "../components/home/FAQ";
 import ContactCTA from "../components/home/ContactCTA";
 import GoogleMap from "../components/home/GoogleMap";
@@ -43,7 +44,10 @@ export default function Home() {
       {/* 6. Documents nécessaires — éducation patient */}
       <Documents />
 
-      {/* 7. Questions fréquentes — conversion & rich snippets */}
+      {/* 7. Réservation en ligne — formulaire direct vers l'application */}
+      <ReservationForm />
+
+      {/* 8. Questions fréquentes — conversion & rich snippets */}
       <FAQ />
 
       {/* 8. Carte Google Maps — signal de confiance local */}
