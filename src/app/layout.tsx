@@ -24,6 +24,10 @@ export const metadata: Metadata = {
   creator: "OCCITANIE MEDI MOBILITY",
   publisher: "OCCITANIE MEDI MOBILITY",
 
+  verification: {
+    google: "ETCwhGEYjo9LoL4TK82q9VWvXsOc5TTg8gg0WJzOZI",
+  },
+
   robots: {
     index: true,
     follow: true,
