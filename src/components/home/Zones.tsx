@@ -1,160 +1,157 @@
 import Link from 'next/link';
-import { Map, Navigation, Building2, ArrowRight, MapPin } from 'lucide-react';
+import { MapPin, Building2, Navigation, ArrowRight } from 'lucide-react';
 
-// LISTE 1 : Les Villes Stratégiques (Top Requêtes)
-// Les slugs doivent correspondre EXACTEMENT à ceux générés dans lib/articles.ts
-const topCities = [
-  { name: 'Toulouse Centre', slug: 'taxi-conventionne-vsl-toulouse' }, // Cas particulier si tu as l'article
-  { name: 'Blagnac', slug: 'taxi-conventionne-vsl-blagnac' },
-  { name: 'Colomiers', slug: 'taxi-conventionne-vsl-colomiers' },
-  { name: 'Balma', slug: 'taxi-conventionne-vsl-balma' },
-  { name: 'L\'Union', slug: 'taxi-conventionne-vsl-l-union' },
-  { name: 'Castelginest', slug: 'taxi-conventionne-vsl-castelginest' },
-  { name: 'Aucamville', slug: 'taxi-conventionne-vsl-aucamville' },
-  { name: 'Saint-Jean', slug: 'taxi-conventionne-vsl-saint-jean' },
-  { name: 'Muret', slug: 'taxi-conventionne-vsl-muret' },
-  { name: 'Cugnaux', slug: 'taxi-conventionne-vsl-cugnaux' },
-  { name: 'Tournefeuille', slug: 'taxi-conventionne-vsl-tournefeuille' },
-  { name: 'Plaisance', slug: 'taxi-conventionne-vsl-plaisance-du-touch' },
+const cities = [
+  { name: 'Muret', slug: 'taxi-conventionne-muret-toulouse' },
+  { name: 'Blagnac', slug: 'taxi-conventionne-blagnac-colomiers-toulouse' },
+  { name: 'Colomiers', slug: 'taxi-conventionne-blagnac-colomiers-toulouse' },
+  { name: 'Tournefeuille', slug: null },
+  { name: 'Cugnaux', slug: null },
+  { name: 'Balma', slug: null },
+  { name: 'L\'Union', slug: null },
+  { name: 'Castanet-Tolosan', slug: null },
+  { name: 'Ramonville', slug: null },
+  { name: 'Portet-sur-Garonne', slug: null },
+  { name: 'Plaisance-du-Touch', slug: null },
+  { name: 'Launaguet', slug: null },
+  { name: 'Aucamville', slug: null },
+  { name: 'Fonsorbes', slug: null },
+  { name: 'Cornebarrieu', slug: null },
 ];
 
-// LISTE 2 : Les Hôpitaux Stratégiques (Top Destinations)
-const topHospitals = [
-  { 
-    name: 'CHU Purpan & Riquet', 
-    slug: 'transport-taxi-hopital-purpan-chu',
-    tag: 'Quotidien',
-    color: 'text-green-600 bg-green-50 border-green-100'
-  },
-  { 
-    name: 'Oncopole (Claudius Regaud)', 
-    slug: 'transport-taxi-oncopole-claudius-regaud',
-    tag: 'Quotidien',
-    color: 'text-green-600 bg-green-50 border-green-100'
-  },
-  { 
-    name: 'Hôpital Rangueil & Larrey', 
-    slug: 'transport-taxi-hopital-rangueil',
-    tag: 'Fréquent',
-    color: 'text-blue-600 bg-blue-50 border-blue-100'
-  },
-  { 
-    name: 'Clinique d\'Occitanie (Muret)', 
-    slug: 'transport-taxi-clinique-doccitanie-muret',
-    tag: 'Zone Sud',
-    color: 'text-slate-600 bg-slate-100 border-slate-200'
-  },
-  { 
-    name: 'Clinique de l\'Union', 
-    slug: 'transport-taxi-clinique-de-lunion',
-    tag: 'Zone Nord',
-    color: 'text-slate-600 bg-slate-100 border-slate-200'
-  }
+const longDistance = [
+  { name: 'Pamiers (Ariège)', slug: 'taxi-vsl-ariege-pamiers-foix-toulouse', dist: '70 km' },
+  { name: 'Foix (Ariège)', slug: 'taxi-vsl-ariege-pamiers-foix-toulouse', dist: '85 km' },
+  { name: 'Albi (Tarn)', slug: 'taxi-vsl-albi-tarn-toulouse-hopital', dist: '80 km' },
+  { name: 'Montauban (82)', slug: null, dist: '50 km' },
+  { name: 'Tarbes (65)', slug: null, dist: '155 km' },
+  { name: 'Auch (Gers)', slug: null, dist: '75 km' },
+];
+
+const hospitals = [
+  { name: 'CHU Purpan & Riquet', slug: 'taxi-vsl-hopital-purpan-chu-toulouse', tag: 'Quotidien' },
+  { name: 'Oncopole Claudius Regaud', slug: 'taxi-vsl-oncopole-chimiotherapie-toulouse', tag: 'Chimio/Radio' },
+  { name: 'Hôpital Rangueil', slug: 'taxi-vsl-hopital-rangueil-toulouse', tag: 'Cardio/Dialyse' },
+  { name: 'Clinique Pasteur', slug: null, tag: 'Cardiologie' },
+  { name: 'Clinique de l\'Union', slug: null, tag: 'Dialyse' },
+  { name: 'Clinique d\'Occitanie Muret', slug: null, tag: 'Zone Sud' },
 ];
 
 export default function Zones() {
   return (
-    <section className="py-20 bg-slate-50 border-t border-slate-200">
+    <section id="zones" className="py-20 bg-white border-t border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          
-          {/* Colonne Gauche : Zone Géographique (Maillage Villes) */}
-          <div>
-            <div className="inline-flex items-center gap-2 text-blue-600 font-bold mb-4 uppercase tracking-wider text-xs bg-blue-100 px-3 py-1 rounded-full border border-blue-200">
-              <Map size={14} />
-              Zone d'intervention 31
+
+        <div className="text-center mb-14">
+          <span className="text-blue-600 font-bold tracking-wide uppercase text-xs bg-blue-100 px-4 py-1.5 rounded-full border border-blue-200">
+            Zone d'intervention
+          </span>
+          <h2 className="text-3xl md:text-4xl font-black text-slate-900 mt-6 mb-4">
+            De Toulouse à toute l'<span className="text-yellow-500">Occitanie</span>
+          </h2>
+          <p className="text-slate-500 max-w-2xl mx-auto text-base">
+            Nous intervenons dans toute la Haute-Garonne et assurons les trajets longue distance depuis les départements voisins vers les hôpitaux spécialisés de Toulouse.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+          {/* Villes Haute-Garonne */}
+          <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="bg-blue-100 p-2.5 rounded-xl">
+                <Navigation className="h-5 w-5 text-blue-700" />
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900">Haute-Garonne (31)</h3>
+                <p className="text-xs text-slate-500">Toulouse & agglomération</p>
+              </div>
             </div>
-            
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-6">
-              Votre Taxi partout en <span className="text-yellow-500">Haute-Garonne</span>
-            </h2>
-            
-            <p className="text-slate-600 text-lg mb-8 leading-relaxed">
-              Basés au nord de Toulouse, nous couvrons l'ensemble du département. 
-              Nous assurons quotidiennement les liaisons depuis 
-              le <strong>centre de Toulouse</strong> et sa périphérie vers tous les établissements de soins.
-            </p>
-            
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-              <h3 className="text-slate-900 font-bold mb-6 flex items-center gap-2 text-lg">
-                <Navigation size={20} className="text-yellow-500" />
-                Sélectionnez votre ville de départ :
-              </h3>
-              
-              {/* CLUSTER SEO : On transforme les spans en Liens réels */}
-              <div className="flex flex-wrap gap-2">
-                {topCities.map((city) => (
-                  <Link 
-                    key={city.name} 
+            <div className="flex flex-wrap gap-2">
+              {cities.map((city) =>
+                city.slug ? (
+                  <Link
+                    key={city.name}
                     href={`/blog/${city.slug}`}
-                    title={`Taxi conventionné à ${city.name}`}
-                    className="px-3 py-1.5 bg-slate-50 rounded-lg text-sm font-medium text-slate-700 border border-slate-200 hover:border-yellow-400 hover:bg-yellow-50 hover:text-yellow-800 transition-all cursor-pointer"
+                    className="px-3 py-1.5 bg-white rounded-lg text-sm font-medium text-slate-700 border border-slate-200 hover:border-blue-400 hover:text-blue-700 transition-all"
                   >
                     {city.name}
                   </Link>
-                ))}
-                
-                {/* Lien vers la liste complète (Page Blog) */}
-                <Link 
-                  href="/blog"
-                  className="px-3 py-1.5 bg-blue-600 text-white text-sm font-bold rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-1"
-                >
-                  Voir les 50 villes <ArrowRight size={14} />
-                </Link>
-              </div>
+                ) : (
+                  <span key={city.name} className="px-3 py-1.5 bg-white rounded-lg text-sm font-medium text-slate-600 border border-slate-200">
+                    {city.name}
+                  </span>
+                )
+              )}
+              <Link
+                href="/blog"
+                className="px-3 py-1.5 bg-blue-600 text-white text-sm font-bold rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-1"
+              >
+                Toutes les villes <ArrowRight size={13} />
+              </Link>
             </div>
           </div>
 
-          {/* Colonne Droite : Les Destinations (Maillage Hôpitaux) */}
-          <div className="relative mt-8 lg:mt-0">
-             {/* Déco d'arrière-plan */}
-            <div className="absolute top-10 right-10 w-64 h-64 bg-blue-100 rounded-full blur-3xl opacity-60 pointer-events-none" />
-            
-            <div className="relative bg-white p-8 rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/50">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="bg-blue-100 p-3 rounded-xl">
-                  <Building2 className="h-6 w-6 text-blue-700" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900">
-                    Liaisons Hôpitaux & Cliniques
-                  </h3>
-                  <p className="text-sm text-slate-500">Accès directs et dépose prioritaire</p>
-                </div>
+          {/* Longue distance */}
+          <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="bg-yellow-100 p-2.5 rounded-xl">
+                <MapPin className="h-5 w-5 text-yellow-700" />
               </div>
-
-              <div className="space-y-2">
-                {topHospitals.map((hospital) => (
-                  <Link 
-                    key={hospital.name}
-                    href={`/blog/${hospital.slug}`}
-                    className="flex items-center justify-between py-4 px-3 rounded-xl group hover:bg-blue-50/50 hover:scale-[1.02] transition-all border border-transparent hover:border-blue-100 cursor-pointer"
-                  >
-                    <div className="flex items-center gap-3">
-                      <MapPin size={18} className="text-slate-400 group-hover:text-blue-600 transition-colors" />
-                      <span className="font-medium text-slate-700 group-hover:text-blue-900">
-                        {hospital.name}
-                      </span>
-                    </div>
-                    <span className={`text-xs font-bold px-2 py-1 rounded-full border ${hospital.color}`}>
-                      {hospital.tag}
-                    </span>
-                  </Link>
-                ))}
+              <div>
+                <h3 className="font-bold text-slate-900">Longue Distance</h3>
+                <p className="text-xs text-slate-500">Autres départements d'Occitanie</p>
               </div>
-
-              {/* Encadré de réassurance */}
-              <div className="mt-8 bg-slate-50 p-4 rounded-xl border border-slate-100 flex gap-3 text-sm text-slate-600">
-                <div className="shrink-0 bg-yellow-100 rounded-full p-1 h-fit">
-                  <ArrowRight className="text-yellow-600" size={14} />
+            </div>
+            <div className="space-y-3">
+              {longDistance.map((city) => (
+                <div key={city.name} className="flex items-center justify-between py-2 border-b border-slate-200 last:border-0">
+                  {city.slug ? (
+                    <Link href={`/blog/${city.slug}`} className="text-sm font-medium text-blue-700 hover:underline">
+                      {city.name}
+                    </Link>
+                  ) : (
+                    <span className="text-sm font-medium text-slate-700">{city.name}</span>
+                  )}
+                  <span className="text-xs text-slate-400 font-mono">{city.dist}</span>
                 </div>
-                <p>
-                  Nous desservons également <strong>tous les spécialistes libéraux</strong> 
-                  (Kiné, Ophtalmo, Centres de Dialyse) sur simple prescription médicale.
-                </p>
-              </div>
+              ))}
+            </div>
+            <p className="text-xs text-slate-500 mt-4 italic">Remboursement CPAM possible sur prescription médicale avec mention de l'éloignement.</p>
+          </div>
 
+          {/* Hôpitaux */}
+          <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="bg-red-100 p-2.5 rounded-xl">
+                <Building2 className="h-5 w-5 text-red-700" />
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900">Hôpitaux & Cliniques</h3>
+                <p className="text-xs text-slate-500">Destinations médicales principales</p>
+              </div>
+            </div>
+            <div className="space-y-2">
+              {hospitals.map((h) => (
+                <div
+                  key={h.name}
+                  className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-white border border-transparent hover:border-slate-200 transition-all"
+                >
+                  <div className="flex items-center gap-2">
+                    <MapPin size={15} className="text-slate-400 shrink-0" />
+                    {h.slug ? (
+                      <Link href={`/blog/${h.slug}`} className="text-sm font-medium text-slate-800 hover:text-blue-700">
+                        {h.name}
+                      </Link>
+                    ) : (
+                      <span className="text-sm font-medium text-slate-800">{h.name}</span>
+                    )}
+                  </div>
+                  <span className="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full shrink-0">
+                    {h.tag}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
 

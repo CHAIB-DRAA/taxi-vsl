@@ -1,146 +1,129 @@
 import Link from 'next/link';
-import { Plus, Minus, Phone, FileText, MapPin } from 'lucide-react';
+import { Phone, FileText, MapPin, ArrowRight } from 'lucide-react';
 
 const faqs = [
   {
-    question: "Comment réserver mon taxi conventionné ?",
-    answer: (
-      <>
-        C'est très simple. Vous devez avoir une <strong>Prescription Médicale de Transport</strong> (Bon de transport) signée par votre médecin au préalable.
-        <br /><br />
-        Ensuite, appelez-nous directement. Nous aurons besoin de votre numéro de sécu et de la date du rendez-vous.
-      </>
-    ),
-    // Ajout d'un bouton d'action direct (CTA)
-    action: (
-      <div className="mt-4 flex flex-col sm:flex-row gap-3">
-        <a href="tel:0772339892" className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-lg font-bold hover:bg-blue-700 transition-colors">
-          <Phone size={18} /> Appeler le 07 72 33 98 92
-        </a>
-      </div>
-    )
+    question: 'Comment réserver un taxi conventionné à Toulouse ?',
+    answer: 'Il vous faut d\'abord une Prescription Médicale de Transport (PMT) signée par votre médecin. Ensuite, appelez-nous au 07 72 33 98 92 avec votre numéro de sécurité sociale et la date de votre rendez-vous. Nous nous occupons du reste.',
+    action: {
+      label: 'Appeler le 07 72 33 98 92',
+      href: 'tel:0772339892',
+      icon: Phone,
+    },
   },
   {
-    question: "Dois-je avancer les frais de transport ?",
-    answer: (
-      <>
-        Non, <strong>pas d'avance de frais</strong> avec Taxi 31 ! Si vous êtes en ALD (Affection Longue Durée) à 100%, nous pratiquons le <strong>Tiers Payant intégral</strong> avec la CPAM de la Haute-Garonne et les autres caisses.
-        <br /><br />
-        Pour comprendre exactement quels documents fournir au chauffeur, consultez notre guide complet sur le remboursement.
-      </>
-    ),
-    // LIEN CLUSTER VERS ARTICLE ALD/REMBOURSEMENT
-    action: (
-      <div className="mt-3">
-        <Link href="/blog/remboursement-transport-ald-100-tiers-payant" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-800 hover:underline">
-          <FileText size={16} /> Voir le guide du remboursement à 100%
-        </Link>
-      </div>
-    )
+    question: 'Dois-je avancer les frais de transport médical ?',
+    answer: 'Non. Si vous êtes en ALD (Affection de Longue Durée) à 100%, nous appliquons le tiers payant intégral : nous facturons directement la CPAM. Vous ne déboursez pas un seul euro. Même pour les trajets longue distance depuis l\'Ariège ou le Tarn.',
+    action: {
+      label: 'Comprendre le tiers payant',
+      href: '/blog/tiers-payant-transport-medical-ald-toulouse',
+      icon: FileText,
+    },
   },
   {
-    question: "Quelles sont vos zones d'intervention ?",
-    answer: (
-      <>
-        Nous sommes basés au nord de Toulouse et couvrons <strong>toute la Haute-Garonne (31)</strong>. 
-        <br /><br />
-        Nous assurons les départs depuis toutes les communes périphériques (Muret, Blagnac, Colomiers, L'Union...) vers les centres de soins de la région.
-      </>
-    ),
-    // LIEN CLUSTER VERS LA LISTE DES VILLES
-    action: (
-      <div className="mt-3">
-        <Link href="/blog" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-800 hover:underline">
-          <MapPin size={16} /> Vérifier si ma ville est desservie
-        </Link>
-      </div>
-    )
+    question: 'Quelles maladies donnent droit au transport médical remboursé ?',
+    answer: 'Les 30 ALD reconnues par la Sécurité Sociale : cancer, insuffisance rénale chronique (dialyse), diabète, maladies cardiovasculaires, sclérose en plaques, Parkinson... La grossesse à partir du 5ème mois, les hospitalisations et les accidents du travail y donnent également droit.',
+    action: {
+      label: 'Guide complet VSL & CPAM',
+      href: '/blog/guide-taxi-vsl-conventionne-cpam-toulouse',
+      icon: FileText,
+    },
   },
   {
-    question: "Faites-vous aussi les gares et aéroports ?",
-    answer: (
-      <>
-        Oui, tout à fait. En dehors des transports médicaux, nous assurons les transferts privés vers l'<strong>Aéroport de Toulouse-Blagnac</strong> et la Gare Matabiau, 24h/24 sur réservation.
-        <br/>
-        Idéal pour les départs matinaux (4h du matin) où les VTC se font rares.
-      </>
-    ),
-    // LIEN CLUSTER VERS ARTICLE AEROPORT
-    action: (
-      <div className="mt-3">
-        <Link href="/blog/reservation-taxi-aeroport-toulouse-blagnac-nuit" className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-800 hover:underline">
-          ✈️ Voir les tarifs Aéroport & Gare
-        </Link>
-      </div>
-    )
+    question: 'Intervenez-vous depuis l\'Ariège, le Tarn ou les Hautes-Pyrénées ?',
+    answer: 'Oui. Nous assurons les trajets longue distance depuis tous les départements d\'Occitanie vers les hôpitaux spécialisés de Toulouse. Ces trajets sont remboursables par la CPAM si votre médecin certifie que la spécialité n\'est pas disponible localement.',
+    action: {
+      label: 'Transport depuis l\'Ariège',
+      href: '/blog/taxi-vsl-ariege-pamiers-foix-toulouse',
+      icon: MapPin,
+    },
   },
   {
-    question: "Acceptez-vous les animaux ou accompagnants ?",
-    answer: (
-      <>
-        Un accompagnant est autorisé si la mention "Nécessite un accompagnant" est cochée sur votre prescription médicale. 
-        <br/>
-        Pour les animaux d'assistance (chiens guides), ils sont bien entendu les bienvenus à bord. Pour les animaux de compagnie en transport privé, merci de nous le préciser à la réservation.
-      </>
-    ),
-    action: null
-  }
+    question: 'Faites-vous aussi l\'aéroport et la gare ?',
+    answer: 'Absolument. En dehors du transport médical, nous assurons les transferts vers l\'Aéroport Toulouse-Blagnac (24h/24, même à 4h du matin) et la Gare Matabiau. Tarif fixe, suivi des vols et trains en temps réel, aide aux bagages.',
+    action: {
+      label: 'Service aéroport & gare',
+      href: '/courses-privees',
+      icon: MapPin,
+    },
+  },
+  {
+    question: 'Acceptez-vous les accompagnants et les animaux ?',
+    answer: 'Un accompagnant est autorisé si la mention est cochée sur la prescription médicale. Les animaux d\'assistance sont bienvenus. Pour les animaux de compagnie (transport privé), précisez-le lors de la réservation.',
+    action: null,
+  },
 ];
 
 export default function FAQ() {
   return (
-    <section id="faq" className="py-24 bg-white border-t border-slate-100">
+    <section id="faq" className="py-24 bg-slate-50 border-t border-slate-200">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="text-center mb-16">
-          <span className="text-blue-600 font-bold tracking-wide uppercase text-xs sm:text-sm bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
-            Aide & Infos Pratiques
+
+        <div className="text-center mb-14">
+          <span className="text-blue-600 font-bold tracking-wide uppercase text-xs bg-blue-100 px-4 py-1.5 rounded-full border border-blue-200">
+            Questions Fréquentes
           </span>
           <h2 className="text-3xl md:text-4xl font-black text-slate-900 mt-6 mb-4">
-            Questions Fréquentes
+            Tout ce que vous devez savoir
           </h2>
-          <p className="text-slate-600 text-lg">
-            Tout ce que vous devez savoir avant de monter à bord.
+          <p className="text-slate-500 text-lg">
+            Avant de monter à bord, voici les réponses aux questions que tout le monde se pose.
           </p>
         </div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <details 
-              key={index} 
-              className="group bg-slate-50 rounded-2xl border border-slate-200 [&_summary::-webkit-details-marker]:hidden open:bg-white open:shadow-lg open:shadow-blue-100/50 open:border-blue-200 transition-all duration-300"
+        <div className="space-y-3">
+          {faqs.map((faq, i) => (
+            <details
+              key={i}
+              className="group bg-white rounded-2xl border border-slate-200 [&_summary::-webkit-details-marker]:hidden open:shadow-lg open:border-blue-200 transition-all"
             >
-              <summary className="flex cursor-pointer items-center justify-between gap-4 p-6 text-slate-900 font-bold text-lg hover:text-blue-700 transition-colors select-none">
-                <h3 className="text-left">{faq.question}</h3>
-                <span className="relative size-5 shrink-0 text-blue-500 bg-white rounded-full shadow-sm p-0.5">
-                  <Plus className="absolute inset-0 size-full opacity-100 group-open:opacity-0 transition-opacity rotate-0 group-open:rotate-90 duration-300" />
-                  <Minus className="absolute inset-0 size-full opacity-0 group-open:opacity-100 transition-opacity rotate-90 group-open:rotate-0 duration-300" />
+              <summary className="flex cursor-pointer items-center justify-between gap-4 p-6 select-none">
+                <h3 className="text-left font-bold text-slate-900 group-open:text-blue-700 transition-colors text-base leading-snug">
+                  {faq.question}
+                </h3>
+                <span className="shrink-0 w-6 h-6 rounded-full bg-slate-100 group-open:bg-blue-100 flex items-center justify-center transition-colors">
+                  <ArrowRight size={14} className="text-slate-500 group-open:text-blue-600 rotate-90 group-open:rotate-[270deg] transition-transform duration-300" />
                 </span>
               </summary>
-              <div className="p-6 pt-0 text-slate-600 leading-relaxed text-base border-t border-transparent group-open:border-slate-100 mt-2">
+              <div className="px-6 pb-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100 mt-0 pt-4">
                 <p>{faq.answer}</p>
-                
-                {/* Insertion dynamique des liens/actions */}
-                {faq.action && (
-                   <div className="mt-2 pt-2">
-                     {faq.action}
-                   </div>
-                )}
+                {faq.action && (() => {
+                  const Icon = faq.action.icon;
+                  return (
+                    <div className="mt-4">
+                      {faq.action.href.startsWith('tel:') ? (
+                        <a
+                          href={faq.action.href}
+                          className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-blue-700 transition-colors"
+                        >
+                          <Icon size={16} /> {faq.action.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={faq.action.href}
+                          className="inline-flex items-center gap-2 text-blue-600 font-semibold text-sm hover:underline"
+                        >
+                          <Icon size={15} /> {faq.action.label} →
+                        </Link>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
             </details>
           ))}
         </div>
 
-        {/* Note de bas de page rassurante (EEAT) */}
-        <div className="mt-12 text-center bg-yellow-50 p-6 rounded-2xl border border-yellow-100">
-            <p className="text-slate-700 font-medium">
-                Une question spécifique non traitée ici ? 
-                <br className="hidden sm:block" />
-                N'hésitez pas à nous envoyer un SMS, nous répondons généralement dans les 10 minutes.
-            </p>
-            <a href="sms:0772339892" className="inline-block mt-3 text-yellow-700 font-bold underline hover:text-yellow-800">
-                Envoyer un SMS au 07 72 33 98 92
-            </a>
+        <div className="mt-12 bg-yellow-50 border border-yellow-200 rounded-2xl p-6 text-center">
+          <p className="text-slate-700 font-medium mb-3">
+            Une question non couverte ici ? Envoyez-nous un SMS, nous répondons en moins de 10 minutes.
+          </p>
+          <a
+            href="sms:0772339892"
+            className="inline-block text-yellow-700 font-black hover:text-yellow-800 underline underline-offset-2"
+          >
+            Envoyer un SMS au 07 72 33 98 92
+          </a>
         </div>
 
       </div>

@@ -1,125 +1,131 @@
 import Link from 'next/link';
-import { HeartPulse, Plane, Briefcase, CheckCircle2, ArrowRight } from 'lucide-react';
+import { HeartPulse, Car, CheckCircle2, ArrowRight, ShieldCheck, Plane } from 'lucide-react';
 
 const services = [
   {
-    title: "Transport Médical Conventionné",
-    description: "Spécialiste du transport assis (TAP) vers les hôpitaux de Toulouse (Purpan, Oncopole, Rangueil).",
-    icon: <HeartPulse className="h-8 w-8 text-blue-600" />,
-    // On lie vers ton article "Pilier" sur le remboursement/ALD
-    href: "/blog/remboursement-transport-ald-100-tiers-payant", 
-    cta: "Comprendre le remboursement",
-    // Design "Premium" pour le service principal
-    color: "bg-blue-50 border-blue-200 shadow-lg shadow-blue-100 relative overflow-hidden", 
-    badge: "Agréé CPAM Haute-Garonne",
+    id: 'medical',
+    icon: HeartPulse,
+    iconColor: 'text-blue-600',
+    iconBg: 'bg-blue-50',
+    badge: 'Conventionné CPAM',
+    badgeColor: 'bg-blue-600 text-white',
+    title: 'Transport Médical Conventionné',
+    subtitle: '0€ d\'avance — Tiers Payant Intégral',
+    description: 'Spécialiste du transport assis (TAP/VSL) pour les patients en ALD vers tous les hôpitaux et cliniques de Toulouse et d\'Occitanie.',
+    href: '/transport-medical',
+    cta: 'Découvrir le service médical',
+    cardClass: 'bg-blue-50 border-blue-200 ring-2 ring-blue-100',
     features: [
-      "Tiers Payant Intégral (0€ avance)",
-      "Gestion administrative complète",
-      "Accompagnement en service de soins",
-      "Véhicule adapté et désinfecté"
+      'Chimiothérapie (Oncopole)',
+      'Dialyse régulière (planning sur plusieurs mois)',
+      'Suivi post-opératoire & consultations',
+      'Trajets longue distance Ariège, Tarn, Gers...',
+      'Aide administrative & gestion CPAM',
     ],
   },
   {
-    title: "Navette Aéroport & Gare",
-    description: "Connexion directe vers l'Aéroport Toulouse-Blagnac et la Gare Matabiau. Service 24h/24 sur réservation.",
-    icon: <Plane className="h-8 w-8 text-yellow-600" />,
-    // On lie vers ton article spécifique Aéroport
-    href: "/blog/reservation-taxi-aeroport-toulouse-blagnac-nuit",
-    cta: "Voir les tarifs aéroport",
-    color: "bg-white border-slate-200 hover:border-yellow-400",
+    id: 'prive',
+    icon: Car,
+    iconColor: 'text-yellow-600',
+    iconBg: 'bg-yellow-50',
+    badge: 'Tarif fixe',
+    badgeColor: 'bg-yellow-500 text-slate-900',
+    title: 'Courses Privées',
+    subtitle: 'Aéroport · Gare · Événements · Business',
+    description: 'Un service fiable et élégant pour vos déplacements personnels et professionnels à Toulouse et en Occitanie.',
+    href: '/courses-privees',
+    cta: 'Voir les courses privées',
+    cardClass: 'bg-white border-slate-200 hover:border-yellow-300',
     features: [
-      "Ponctualité garantie (Départ 4h du matin)",
-      "Sièges auto & réhausseurs gratuits",
-      "Berline 7 places (Idéal Familles)",
-      "Accueil pancarte personnalisé"
+      'Aéroport Toulouse-Blagnac (dès 4h du matin)',
+      'Gare Matabiau — ponctualité garantie',
+      'Mariages & événements — véhicule élégant',
+      'Transferts business & séminaires',
+      'Facturation mensuelle pour les entreprises',
     ],
   },
-  {
-    title: "Transport Business & Privé",
-    description: "Une alternative haut de gamme pour vos déplacements professionnels ou événements en Occitanie.",
-    icon: <Briefcase className="h-8 w-8 text-slate-700" />,
-    // Lien vers le contact ou une page entreprise si tu en crées une
-    href: "/#contact", 
-    cta: "Demander un devis",
-    color: "bg-white border-slate-200 hover:border-slate-400",
-    features: [
-      "Facturation mensuelle (Pro)",
-      "Conduite souple et sécurisée",
-      "Discrétion absolue",
-      "Mise à disposition (Mariage, Séminaire)"
-    ],
-  }
 ];
 
 export default function Services() {
   return (
     <section id="services" className="py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* En-tête de section optimisé SEO Local */}
+
         <div className="text-center mb-16">
-          <span className="text-blue-600 font-bold tracking-wide uppercase text-xs sm:text-sm bg-blue-100 px-4 py-1.5 rounded-full border border-blue-200">
-            Services de Transport 31
+          <span className="text-blue-600 font-bold tracking-wide uppercase text-xs bg-blue-100 px-4 py-1.5 rounded-full border border-blue-200">
+            Nos Services
           </span>
-          <h2 className="text-3xl md:text-5xl font-black text-slate-900 mt-6 mb-6">
-            Plus qu'un simple taxi, <br/>
+          <h2 className="text-3xl md:text-5xl font-black text-slate-900 mt-6 mb-4">
+            Médical ou privé,{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">
-              votre partenaire santé & mobilité
+              toujours à votre service
             </span>
           </h2>
-          <p className="text-slate-600 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed">
-            Basé au nord de Toulouse, nous intervenons sur toute la Haute-Garonne. 
-            Notre priorité : votre ponctualité et votre confort, que ce soit pour une dialyse ou un avion.
+          <p className="text-slate-600 max-w-2xl mx-auto text-lg leading-relaxed">
+            Deux expertises complémentaires, un seul engagement : vous transporter confortablement, ponctuellement, sans stress.
           </p>
         </div>
 
-        {/* Grille des services */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <Link 
-              key={index} 
-              href={service.href}
-              className={`
-                group relative flex flex-col p-8 rounded-3xl border-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl
-                ${service.color}
-              `}
-            >
-              {/* Badge Spécial pour le médical */}
-              {service.badge && (
-                <div className="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl rounded-tr-2xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {services.map((service) => {
+            const Icon = service.icon;
+            return (
+              <div
+                key={service.id}
+                className={`relative flex flex-col p-8 rounded-3xl border-2 ${service.cardClass} transition-all duration-300`}
+              >
+                {/* Badge */}
+                <div className={`absolute top-6 right-6 text-xs font-bold px-3 py-1 rounded-full ${service.badgeColor}`}>
                   {service.badge}
                 </div>
-              )}
 
-              {/* Icône */}
-              <div className="w-16 h-16 rounded-2xl bg-white shadow-sm border border-slate-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                {service.icon}
+                {/* Icône */}
+                <div className={`w-16 h-16 rounded-2xl ${service.iconBg} flex items-center justify-center mb-6 border border-white shadow-sm`}>
+                  <Icon className={`h-8 w-8 ${service.iconColor}`} />
+                </div>
+
+                {/* Texte */}
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">{service.subtitle}</p>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">{service.title}</h3>
+                <p className="text-slate-600 mb-8 leading-relaxed">{service.description}</p>
+
+                {/* Features */}
+                <div className="space-y-3 mb-8 border-t border-slate-200/60 pt-6">
+                  {service.features.map((feature) => (
+                    <div key={feature} className="flex items-start gap-3 text-slate-700 text-sm font-medium">
+                      <CheckCircle2 size={17} className="text-green-500 shrink-0 mt-0.5" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA */}
+                <Link
+                  href={service.href}
+                  className="mt-auto inline-flex items-center gap-2 text-blue-700 font-bold text-sm hover:gap-3 transition-all"
+                >
+                  {service.cta} <ArrowRight size={17} />
+                </Link>
               </div>
+            );
+          })}
+        </div>
 
-              {/* Titre & Description */}
-              <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors">
-                {service.title}
-              </h3>
-              <p className="text-slate-600 mb-8 text-base leading-relaxed flex-grow">
-                {service.description}
-              </p>
-
-              {/* Liste à puces */}
-              <div className="space-y-4 mb-8 border-t border-slate-100 pt-6">
-                {service.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-start gap-3 text-slate-700 font-medium text-sm">
-                    <CheckCircle2 size={18} className="text-green-500 shrink-0 mt-0.5" />
-                    <span>{feature}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Bouton d'action (CTA) */}
-              <div className="mt-auto flex items-center text-blue-700 font-bold text-sm group-hover:gap-2 transition-all">
-                {service.cta} <ArrowRight size={18} className="ml-2 group-hover:ml-0 transition-all" />
-              </div>
-            </Link>
-          ))}
+        {/* Encart trust */}
+        <div className="mt-12 bg-white rounded-2xl border border-slate-200 p-6 flex flex-col sm:flex-row items-center gap-4 shadow-sm">
+          <div className="bg-green-100 p-3 rounded-xl shrink-0">
+            <ShieldCheck className="h-7 w-7 text-green-600" />
+          </div>
+          <div>
+            <p className="font-bold text-slate-900">Agrément CPAM Haute-Garonne & Préfecture</p>
+            <p className="text-slate-500 text-sm">Tous nos transports médicaux sont conformes aux exigences de l'Assurance Maladie. Nous gérons l'intégralité des démarches administratives à votre place.</p>
+          </div>
+          <Link
+            href="/blog/guide-taxi-vsl-conventionne-cpam-toulouse"
+            className="ml-auto shrink-0 flex items-center gap-2 text-blue-600 font-bold text-sm whitespace-nowrap hover:underline"
+          >
+            Guide complet <ArrowRight size={15} />
+          </Link>
         </div>
 
       </div>
