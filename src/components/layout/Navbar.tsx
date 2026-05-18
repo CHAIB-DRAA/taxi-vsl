@@ -7,6 +7,7 @@ import { useState } from 'react';
 const navLinks = [
   { href: '/transport-medical', label: 'Transport Médical', icon: HeartPulse },
   { href: '/courses-privees', label: 'Courses Privées', icon: Car },
+  { href: '/tarifs', label: 'Tarifs' },
   { href: '/blog', label: 'Zones & Guides' },
   { href: '/a-propos', label: 'À Propos' },
 ];

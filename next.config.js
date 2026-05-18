@@ -15,6 +15,10 @@ const nextConfig = {
         source: '/api/rides/:path*',
         destination: 'https://vsl-taxi.onrender.com/api/rides/:path*',
       },
+      {
+        source: '/api/admin/:path*',
+        destination: 'https://vsl-taxi.onrender.com/api/admin/:path*',
+      },
     ];
   },
 
