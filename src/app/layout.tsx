@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
-import Navbar from "../components/layout/Navbar";
-import Footer from "../components/layout/Footer";
-import WhatsAppButton from "../components/ui/WhatsAppButton";
 import LocalBusinessSchema from "../components/seo/LocalBusinessSchema";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -96,10 +93,7 @@ export default function RootLayout({
         <LocalBusinessSchema />
       </head>
       <body className={inter.className}>
-        <Navbar />
         {children}
-        <WhatsAppButton />
-        <Footer />
       </body>
     </html>
   );

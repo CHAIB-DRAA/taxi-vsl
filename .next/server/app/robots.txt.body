@@ -1,0 +1,30 @@
+User-Agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*?*utm_
+Disallow: /*?*fbclid
+Disallow: /*?*gclid
+
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+User-Agent: facebookexternalhit
+User-Agent: Twitterbot
+User-Agent: LinkedInBot
+User-Agent: WhatsApp
+User-Agent: Slackbot
+Allow: /
+
+User-Agent: AhrefsBot
+User-Agent: SemrushBot
+User-Agent: MJ12bot
+User-Agent: DotBot
+User-Agent: BLEXBot
+Disallow: /
+
+Sitemap: https://www.taxi-31-toulouse.fr/sitemap.xml
