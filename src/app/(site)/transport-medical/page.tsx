@@ -37,12 +37,12 @@ const hospitals = [
 ];
 
 const soins = [
-  { titre: "Chimiothérapie & Immunothérapie", desc: "Séances à l'Oncopole Claudius Regaud. Planning sur toute la durée du traitement.", icon: "🔬" },
-  { titre: "Dialyse (3x/semaine)", desc: "Service régulier avec planning mensuel. Conduite douce après séance.", icon: "💧" },
-  { titre: "Radiothérapie", desc: "Trajets quotidiens sur plusieurs semaines, gestion administrative intégrale.", icon: "⚡" },
-  { titre: "Consultations spécialisées", desc: "Cardiologie, neurologie, oncologie, rhumatologie... tout type de spécialité.", icon: "🏥" },
-  { titre: "Suivi post-opératoire", desc: "Retour à la maison après chirurgie, surveillance médicale en voiture.", icon: "🩺" },
-  { titre: "Longue distance Occitanie", desc: "Depuis Ariège, Tarn, Hautes-Pyrénées, Gers vers Toulouse. CPAM remboursable.", icon: "📍" },
+  { titre: "Chimiothérapie & Immunothérapie", desc: "Séances à l'Oncopole Claudius Regaud. Planning sur toute la durée du traitement.", icon: "🔬", slug: "taxi-chimiotherapie-toulouse-cpam-oncopole" },
+  { titre: "Dialyse (3x/semaine)", desc: "Service régulier avec planning mensuel. Conduite douce après séance.", icon: "💧", slug: "taxi-dialyse-toulouse-cpam-rangueil" },
+  { titre: "Radiothérapie", desc: "Trajets quotidiens sur plusieurs semaines, gestion administrative intégrale.", icon: "⚡", slug: "taxi-radiotherapie-toulouse-cpam" },
+  { titre: "Consultations spécialisées", desc: "Cardiologie, neurologie, oncologie, rhumatologie... tout type de spécialité.", icon: "🏥", slug: "taxi-consultation-specialiste-toulouse-cpam-remboursement" },
+  { titre: "Sortie d'hospitalisation", desc: "Retour à la maison après chirurgie ou séjour hospitalier. Disponible 7j/7.", icon: "🩺", slug: "taxi-sortie-hospitalisation-toulouse-cpam" },
+  { titre: "PMR & Mobilité réduite", desc: "Transport adapté, aide à la montée et descente, véhicule SUV spacieux.", icon: "♿", slug: "taxi-pmr-mobilite-reduite-toulouse-cpam" },
 ];
 
 export default function TransportMedical() {
@@ -116,11 +116,14 @@ export default function TransportMedical() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {soins.map((s) => (
-              <div key={s.titre} className="p-6 bg-slate-50 rounded-2xl border border-slate-200 hover:border-blue-200 hover:shadow-md transition-all">
+              <Link key={s.titre} href={`/blog/${s.slug}`} className="p-6 bg-slate-50 rounded-2xl border border-slate-200 hover:border-blue-200 hover:shadow-md transition-all group">
                 <span className="text-3xl mb-4 block">{s.icon}</span>
-                <h3 className="font-bold text-slate-900 mb-2">{s.titre}</h3>
+                <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors">{s.titre}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{s.desc}</p>
-              </div>
+                <span className="inline-flex items-center gap-1 text-blue-600 text-xs font-semibold mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                  Lire le guide <ArrowRight size={12} />
+                </span>
+              </Link>
             ))}
           </div>
         </div>
@@ -183,9 +186,60 @@ export default function TransportMedical() {
                 </div>
               ))}
             </div>
-            <Link href="/blog/transport-dialyse-conventionne-toulouse" className="inline-flex items-center gap-2 text-blue-700 font-bold text-sm hover:underline">
+            <Link href="/blog/taxi-dialyse-toulouse-cpam-rangueil" className="inline-flex items-center gap-2 text-blue-700 font-bold text-sm hover:underline">
               En savoir plus sur notre service dialyse <ArrowRight size={15} />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Guides CPAM */}
+      <section className="py-20 px-4 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-black text-slate-900 mb-4">Guides CPAM & Remboursement</h2>
+            <p className="text-slate-500 max-w-xl mx-auto">Tout ce qu'il faut savoir sur le remboursement de votre transport médical, expliqué simplement.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              { title: "Comment fonctionne le remboursement CPAM ?", desc: "Conditions, taux, tiers payant intégral — guide complet 2025.", slug: "remboursement-transport-medical-cpam-toulouse-guide" },
+              { title: "Qui a droit au transport remboursé ?", desc: "Liste des ALD et toutes les situations éligibles au remboursement.", slug: "conditions-eligibilite-transport-medical-cpam-ald" },
+              { title: "Comment obtenir votre prescription médicale ?", desc: "Ce qu'il faut dire à votre médecin, ce que doit contenir la PMT.", slug: "prescription-medicale-transport-comment-obtenir" },
+              { title: "Quels documents apporter ?", desc: "Carte Vitale, PMT, attestation CPAM — ne rien oublier le jour J.", slug: "documents-prescription-medicale-transport-cpam" },
+            ].map((g) => (
+              <Link key={g.slug} href={`/blog/${g.slug}`} className="flex items-start gap-4 p-5 border border-slate-200 rounded-2xl hover:border-purple-200 hover:shadow-md transition-all group">
+                <div className="bg-purple-100 p-2.5 rounded-xl shrink-0 mt-0.5">
+                  <FileText className="h-5 w-5 text-purple-600" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 group-hover:text-purple-700 transition-colors text-sm">{g.title}</h3>
+                  <p className="text-slate-500 text-xs mt-1">{g.desc}</p>
+                </div>
+                <ArrowRight size={16} className="text-slate-400 group-hover:text-purple-600 transition-colors shrink-0 mt-1 ml-auto" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Comparaisons */}
+      <section className="py-16 px-4 bg-slate-50">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl font-black text-slate-900 mb-3">VSL, Ambulance ou VTC : quelle différence ?</h2>
+            <p className="text-slate-500 max-w-xl mx-auto text-sm">Vous hésitez sur le transport adapté à votre situation ? Ces guides comparatifs répondent à vos questions.</p>
+          </div>
+          <div className="flex flex-wrap gap-3 justify-center">
+            {[
+              { label: "Taxi VSL vs Ambulance", slug: "taxi-vsl-vs-ambulance-toulouse" },
+              { label: "Taxi VSL vs Uber / VTC", slug: "taxi-vsl-vs-uber-vtc-transport-medical-toulouse" },
+              { label: "Comparatif complet des transports médicaux", slug: "comparatif-transport-medical-toulouse-ambulance-vsl-vtc" },
+              { label: "5 raisons de choisir un taxi VSL", slug: "pourquoi-choisir-taxi-vsl-conventionne-toulouse" },
+            ].map((c) => (
+              <Link key={c.slug} href={`/blog/${c.slug}`} className="inline-flex items-center gap-2 border border-slate-200 bg-white hover:border-orange-300 hover:bg-orange-50 text-slate-700 hover:text-orange-700 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all">
+                {c.label} <ArrowRight size={14} />
+              </Link>
+            ))}
           </div>
         </div>
       </section>

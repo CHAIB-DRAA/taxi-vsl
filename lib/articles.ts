@@ -4,7 +4,7 @@ export interface Article {
   title: string;
   description: string;
   date: string;
-  category: "Transport Médical" | "Courses Privées" | "Hôpitaux" | "Trajets" | "Guide" | "Villes";
+  category: "Transport Médical" | "Courses Privées" | "Hôpitaux" | "Trajets" | "Guide" | "Villes" | "Comparaisons" | "Spécialités";
   readTime: string;
   content: string;
 }
@@ -681,9 +681,639 @@ const detailedArticles: Article[] = [
   },
 ];
 
+// ─── ARTICLES COMPARAISONS & SPÉCIALITÉS ──────────────────────────────────────
+const seoArticles: Article[] = [
+  // ── Phase 1 : Comparaisons ──
+  {
+    slug: "taxi-vsl-vs-ambulance-toulouse",
+    title: "Taxi VSL ou Ambulance : Quelle Différence et Comment Choisir ?",
+    description: "Quelle différence entre un taxi VSL et une ambulance ? Qui prescrit quoi ? Quel remboursement CPAM ? Tout ce qu'il faut savoir pour choisir le bon transport médical à Toulouse.",
+    date: "2025-05-01",
+    category: "Comparaisons" as const,
+    readTime: "6 min",
+    content: `
+<p>Votre médecin vous parle de "transport médical remboursé" mais ne précise pas si c'est une ambulance ou un taxi. Vous ne savez pas quelle différence ça fait vraiment. Ce guide vous explique tout, clairement, pour que vous choisissiez le bon transport — et que le remboursement CPAM s'applique sans problème.</p>
+
+<h2>Taxi VSL et ambulance : deux transports médicaux, deux profils de patients</h2>
+<p>La CPAM distingue trois types de transport médical remboursé : l'ambulance, le VSL (Véhicule Sanitaire Léger) et le taxi conventionné. La différence fondamentale repose sur votre état de santé au moment du trajet :</p>
+<ul>
+<li><strong>Ambulance</strong> — pour les patients qui ne peuvent pas voyager en position assise, nécessitent une surveillance médicale constante ou un équipement médical (perfusion, oxygène). Prix élevé, remboursement CPAM possible mais réservé aux cas sévères.</li>
+<li><strong>VSL / Taxi conventionné</strong> — pour les patients qui peuvent s'asseoir normalement, se déplacer seuls ou avec une aide légère. Idéal pour les soins réguliers : dialyse, chimiothérapie, consultations ALD.</li>
+</ul>
+<p>Si votre médecin prescrit un taxi VSL alors que vous pouvez marcher et vous asseoir, c'est le bon choix — et le plus économique pour l'Assurance Maladie.</p>
+
+<h2>Ce que dit le médecin sur l'ordonnance</h2>
+<p>C'est votre médecin qui décide. Il coche sur la Prescription Médicale de Transport (PMT) le mode de transport adapté à votre état. La CPAM peut refuser le remboursement si vous prenez une ambulance alors qu'un taxi VSL était suffisant — c'est ce qu'on appelle le transport non justifié.</p>
+<p>Si votre médecin vous prescrit un taxi VSL, ne prenez pas une ambulance de votre propre chef : vous ne serez pas ou très peu remboursé pour la différence de tarif.</p>
+
+<h2>Comparaison des coûts et du remboursement</h2>
+<table>
+<tr><th>Type</th><th>Tarif moyen aller-retour Toulouse</th><th>Remboursement CPAM (ALD 100%)</th></tr>
+<tr><td>Ambulance</td><td>150–350 €</td><td>100% si médicalement justifiée</td></tr>
+<tr><td>Taxi VSL conventionné</td><td>15–80 €</td><td>100% avec tiers payant intégral</td></tr>
+<tr><td>VTC (Uber, Bolt...)</td><td>15–50 €</td><td>0% — non conventionné CPAM</td></tr>
+</table>
+
+<h2>Pourquoi nous choisissons le VSL pour nos patients</h2>
+<p>Chez Occitanie Médi Mobility, nos patients viennent pour leurs dialyses, leurs chimiothérapies, leurs consultations ALD. Ces traitements sont éprouvants, mais les patients peuvent voyager assis. Le taxi VSL leur offre un confort équivalent à une ambulance — conduite douce, température confortable, aide à la montée et à la descente — à un coût bien moindre pour la Sécurité Sociale.</p>
+<p>Et pour eux : 0€ d'avance, grâce au tiers payant intégral.</p>
+
+<blockquote>
+<p>En cas de doute sur le transport qui vous convient, posez la question à votre médecin ou appelez-nous directement au <strong>07 72 33 98 92</strong>. Nous pouvons vous aider à comprendre ce que votre ordonnance mentionne.</p>
+</blockquote>
+`,
+  },
+  {
+    slug: "taxi-vsl-vs-uber-vtc-transport-medical-toulouse",
+    title: "Taxi Conventionné CPAM vs Uber / VTC : Pourquoi Uber n'est Pas Remboursé",
+    description: "Uber, Bolt ou un taxi conventionné CPAM pour votre transport médical ? Seulement le taxi VSL agréé permet le remboursement Assurance Maladie. Voici pourquoi — et comment éviter la mauvaise surprise.",
+    date: "2025-05-05",
+    category: "Comparaisons" as const,
+    readTime: "5 min",
+    content: `
+<p>Question que nous entendons souvent : "Est-ce que je peux prendre un Uber et me faire rembourser par la CPAM ?" La réponse est non — et comprendre pourquoi vous évitera une mauvaise surprise financière le jour de votre soin.</p>
+
+<h2>Le principe du conventionnement : ce qui fait la différence</h2>
+<p>Pour qu'un transport médical soit remboursé par l'Assurance Maladie, le prestataire doit avoir signé une convention avec la CPAM. Cette convention impose des obligations précises :</p>
+<ul>
+<li>Formation spécifique du chauffeur aux règles sanitaires et à l'assistance aux patients</li>
+<li>Véhicule aux normes VSL (hygiène, confort, équipements)</li>
+<li>Tarifs fixés par arrêté ministériel — pas de tarification dynamique</li>
+<li>Télétransmission des feuilles de soins directement à la CPAM</li>
+</ul>
+<p>Uber, Bolt, et les VTC en général ne sont pas conventionnés. Ils appliquent une tarification dynamique (prix qui monte aux heures de pointe) et ne peuvent pas facturer la CPAM. Peu importe la qualité de leur service, ils n'entrent pas dans le cadre légal du transport médical remboursé.</p>
+
+<h2>Ce qu'il se passe si vous prenez un Uber pour votre chimio</h2>
+<p>Vous payez la course. Vous demandez le remboursement. La CPAM refuse, car le prestataire n'est pas conventionné. Vous avez avancé 30 ou 40 euros que vous n'aurez jamais. Si vous êtes en ALD avec tiers payant, cette erreur est évitable à 100%.</p>
+
+<h2>Les tarifs réglementés du taxi VSL : plus prévisibles que vous ne le pensez</h2>
+<p>Contrairement à un VTC dont le prix varie selon l'heure et la demande, le tarif d'un taxi conventionné est fixé par arrêté. Pour Toulouse et la Haute-Garonne :</p>
+<ul>
+<li>Prise en charge : 2,40 €</li>
+<li>Prix au kilomètre : 1,05 €/km</li>
+<li>Attente : 13,40 €/heure</li>
+</ul>
+<p>Ces tarifs sont les mêmes pour tous les taxis conventionnés. Pas de surprise, pas de majoration cachée.</p>
+
+<h2>Occitanie Médi Mobility vs VTC : ce que vous gagnez vraiment</h2>
+<ul>
+<li><strong>0€ d'avance</strong> — contre 30–50€ par course en VTC</li>
+<li><strong>Chauffeur formé</strong> — aide à la montée/descente, connaissance des hôpitaux</li>
+<li><strong>Facturation directe CPAM</strong> — pas de démarche administrative</li>
+<li><strong>Tarif fixe réglementé</strong> — pas de prix qui double un mardi soir</li>
+</ul>
+
+<blockquote>
+<p>Choisir un taxi conventionné plutôt qu'un VTC, c'est simplement choisir un transport pensé pour les patients, encadré légalement et intégralement remboursé. Appelez-nous au <strong>07 72 33 98 92</strong>.</p>
+</blockquote>
+`,
+  },
+  {
+    slug: "comparatif-transport-medical-toulouse-ambulance-vsl-vtc",
+    title: "Comparatif Transports Médicaux à Toulouse 2025 : Ambulance, VSL, Taxi, VTC",
+    description: "Tableau comparatif complet des modes de transport médical à Toulouse : ambulance, VSL, taxi conventionné CPAM, VTC, covoiturage. Prix, remboursement, conditions. Choisissez le bon.",
+    date: "2025-05-10",
+    category: "Comparaisons" as const,
+    readTime: "7 min",
+    content: `
+<p>Vous avez besoin d'un transport médical à Toulouse et vous ne savez pas quelle solution choisir. Ambulance ? Taxi conventionné ? VTC ? Covoiturage ? Ce comparatif rassemble tout ce qu'il faut savoir pour prendre la bonne décision — selon votre état de santé, votre situation CPAM et votre budget.</p>
+
+<h2>Tableau comparatif rapide</h2>
+<table>
+<tr><th>Transport</th><th>Remboursement CPAM</th><th>Tarif AR Toulouse</th><th>Réservation</th><th>Aide patient</th></tr>
+<tr><td>Ambulance</td><td>100% si justifié</td><td>150–350 €</td><td>Société ambulancière</td><td>Oui (brancardage)</td></tr>
+<tr><td>Taxi VSL conventionné</td><td>100% (ALD tiers payant)</td><td>15–80 €</td><td>Taxi agréé CPAM</td><td>Oui (aide légère)</td></tr>
+<tr><td>VTC (Uber, Bolt)</td><td>0%</td><td>15–60 € (variable)</td><td>Application mobile</td><td>Non</td></tr>
+<tr><td>Voiture personnelle</td><td>Indemnités kilométriques</td><td>Remboursement partiel</td><td>Sans réservation</td><td>Non</td></tr>
+<tr><td>Transport en commun</td><td>Non</td><td>1,80 € (Tisséo)</td><td>Sans réservation</td><td>Non</td></tr>
+</table>
+
+<h2>Quand prendre une ambulance ?</h2>
+<p>L'ambulance est prescrite lorsque le patient ne peut pas se tenir assis, a besoin d'oxygène ou d'une perfusion pendant le trajet, ou nécessite une surveillance médicale constante. La CPAM vérifie que la prescription d'ambulance est médicalement justifiée. Si ce n'est pas le cas, elle peut refuser le remboursement ou demander un remboursement partiel seulement.</p>
+
+<h2>Quand prendre un taxi VSL ?</h2>
+<p>Le taxi VSL est adapté à tous les patients pouvant voyager en position assise : dialysés, patients en chimiothérapie, consultations ALD, suivi post-opératoire. C'est le transport médical le plus courant en Occitanie pour les soins réguliers. Avec le tiers payant intégral, le patient ne paie rien.</p>
+
+<h2>Pourquoi les VTC ne fonctionnent pas pour les soins médicaux</h2>
+<p>Les VTC comme Uber ne sont pas conventionnés CPAM. Ils ne peuvent pas émettre de feuilles de soins, ne sont pas formés aux protocoles sanitaires du transport médical, et leurs tarifs fluctuent. Pour les patients en ALD qui font plusieurs trajets médicaux par semaine, cela représente un coût significatif non remboursé.</p>
+
+<h2>La voiture personnelle : une alternative méconnue</h2>
+<p>Si vous conduisez vous-même ou êtes conduit par un proche, vous pouvez percevoir des Indemnités Kilométriques (IK) de la CPAM pour vos trajets médicaux. Le barème est inférieur au coût d'un taxi, et cette option n'est pas adaptée aux patients qui ne peuvent pas conduire après leur traitement.</p>
+
+<h2>Notre recommandation</h2>
+<p>Pour les patients en ALD à Toulouse et en Occitanie, le taxi VSL conventionné est systématiquement la meilleure solution : remboursement intégral, confort adapté, chauffeur formé, zéro démarche administrative.</p>
+
+<blockquote>
+<p>Appelez-nous au <strong>07 72 33 98 92</strong> pour vérifier si votre situation ouvre droit au transport médical remboursé. Nous vous guidons avant même la première réservation.</p>
+</blockquote>
+`,
+  },
+  {
+    slug: "taxi-vsl-vs-proxisoin-transport-medical-toulouse",
+    title: "Taxi VSL vs Proxisoins et Plateformes de Transport Médical : Que Choisir ?",
+    description: "Plateformes comme Proxisoins, Santé.fr ou les régies de transport médical vs taxi VSL en direct : différences concrètes, qualité de service, avantages pour les patients en ALD à Toulouse.",
+    date: "2025-05-12",
+    category: "Comparaisons" as const,
+    readTime: "5 min",
+    content: `
+<p>Face à la multiplication des plateformes de mise en relation pour le transport médical (Proxisoins, régies de santé, applications mobiles), beaucoup de patients se demandent s'il vaut mieux passer par une plateforme ou contacter directement un taxi VSL conventionné. Voici une comparaison honnête.</p>
+
+<h2>Comment fonctionnent les plateformes de transport médical ?</h2>
+<p>Des services comme Proxisoins ou les centrales de transport médical fonctionnent comme des intermédiaires : vous formulez votre demande, la plateforme la transmet à l'un de ses prestataires partenaires. Vous ne choisissez pas le chauffeur, ni parfois le véhicule.</p>
+<p>Ces plateformes peuvent être utiles pour des établissements de santé qui gèrent de nombreux patients. Pour un patient individuel, elles présentent plusieurs inconvénients.</p>
+
+<h2>Les inconvénients des plateformes pour les patients</h2>
+<ul>
+<li><strong>Anonymat du prestataire</strong> — vous ne savez pas qui vient vous chercher jusqu'à la veille ou le jour même</li>
+<li><strong>Pas de relation de confiance</strong> — difficile de communiquer vos préférences (conduite douce, attente après chimio)</li>
+<li><strong>Support diffus</strong> — en cas de problème, vous appelez la plateforme, pas le chauffeur directement</li>
+<li><strong>Flexibilité limitée</strong> — annuler ou modifier en urgence est souvent compliqué</li>
+</ul>
+
+<h2>Les avantages d'un taxi VSL en contact direct</h2>
+<ul>
+<li><strong>Le même chauffeur à chaque séance</strong> — il connaît vos habitudes, votre état, votre parcours de soin</li>
+<li><strong>Numéro direct</strong> — pas de hotline, pas de ticket de support</li>
+<li><strong>Adaptabilité totale</strong> — retard du rendez-vous, arrêt sur la route, fenêtre horaire modifiée</li>
+<li><strong>Connaissance des hôpitaux</strong> — nous savons quelle entrée, quel pavillon, quelle heure éviter</li>
+</ul>
+
+<h2>Ce que nos patients nous disent</h2>
+<p>Plusieurs de nos patients sont passés par des plateformes avant de nous contacter. Ce qu'ils apprécient chez nous : avoir toujours le même chauffeur, pouvoir appeler directement, et ne pas avoir à réexpliquer leur situation à chaque course.</p>
+<p>Pour quelqu'un qui va en dialyse trois fois par semaine ou en chimiothérapie chaque semaine, cette continuité n'est pas un luxe — c'est une condition de confort et de sécurité.</p>
+
+<blockquote>
+<p>Chez Occitanie Médi Mobility, chaque patient est suivi personnellement. Appelez-nous au <strong>07 72 33 98 92</strong> pour établir ensemble votre planning de transport.</p>
+</blockquote>
+`,
+  },
+  {
+    slug: "pourquoi-choisir-taxi-vsl-conventionne-toulouse",
+    title: "5 Raisons de Choisir un Taxi VSL Conventionné pour Vos Soins à Toulouse",
+    description: "Pourquoi choisir un taxi VSL conventionné CPAM plutôt qu'une ambulance, un VTC ou un proche pour vos transports médicaux à Toulouse ? 5 raisons concrètes pour les patients en ALD.",
+    date: "2025-05-15",
+    category: "Comparaisons" as const,
+    readTime: "4 min",
+    content: `
+<p>Vous commencez un traitement médical régulier — dialyse, chimiothérapie, radiothérapie — et vous hésitez sur la meilleure façon de vous rendre à l'hôpital. Voici 5 raisons concrètes pour lesquelles le taxi VSL conventionné est souvent la meilleure option pour les patients toulousains.</p>
+
+<h2>1. Vous ne payez pas — grâce au tiers payant CPAM</h2>
+<p>Si vous êtes en Affection de Longue Durée (ALD) à 100%, le tiers payant intégral s'applique. Nous facturons directement l'Assurance Maladie. Aucune avance, aucun formulaire à remplir de votre côté, aucun délai de remboursement à attendre. 0€ à chaque trajet.</p>
+
+<h2>2. Vous êtes pris en charge de votre porte à l'entrée du service</h2>
+<p>Nous venons vous chercher à votre domicile et vous déposons au plus près de l'entrée de votre service. Pas de parkings à chercher, pas de correspondances en transports en commun, pas de marche inutile quand vous êtes fatigué ou douloureux.</p>
+
+<h2>3. Un seul appel pour plusieurs mois de transport</h2>
+<p>Pour les traitements réguliers, nous établissons un planning sur toute la durée de votre traitement. Une seule réservation initiale suffit : vous n'avez plus à vous soucier du transport à chaque séance.</p>
+
+<h2>4. Un chauffeur qui connaît votre situation</h2>
+<p>Après une dialyse ou une chimio, la fatigue peut être soudaine. Nous adaptons notre conduite — pas de freinages brusques, musique douce ou silence, fenêtre selon vos préférences. Ces détails font une différence réelle quand on les vit régulièrement.</p>
+
+<h2>5. Zéro paperasse administrative</h2>
+<p>Nous gérons toute la facturation avec la CPAM. Vous n'avez qu'à nous remettre votre prescription médicale de transport le jour J. Pas d'Ameli à consulter, pas de remboursement à attendre, pas d'erreur administrative.</p>
+
+<h2>Pour qui c'est particulièrement adapté ?</h2>
+<ul>
+<li>Patients en dialyse (3x par semaine)</li>
+<li>Patients en chimiothérapie ou radiothérapie</li>
+<li>Personnes âgées ou à mobilité réduite</li>
+<li>Patients des communes périphériques et de toute l'Occitanie</li>
+</ul>
+
+<blockquote>
+<p>Appelez-nous au <strong>07 72 33 98 92</strong> pour vérifier votre éligibilité et réserver votre premier transport. Nous répondons 7j/7.</p>
+</blockquote>
+`,
+  },
+
+  // ── Phase 2 : Guides CPAM ──
+  {
+    slug: "remboursement-transport-medical-cpam-toulouse-guide",
+    title: "Remboursement Transport Médical CPAM à Toulouse : Guide Complet 2025",
+    description: "Comment obtenir le remboursement de votre transport médical par la CPAM à Toulouse ? Conditions, démarches, taux, tiers payant. Tout ce qu'il faut savoir en 2025.",
+    date: "2025-05-18",
+    category: "Guide" as const,
+    readTime: "8 min",
+    content: `
+<p>Le remboursement du transport médical par la CPAM est un droit mal connu — et souvent sous-utilisé. Chaque année, des milliers de patients en Haute-Garonne avancent des frais de transport qu'ils auraient pu ne jamais payer. Ce guide vous explique exactement comment fonctionne le remboursement, qui y a droit et comment l'obtenir sans complication.</p>
+
+<h2>Principe général : le transport médical dans le parcours de soins</h2>
+<p>Depuis 2004, l'Assurance Maladie rembourse les frais de transport médical lorsque le patient ne peut pas utiliser les transports en commun ou sa voiture personnelle en raison de son état de santé, et que le transport est médicalement nécessaire pour accéder aux soins.</p>
+
+<h2>Les conditions de remboursement</h2>
+<p>Le remboursement est accordé dans plusieurs situations :</p>
+<ul>
+<li><strong>Affection de Longue Durée (ALD)</strong> — la situation la plus courante, ouvre droit au tiers payant intégral si ALD à 100%</li>
+<li><strong>Hospitalisation complète</strong> — transport aller et retour remboursé</li>
+<li><strong>Traitements réguliers et fréquents</strong> — dialyse, chimiothérapie, radiothérapie (au moins deux fois par semaine pendant 6 mois)</li>
+<li><strong>Accident du travail / maladie professionnelle</strong></li>
+<li><strong>Maternité</strong> — à partir du 5ème mois de grossesse</li>
+<li><strong>Longue distance imposée</strong> — quand la spécialité médicale requise n'existe pas dans le département du patient</li>
+</ul>
+
+<h2>Les taux de remboursement selon votre situation</h2>
+<table>
+<tr><th>Situation</th><th>Part CPAM</th><th>Part mutuelle</th><th>Reste à charge</th></tr>
+<tr><td>ALD 100% avec tiers payant</td><td>100%</td><td>—</td><td>0 €</td></tr>
+<tr><td>ALD 100% sans tiers payant</td><td>100%</td><td>—</td><td>0 € (mais avance)</td></tr>
+<tr><td>Cas standard (hors ALD)</td><td>65%</td><td>Variable</td><td>35% ou moins</td></tr>
+</table>
+
+<h2>Le document indispensable : la Prescription Médicale de Transport (PMT)</h2>
+<p>Sans ce document, pas de remboursement. La PMT est établie par votre médecin traitant ou le médecin de l'établissement de soins. Elle doit mentionner :</p>
+<ul>
+<li>Votre identité et numéro de sécurité sociale</li>
+<li>Le motif médical du transport (lien avec l'ALD ou le soin)</li>
+<li>Le mode de transport prescrit (taxi VSL, ambulance...)</li>
+<li>La destination</li>
+<li>La date ou la période de validité</li>
+</ul>
+
+<h2>Avec le tiers payant : comment ça se passe concrètement ?</h2>
+<ol>
+<li>Votre médecin vous remet la PMT (avant le jour du transport)</li>
+<li>Vous réservez votre taxi conventionné CPAM en précisant votre ALD</li>
+<li>Le jour J, vous remettez la PMT et votre carte Vitale au chauffeur</li>
+<li>Le chauffeur effectue la télétransmission directement à la CPAM</li>
+<li>Vous ne payez rien — la CPAM règle le chauffeur directement</li>
+</ol>
+
+<h2>Cas particulier : la longue distance depuis l'Occitanie</h2>
+<p>Si vous résidez en Ariège, dans le Tarn, les Hautes-Pyrénées ou tout autre département d'Occitanie, et que votre spécialité médicale se trouve uniquement à Toulouse, le trajet longue distance est remboursable. Votre médecin doit préciser sur la PMT l'absence de la spécialité dans votre département.</p>
+
+<blockquote>
+<p>Vous avez un doute sur votre situation ? Appelez-nous au <strong>07 72 33 98 92</strong>. Avant même de réserver, nous pouvons vous aider à vérifier si votre transport est remboursable et comment préparer votre ordonnance.</p>
+</blockquote>
+`,
+  },
+  {
+    slug: "conditions-eligibilite-transport-medical-cpam-ald",
+    title: "Qui a Droit au Transport Médical Remboursé ? Conditions d'Éligibilité CPAM",
+    description: "Quelles maladies et situations ouvrent droit au transport médical remboursé par la CPAM ? Liste des ALD, conditions précises, cas particuliers. Tout pour savoir si vous êtes éligible.",
+    date: "2025-05-20",
+    category: "Guide" as const,
+    readTime: "7 min",
+    content: `
+<p>Beaucoup de patients en traitement régulier ignorent qu'ils ont droit au transport médical remboursé. Ce guide liste toutes les situations où la CPAM prend en charge votre transport — avec les conditions précises pour chaque cas.</p>
+
+<h2>Les 30 Affections de Longue Durée (ALD) qui ouvrent droit au transport remboursé</h2>
+<p>Le remboursement à 100% s'applique pour les transports liés à une ALD reconnue. Les ALD les plus fréquentes chez nos patients toulousains :</p>
+<ul>
+<li><strong>ALD 2</strong> — Insuffisance rénale chronique grave (dialyse)</li>
+<li><strong>ALD 3</strong> — Artériopathies chroniques avec manifestations ischémiques</li>
+<li><strong>ALD 5</strong> — Insuffisance cardiaque grave</li>
+<li><strong>ALD 6</strong> — Maladies chroniques actives du foie et cirrhoses</li>
+<li><strong>ALD 8</strong> — Diabète de type 1 et de type 2</li>
+<li><strong>ALD 9</strong> — Forme grave des affections neurologiques et musculaires (dont sclérose en plaques)</li>
+<li><strong>ALD 17</strong> — Maladies métaboliques héréditaires</li>
+<li><strong>ALD 23</strong> — Affections psychiatriques de longue durée</li>
+<li><strong>ALD 25</strong> — Sclérose en plaques</li>
+<li><strong>ALD 30</strong> — Tumeurs malignes (cancers, hémopathies) — c'est l'ALD la plus fréquente pour les patients en chimiothérapie</li>
+</ul>
+<p>La liste complète des 30 ALD est disponible sur <strong>ameli.fr</strong>. Si vous avez une ALD reconnue, votre médecin peut vous délivrer une PMT pour vos transports en lien avec cette pathologie.</p>
+
+<h2>Les situations hors ALD qui ouvrent également droit au remboursement</h2>
+<ul>
+<li><strong>Hospitalisation complète</strong> — aller et retour remboursés quel que soit le motif</li>
+<li><strong>Traitements ambulatoires réguliers</strong> — au moins 2 séances par semaine pendant 6 mois consécutifs (dialyse, chimio, radio)</li>
+<li><strong>Maternité</strong> — à partir de la 24ème semaine d'aménorrhée et jusqu'à 12 jours après l'accouchement</li>
+<li><strong>Accident du travail</strong> — prise en charge à 100% sans avance de frais</li>
+<li><strong>Maladie professionnelle reconnue</strong></li>
+<li><strong>Invalidité</strong> — selon le taux d'invalidité reconnu</li>
+</ul>
+
+<h2>Les situations où le remboursement est partiel (65%)</h2>
+<p>Hors des cas ci-dessus, la CPAM peut rembourser 65% du tarif réglementé si votre médecin atteste que votre état de santé ne vous permet pas d'utiliser les transports en commun. La mutuelle peut compléter selon votre contrat.</p>
+
+<h2>Ce que la CPAM ne rembourse pas</h2>
+<ul>
+<li>Les transports pris sans prescription médicale de transport</li>
+<li>Les VTC, Uber, Bolt et tout prestataire non conventionné CPAM</li>
+<li>Les transports non liés à l'ALD reconnue (ex : transport pour un rhume si votre ALD est le diabète)</li>
+<li>Les transports dont la PMT est établie après la date du trajet</li>
+</ul>
+
+<h2>Comment faire reconnaître votre ALD ?</h2>
+<p>C'est votre médecin traitant qui établit la demande de reconnaissance d'ALD auprès de la CPAM, sur la base d'un protocole de soins. Une fois l'ALD reconnue, un formulaire de liaison est établi entre votre médecin, la CPAM et les spécialistes — et votre droit au transport remboursé est ouvert.</p>
+
+<blockquote>
+<p>Si vous avez un traitement régulier et ne savez pas si vous avez droit au transport remboursé, appelez-nous au <strong>07 72 33 98 92</strong>. Nous pouvons vous orienter vers les démarches adaptées à votre situation.</p>
+</blockquote>
+`,
+  },
+  {
+    slug: "prescription-medicale-transport-comment-obtenir",
+    title: "Prescription Médicale de Transport : Comment la Demander à Votre Médecin",
+    description: "Comment demander une Prescription Médicale de Transport (PMT) à votre médecin pour votre transport médical remboursé CPAM ? Quoi dire, quels documents, durée de validité.",
+    date: "2025-05-22",
+    category: "Guide" as const,
+    readTime: "5 min",
+    content: `
+<p>La Prescription Médicale de Transport (PMT) est le document clé pour bénéficier du remboursement de votre transport médical. Pourtant, beaucoup de patients ne savent pas comment la demander, ou oublient de le faire avant le jour du rendez-vous. Ce guide vous explique comment procéder simplement.</p>
+
+<h2>Qu'est-ce que la PMT exactement ?</h2>
+<p>La PMT — anciennement appelée "bon de transport" — est une ordonnance médicale spécifique, distincte de l'ordonnance de médicaments. Elle atteste que votre état de santé nécessite un transport médical et que ce transport doit être pris en charge par l'Assurance Maladie.</p>
+<p>Sans PMT valide, votre taxi conventionné ne peut pas télétransmettre la facturation à la CPAM, et votre course reste à votre charge.</p>
+
+<h2>À qui la demander ?</h2>
+<ul>
+<li><strong>Votre médecin traitant</strong> — pour les consultations de suivi en lien avec votre ALD</li>
+<li><strong>Le médecin de l'hôpital ou de la clinique</strong> — pour les transports liés à une hospitalisation ou un traitement en cours</li>
+<li><strong>Un médecin de garde</strong> — si votre médecin habituel est indisponible</li>
+</ul>
+
+<h2>Comment formuler votre demande ?</h2>
+<p>Dites simplement à votre médecin : "J'ai besoin d'un bon de transport pour ma [dialyse / chimiothérapie / consultation spécialisée] à [hôpital]. Est-ce que vous pouvez m'établir une prescription médicale de transport ?"</p>
+<p>Si vous avez un traitement régulier sur plusieurs mois, demandez une ordonnance renouvelable couvrant toute la durée du traitement. Votre médecin peut établir une PMT valable pour plusieurs mois avec un volet par séance.</p>
+
+<h2>Ce que doit contenir la PMT pour être valide</h2>
+<ul>
+<li>Vos nom, prénom et numéro de sécurité sociale</li>
+<li>La date de la prescription (doit être <strong>avant</strong> la date du transport)</li>
+<li>Le motif médical (lié à votre ALD ou au soin)</li>
+<li>La destination (hôpital ou clinique)</li>
+<li>Le mode de transport prescrit (taxi VSL ou ambulance)</li>
+<li>Le nombre d'allers-retours ou la période de validité</li>
+<li>La signature et le cachet du médecin</li>
+</ul>
+
+<h2>La règle d'or : la date</h2>
+<p>La date de signature du médecin doit obligatoirement être antérieure ou égale à la date de votre transport. Une PMT datée du lendemain du trajet sera systématiquement rejetée par la CPAM. Pensez-y lors de votre prochaine consultation.</p>
+
+<h2>PMT perdue ou abîmée : que faire ?</h2>
+<p>Appelez votre médecin pour qu'il en établisse une nouvelle. En attendant, si vous avez photographié l'original, montrez la photo au médecin pour faciliter la rédaction du duplicata.</p>
+
+<blockquote>
+<p>Vous avez votre PMT en main et souhaitez réserver votre transport médical ? Appelez-nous au <strong>07 72 33 98 92</strong>. Pour les traitements réguliers, une seule réservation suffit pour plusieurs mois.</p>
+</blockquote>
+`,
+  },
+
+  // ── Phase 3 : Spécialités médicales ──
+  {
+    slug: "taxi-dialyse-toulouse-cpam-rangueil",
+    title: "Taxi VSL pour la Dialyse à Toulouse : Planning Hebdomadaire & Tiers Payant CPAM",
+    description: "Service de taxi VSL conventionné CPAM spécialisé pour les patients en dialyse à Toulouse (Rangueil, Clinique de l'Union). Planning stable 3x/semaine, tiers payant intégral, conduite douce.",
+    date: "2025-05-25",
+    category: "Spécialités" as const,
+    readTime: "6 min",
+    content: `
+<p>La dialyse impose un rythme qui ne pardonne pas : trois séances par semaine, chaque semaine, pendant des années. Pour les patients dialysés de Toulouse et de toute l'Occitanie, le transport est une composante critique de ce rythme. Une absence, un retard, une annulation — et c'est la séance manquée. Notre service de transport pour la dialyse est conçu pour que ce ne soit jamais un problème.</p>
+
+<h2>Le transport dialyse : un besoin spécifique</h2>
+<p>Un patient dialysé n'a pas le même profil qu'un patient en consultation. Au retour d'une séance d'hémodialyse, la fatigue peut être soudaine et intense : sensation de malaise, hypotension orthostatique, faiblesse musculaire. Ces effets sont normaux mais imposent une conduite adaptée.</p>
+<p>Nous savons que le retour après dialyse n'est pas un trajet ordinaire. Notre conduite est douce, sans accélérations brusques. La température du véhicule est réglée selon vos besoins. Si vous avez besoin de faire une pause sur la route, nous nous arrêtons.</p>
+
+<h2>Les centres de dialyse à Toulouse que nous desservons</h2>
+<ul>
+<li><strong>Hôpital Rangueil — Service de Néphrologie-Dialyse</strong> — principal centre d'hémodialyse du CHU de Toulouse</li>
+<li><strong>Clinique de l'Union (Saint-Jean)</strong> — important centre de dialyse privé au nord de Toulouse</li>
+<li><strong>CHU Purpan</strong> — service de dialyse pédiatrique et adulte</li>
+<li><strong>Autres centres d'auto-dialyse de Toulouse et de l'agglomération</strong></li>
+</ul>
+
+<h2>Le planning hebdomadaire fixe : comment ça marche</h2>
+<p>Pour un patient dialysé, nous établissons un planning fixe dès le premier appel. Exemple :</p>
+<ul>
+<li>Lundi, mercredi, vendredi — 6h45 départ domicile, 7h00 arrivée centre</li>
+<li>Retour variable selon durée de séance : nous attendons sans frais supplémentaires</li>
+</ul>
+<p>Une fois le planning établi, vous n'avez plus rien à faire. Nous sommes là à l'heure convenue, chaque séance, sans que vous ayez à nous rappeler. Si un planning doit changer (fêtes, changement d'horaire hospitalier), nous vous contactons en amont.</p>
+
+<h2>Le remboursement CPAM pour la dialyse</h2>
+<p>L'insuffisance rénale chronique grave (ALD 2) ouvre droit au remboursement intégral du transport médical. Avec le tiers payant à 100% :</p>
+<ul>
+<li>Votre médecin néphrologue ou traitant établit une PMT couvrant vos séances</li>
+<li>Vous nous la remettez lors de la première séance</li>
+<li>Nous gérons toute la facturation avec la CPAM — à chaque séance, pendant toute la durée du traitement</li>
+<li>Vous ne payez jamais rien</li>
+</ul>
+
+<h2>Depuis toute l'Occitanie vers Toulouse</h2>
+<p>Si vous êtes dialysé à Toulouse alors que vous résidez en Ariège, dans le Tarn ou ailleurs en Occitanie, ce trajet longue distance est également remboursable sur prescription médicale. Nous intervenons depuis toute la région.</p>
+
+<blockquote>
+<p>Pour mettre en place votre planning de transport dialyse, appelez-nous au <strong>07 72 33 98 92</strong>. Nous établissons ensemble un programme adapté à vos horaires de séance, dès la semaine suivante.</p>
+</blockquote>
+`,
+  },
+  {
+    slug: "taxi-chimiotherapie-toulouse-cpam-oncopole",
+    title: "Taxi VSL Chimiothérapie Toulouse : Accompagnement & Remboursement CPAM 100%",
+    description: "Transport médical VSL conventionné spécialisé pour les patients en chimiothérapie à l'Oncopole Claudius Regaud de Toulouse. Véhicule désinfecté, conduite douce, tiers payant CPAM intégral.",
+    date: "2025-05-28",
+    category: "Spécialités" as const,
+    readTime: "6 min",
+    content: `
+<p>La chimiothérapie est un traitement qui demande du courage. S'inquiéter du transport ne devrait pas s'y ajouter. Notre service de taxi VSL pour les patients en chimio à Toulouse est pensé pour que le trajet soit, dans toute la mesure du possible, une étape confortable et sans stress dans votre parcours de soins.</p>
+
+<h2>Ce que vivent nos patients en chimiothérapie</h2>
+<p>Après plusieurs années à transporter des patients vers l'Oncopole Claudius Regaud, nous connaissons bien les effets de la chimio sur le trajet retour : fatigue brutale, nausées, hypersensibilité au mouvement et au bruit, parfois sensation de malaise. Ces réactions sont normales — et nous les anticipons.</p>
+<ul>
+<li><strong>Conduite douce</strong> — pas d'accélérations ou de freinages brusques</li>
+<li><strong>Température adaptée</strong> — votre confort thermique, pas le nôtre</li>
+<li><strong>Silence ou musique douce</strong> — selon votre état et vos préférences</li>
+<li><strong>Véhicule régulièrement désinfecté</strong> — important pour les patients immunodéprimés</li>
+<li><strong>Aucune pression sur le temps</strong> — si vous avez besoin d'une pause, on s'arrête</li>
+</ul>
+
+<h2>L'Oncopole Claudius Regaud : notre zone d'intervention principale</h2>
+<p>L'Institut Universitaire du Cancer de Toulouse (IUCT-Oncopole) est le plus grand centre de lutte contre le cancer du grand sud-ouest. Nous y amenons des patients depuis Toulouse et toute l'Occitanie. Nous connaissons les accès, les entrées dédiées aux patients ambulatoires, les horaires où la circulation est la plus fluide autour du site.</p>
+
+<h2>Planning sur toute la durée du traitement</h2>
+<p>Si votre protocole de chimiothérapie est établi sur plusieurs mois, nous prenons en charge tout le planning de transport dès le premier appel. Vous ne nous appelez qu'une fois — et nous sommes là à chaque séance.</p>
+<p>Si votre protocole change (report de séance, ajout de cycle), informez-nous simplement à l'avance. Nous adaptons le planning sans complication.</p>
+
+<h2>Le remboursement CPAM pour la chimio</h2>
+<p>Les cancers (ALD 30) ouvrent droit au remboursement intégral du transport médical. Pour la chimiothérapie, le médecin oncologue ou votre médecin traitant peut établir une PMT couvrant l'ensemble du protocole de traitement.</p>
+<p>Avec le tiers payant intégral : vous ne payez rien. Nous gérons la télétransmission CPAM à chaque séance.</p>
+
+<h2>Depuis toute l'Occitanie</h2>
+<p>Nous transportons régulièrement des patients vers l'Oncopole depuis Pamiers, Albi, Montauban, Auch, Tarbes et d'autres villes d'Occitanie. La longue distance est remboursable quand la spécialité n'est pas disponible localement.</p>
+
+<blockquote>
+<p>Appelez-nous au <strong>07 72 33 98 92</strong> pour organiser votre transport chimiothérapie. Nous prenons en charge le planning sur toute la durée de votre traitement, en coordination avec vos horaires à l'Oncopole.</p>
+</blockquote>
+`,
+  },
+  {
+    slug: "taxi-radiotherapie-toulouse-cpam",
+    title: "Taxi VSL Radiothérapie Toulouse : Trajets Quotidiens & Prise en Charge CPAM",
+    description: "Transport médical VSL conventionné pour les patients en radiothérapie à Toulouse (Oncopole, Cliniques). Trajets quotidiens sur 5 à 7 semaines, tiers payant CPAM intégral, planning fixe.",
+    date: "2025-06-01",
+    category: "Spécialités" as const,
+    readTime: "5 min",
+    content: `
+<p>La radiothérapie impose souvent un rythme de 5 séances par semaine pendant plusieurs semaines consécutives. C'est un engagement logistique intense pour le patient — d'autant plus si vous n'habitez pas à Toulouse. Notre service de transport pour la radiothérapie vous libère de cette contrainte.</p>
+
+<h2>La spécificité du transport radiothérapie</h2>
+<p>Contrairement à la chimiothérapie où les effets sont souvent intenses dans les heures qui suivent la séance, la radiothérapie produit une fatigue cumulative sur les semaines. Au début du protocole, les patients ressentent peu d'effets. Vers la 3ème ou 4ème semaine, la fatigue et l'inconfort peuvent être significatifs.</p>
+<p>Notre service s'adapte à cette évolution : conduite identiquement douce dès le premier jour, mais nous prêtons une attention particulière à votre état de confort en fin de protocole.</p>
+
+<h2>Les centres de radiothérapie à Toulouse</h2>
+<ul>
+<li><strong>Oncopole Claudius Regaud (IUCT)</strong> — principal centre de radiothérapie et curiethérapie de Toulouse</li>
+<li><strong>Clinique Pasteur</strong> — radiothérapie cardiovasculaire</li>
+<li><strong>Clinique Croix du Sud</strong> — radiothérapie oncologique</li>
+</ul>
+
+<h2>Un planning fixe sur 5 à 7 semaines</h2>
+<p>Le protocole de radiothérapie est connu à l'avance : 5 séances par semaine, pendant 5 à 7 semaines selon le traitement. Nous établissons votre planning de transport sur toute cette durée dès votre premier appel. Vous n'avez plus à vous soucier du transport pendant toute la durée du protocole.</p>
+
+<h2>Remboursement CPAM pour la radiothérapie</h2>
+<p>Les traitements de radiothérapie en lien avec un cancer (ALD 30) ou une ALD reconnue ouvrent droit au remboursement intégral. La prescription médicale de transport peut couvrir l'ensemble du protocole (ex : "5 séances/semaine du [date début] au [date fin]").</p>
+<p>Avec le tiers payant intégral : vous ne payez rien pendant toute la durée de votre radiothérapie.</p>
+
+<h2>Pour les patients résidant hors de Toulouse</h2>
+<p>Si vous résidez à Pamiers, Albi, Foix, Tarbes ou dans toute autre ville d'Occitanie, et que votre radiothérapie a lieu à Toulouse, ce trajet quotidien longue distance peut être remboursé par la CPAM. Votre oncologue précisera sur la PMT l'absence de ce service dans votre département.</p>
+
+<blockquote>
+<p>Contactez-nous au <strong>07 72 33 98 92</strong> avec la date de début de votre protocole de radiothérapie. Nous organisons votre planning complet en une conversation.</p>
+</blockquote>
+`,
+  },
+  {
+    slug: "taxi-pmr-mobilite-reduite-toulouse-cpam",
+    title: "Taxi PMR & Mobilité Réduite à Toulouse : Transport Adapté Conventionné CPAM",
+    description: "Transport adapté pour les personnes à mobilité réduite (PMR) à Toulouse. Aide à la montée et descente, véhicule SUV spacieux, conventionné CPAM. Dialyse, consultations, aéroport.",
+    date: "2025-06-05",
+    category: "Spécialités" as const,
+    readTime: "5 min",
+    content: `
+<p>Se déplacer avec une mobilité réduite à Toulouse — que ce soit après une chirurgie, avec un handicap permanent, ou en raison d'une pathologie chronique — nécessite un transport adapté. Pas juste un taxi avec de la place, mais un service qui comprend vos contraintes et vous accompagne réellement.</p>
+
+<h2>Ce que nous proposons pour les patients PMR</h2>
+<ul>
+<li><strong>Aide à la montée et à la descente</strong> — nous venons vous chercher à votre porte et vous aidons à vous installer confortablement</li>
+<li><strong>Véhicule SUV spacieux (Peugeot 5008 GT)</strong> — accès facilité, sièges surélevés, espace généreux pour vos équipements (canne, déambulateur, fauteuil roulant pliant)</li>
+<li><strong>Temps d'embarquement adapté</strong> — nous n'avons jamais de "prochain client" qui presse</li>
+<li><strong>Connaissance des accès PMR des hôpitaux</strong> — nous savons où déposer les patients à mobilité réduite au plus près des entrées prioritaires</li>
+</ul>
+
+<h2>Situations pour lesquelles nous intervenons</h2>
+<ul>
+<li>Personnes âgées avec difficultés à la marche</li>
+<li>Patients post-opératoires (hanche, genou, rachis)</li>
+<li>Patients avec fauteuil roulant pliant ou déambulateur</li>
+<li>Personnes souffrant de pathologies neurologiques (Parkinson, SEP)</li>
+<li>Insuffisants cardiaques ou respiratoires nécessitant une aide</li>
+</ul>
+<p>Nous ne sommes pas équipés pour les fauteuils roulants électriques ou les fauteuils non pliables — dans ces cas, une ambulance VSL adaptée est nécessaire. Appelez-nous pour évaluer ensemble ce dont vous avez besoin.</p>
+
+<h2>Remboursement CPAM pour les patients PMR</h2>
+<p>Si votre mobilité réduite est liée à une ALD reconnue, le transport médical est remboursable. Le médecin traitant précise sur la PMT que votre état ne vous permet pas d'utiliser les transports en commun — ce qui est généralement le cas pour les patients PMR en traitement régulier.</p>
+
+<h2>Au-delà du médical : aéroport, gare, événements</h2>
+<p>Nous assurons également les courses privées pour les personnes à mobilité réduite : transfert aéroport Toulouse-Blagnac, gare Matabiau, rendez-vous familiaux. Ces courses ne sont pas remboursées par la CPAM mais offrent le même niveau de soin et d'assistance.</p>
+
+<blockquote>
+<p>Appelez-nous au <strong>07 72 33 98 92</strong> pour nous expliquer votre situation. Nous évaluerons ensemble si notre véhicule est adapté à vos besoins et comment organiser votre transport.</p>
+</blockquote>
+`,
+  },
+  {
+    slug: "taxi-consultation-specialiste-toulouse-cpam-remboursement",
+    title: "Taxi pour Consultation Spécialisée à Toulouse : Remboursement CPAM & Réservation",
+    description: "Transport médical VSL conventionné pour vos consultations de spécialistes à Toulouse (cardiologue, neurologue, oncologue...). Remboursement CPAM si ALD, tiers payant intégral, réservation simple.",
+    date: "2025-06-08",
+    category: "Spécialités" as const,
+    readTime: "5 min",
+    content: `
+<p>Vous avez une consultation chez un spécialiste à Toulouse — cardiologue, neurologue, oncologue, rhumatologue, néphrologue — et vous vous demandez si votre transport peut être remboursé. La réponse dépend de votre situation médicale, mais pour les patients en ALD, c'est généralement oui.</p>
+
+<h2>Quand la consultation spécialisée ouvre droit au transport remboursé</h2>
+<p>Le remboursement s'applique si votre consultation est en lien direct avec votre ALD reconnue. Exemples :</p>
+<ul>
+<li>Consultation cardiologique pour un patient avec ALD "Insuffisance cardiaque grave" (ALD 5)</li>
+<li>Suivi neurologique pour un patient avec ALD "Sclérose en plaques" (ALD 25)</li>
+<li>Consultation oncologique pour un patient en ALD 30 (cancer)</li>
+<li>Consultation néphrologue pour un patient dialysé (ALD 2)</li>
+</ul>
+<p>Si votre consultation n'est pas liée à votre ALD, le remboursement peut quand même s'appliquer si votre état de santé ne vous permet pas d'utiliser les transports en commun — mais dans ce cas, la prise en charge sera partielle (65%).</p>
+
+<h2>Les spécialités que nous desservons régulièrement à Toulouse</h2>
+<ul>
+<li><strong>Cardiologie</strong> — CHU Rangueil, Clinique Pasteur, Clinique de l'Union</li>
+<li><strong>Neurologie / Neurochirurgie</strong> — CHU Purpan</li>
+<li><strong>Oncologie médicale</strong> — Oncopole Claudius Regaud, Clinique Croix du Sud</li>
+<li><strong>Néphrologie</strong> — CHU Rangueil</li>
+<li><strong>Rhumatologie</strong> — CHU Purpan</li>
+<li><strong>Pneumologie / ORL</strong> — Hôpital Larrey</li>
+<li><strong>Endocrinologie</strong> — CHU Rangueil</li>
+</ul>
+
+<h2>Ce qui se passe le jour de votre consultation</h2>
+<ol>
+<li>Nous passons vous chercher à l'heure convenue à votre domicile</li>
+<li>Nous vous déposons à l'entrée de votre service (sans que vous ayez à chercher)</li>
+<li>Si votre consultation prend du retard, nous attendons — sans frais supplémentaires pour les délais raisonnables</li>
+<li>Nous vous ramenons à votre domicile en fin de consultation</li>
+</ol>
+
+<h2>Pour les patients résidant hors de Toulouse</h2>
+<p>Si votre spécialiste se trouve uniquement à Toulouse (ce qui est fréquent pour certaines spécialités de recours), votre trajet depuis Ariège, Tarn, Hautes-Pyrénées ou Gers est remboursable. Votre médecin précise sur la PMT l'absence de ce spécialiste dans votre département.</p>
+
+<blockquote>
+<p>Pour réserver votre transport vers une consultation spécialisée à Toulouse, appelez-nous au <strong>07 72 33 98 92</strong>. Précisez l'hôpital, le service et l'heure du rendez-vous.</p>
+</blockquote>
+`,
+  },
+  {
+    slug: "taxi-sortie-hospitalisation-toulouse-cpam",
+    title: "Taxi VSL Sortie d'Hospitalisation à Toulouse : Retour à Domicile Remboursé CPAM",
+    description: "Transport médical remboursé pour votre sortie d'hospitalisation à Toulouse. Taxi VSL conventionné CPAM, aide aux bagages, retour confortable. Disponible 7j/7, toute heure.",
+    date: "2025-06-10",
+    category: "Spécialités" as const,
+    readTime: "4 min",
+    content: `
+<p>Vous sortez de l'hôpital ou d'une clinique de Toulouse et devez rentrer chez vous. Après une opération, une hospitalisation de plusieurs jours ou une procédure médicale, ce trajet retour mérite d'être préparé correctement — et dans de nombreux cas, il est remboursé par la CPAM.</p>
+
+<h2>Quand le transport de sortie d'hospitalisation est remboursé</h2>
+<p>Toute hospitalisation complète (au moins une nuit) ouvre droit au remboursement du transport de retour à domicile. Cela inclut :</p>
+<ul>
+<li>Chirurgie avec séjour hospitalier</li>
+<li>Hospitalisation médicale (quelle qu'en soit la durée si au moins une nuit)</li>
+<li>Accouchement</li>
+<li>Hospitalisation psychiatrique</li>
+</ul>
+<p>Le médecin de l'hôpital établit la PMT lors de votre sortie. Si vous l'avez oublié, demandez-la à l'infirmière ou au médecin avant de quitter le service.</p>
+
+<h2>Ce que nous assurons lors de votre sortie</h2>
+<ul>
+<li><strong>Ponctualité</strong> — nous attendons votre appel ou nous nous présentons à l'heure de sortie convenue</li>
+<li><strong>Aide aux bagages</strong> — effets personnels, documents, équipements médicaux de retour</li>
+<li><strong>Conduite douce</strong> — essentielle après une opération ou une longue hospitalisation</li>
+<li><strong>Accompagnement jusqu'à votre domicile</strong> — y compris aide à monter les escaliers si besoin</li>
+</ul>
+
+<h2>Pour les sorties imprévues ou en urgence</h2>
+<p>Les sorties d'hospitalisation sont souvent annoncées tardivement — parfois le matin pour l'après-midi même. Nous faisons de notre mieux pour répondre à ces demandes de dernière minute. Appelez-nous dès que vous connaissez l'heure de sortie.</p>
+<p>Disponible 7j/7, y compris les week-ends et jours fériés.</p>
+
+<h2>Les hôpitaux de Toulouse que nous desservons</h2>
+<ul>
+<li>CHU Purpan (tous services)</li>
+<li>Hôpital Rangueil-Larrey</li>
+<li>Oncopole Claudius Regaud</li>
+<li>Clinique Pasteur, Clinique de l'Union, Clinique des Cèdres, Clinique Croix du Sud</li>
+<li>Clinique d'Occitanie (Muret)</li>
+<li>Et tous les établissements de santé de l'agglomération toulousaine</li>
+</ul>
+
+<h2>Si vous rentrez dans un autre département d'Occitanie</h2>
+<p>Même si votre domicile est en Ariège, dans le Tarn ou dans les Hautes-Pyrénées, votre sortie d'hospitalisation depuis Toulouse est éligible au remboursement CPAM. C'est un droit — assurez-vous simplement que la PMT est bien établie avant de partir.</p>
+
+<blockquote>
+<p>Vous prévoyez une sortie d'hospitalisation prochaine ? Appelez-nous au <strong>07 72 33 98 92</strong> dès que vous connaissez la date. Nous organisons votre retour à domicile sereinement.</p>
+</blockquote>
+`,
+  },
+];
+
 // ─── EXPORT FINAL ─────────────────────────────────────────────────────────────
 export const articles: Article[] = [
   ...detailedArticles,
+  ...seoArticles,
   ...cityArticles,
   ...regionalArticles,
   ...hospitalArticles,

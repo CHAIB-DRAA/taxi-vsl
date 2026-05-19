@@ -31,6 +31,8 @@ const categoryColors: Record<string, string> = {
   "Trajets": "text-green-700 bg-green-50",
   "Guide": "text-purple-700 bg-purple-50",
   "Villes": "text-slate-700 bg-slate-100",
+  "Comparaisons": "text-orange-700 bg-orange-50",
+  "Spécialités": "text-teal-700 bg-teal-50",
 };
 
 export default function BlogList() {

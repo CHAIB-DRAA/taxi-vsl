@@ -80,6 +80,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority = 0.7;
         freq = "monthly";
         break;
+      case "Comparaisons":
+        priority = 0.85;
+        freq = "monthly";
+        break;
+      case "Spécialités":
+        priority = 0.85;
+        freq = "monthly";
+        break;
     }
 
     return {
