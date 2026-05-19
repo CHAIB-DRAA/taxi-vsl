@@ -8,8 +8,16 @@ import {
   ChevronDown, ChevronUp, Search, Filter, Bell, Settings,
   FileText, Activity, AlertTriangle, Plus, Trash2, Check,
   X, Edit3, CreditCard, UserCircle, Receipt, ChevronRight,
-  Download, ArrowUpDown,
+  Download, ArrowUpDown, Star, MessageSquare, Copy,
 } from "lucide-react";
+
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+const GOOGLE_REVIEW_URL = "https://g.page/r/VOTRE_ID_GOOGLE/review"; // ← à mettre à jour
+
+function buildReviewSms(patientName: string): string {
+  const prenom = patientName.split(" ")[0];
+  return `Bonjour ${prenom},\n\nMerci de votre confiance pour votre transport médical avec Occitanie Médi Mobility ! 🚖\n\nVotre avis aide d'autres patients à nous trouver. C'est rapide :\n👉 ${GOOGLE_REVIEW_URL}\n\nMerci et à très bientôt ! 🙏\n— Taxi31 Toulouse • 07 72 33 98 92`;
+}
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 interface Ride {
@@ -33,6 +41,8 @@ interface Ride {
   isTpmr?: boolean;
   isRoundTrip?: boolean;
   chauffeurId?: { _id?: string; fullName?: string; email?: string } | null;
+  startTime?: string;
+  endTime?: string;
   createdAt?: string;
 }
 
@@ -269,6 +279,103 @@ function CreateRideModal({ users, onClose, onCreated, token }: {
   );
 }
 
+// ─── REVIEW SMS MODAL ────────────────────────────────────────────────────────
+function ReviewSmsModal({ ride, token, onClose }: { ride: Ride; token: string; onClose: () => void }) {
+  const [text, setText] = useState(() => buildReviewSms(ride.patientName));
+  const [sending, setSending] = useState(false);
+  const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  async function handleSend() {
+    setSending(true); setError("");
+    try {
+      const res = await fetch(API(`rides/${ride._id}/review-sms`), {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ message: text }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
+      setDone(true);
+    } catch (err: unknown) { setError(err instanceof Error ? err.message : "Erreur d'envoi"); }
+    finally { setSending(false); }
+  }
+
+  function handleCopy() {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  const segments = Math.ceil(text.length / 153) || 1;
+
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center px-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-amber-100 rounded-xl flex items-center justify-center"><Star size={16} className="text-amber-600" /></div>
+            <div>
+              <h3 className="font-black text-slate-900 text-sm">Demande d'avis client</h3>
+              <p className="text-slate-400 text-xs">{ride.patientName} • {ride.patientPhone}</p>
+            </div>
+          </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600"><X size={20} /></button>
+        </div>
+
+        {done ? (
+          <div className="p-10 text-center">
+            <div className="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><CheckCircle2 size={28} className="text-emerald-500" /></div>
+            <p className="font-black text-slate-900 text-lg mb-1">SMS envoyé !</p>
+            <p className="text-slate-500 text-sm">Message envoyé à {ride.patientPhone}</p>
+            <button onClick={onClose} className="mt-6 px-6 py-2.5 bg-slate-900 text-white font-bold rounded-xl text-sm hover:bg-slate-700 transition-colors">Fermer</button>
+          </div>
+        ) : (
+          <div className="p-6 space-y-4">
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Message SMS (modifiable)</label>
+                <span className="text-[10px] text-slate-400">{text.length} car. · {segments} SMS</span>
+              </div>
+              <textarea
+                value={text}
+                onChange={e => setText(e.target.value)}
+                rows={9}
+                className="w-full bg-slate-50 border border-slate-200 focus:border-blue-400 rounded-xl px-3 py-2.5 text-xs text-slate-800 outline-none resize-none font-mono leading-relaxed transition-colors"
+              />
+            </div>
+            {GOOGLE_REVIEW_URL.includes("VOTRE_ID_GOOGLE") && (
+              <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5">
+                <AlertTriangle size={13} className="shrink-0 mt-0.5" />
+                <span>Remplacez <strong>VOTRE_ID_GOOGLE</strong> dans le lien par votre vrai identifiant Google My Business avant d'envoyer.</span>
+              </div>
+            )}
+            {error && <p className="text-red-500 text-xs bg-red-50 border border-red-200 rounded-xl px-3 py-2">{error}</p>}
+            <div className="flex gap-3 pt-1">
+              <button
+                onClick={handleCopy}
+                className="flex-1 border border-slate-200 text-slate-700 font-bold py-2.5 rounded-xl hover:bg-slate-50 text-sm flex items-center justify-center gap-2 transition-colors"
+              >
+                {copied ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
+                {copied ? "Copié !" : "Copier"}
+              </button>
+              <button
+                onClick={handleSend}
+                disabled={sending || !text.trim()}
+                className="flex-1 bg-amber-500 hover:bg-amber-600 disabled:opacity-60 text-white font-black py-2.5 rounded-xl text-sm flex items-center justify-center gap-2 transition-colors"
+              >
+                {sending ? <RefreshCw size={13} className="animate-spin" /> : <MessageSquare size={13} />}
+                {sending ? "Envoi…" : "Envoyer le SMS"}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 export default function AdminPage() {
   const [mode, setMode] = useState<PageMode>("checking");
@@ -302,6 +409,7 @@ export default function AdminPage() {
   const [patientSearch, setPatientSearch] = useState("");
 
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [reviewRide, setReviewRide] = useState<Ride | null>(null);
   const [confirmAction, setConfirmAction] = useState<null | { title: string; message: string; label: string; danger?: boolean; action: () => void }>(null);
   const [statusDropdownId, setStatusDropdownId] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -687,7 +795,7 @@ export default function AdminPage() {
                 </div>
                 <RidesTable rides={rides.filter(r => r.status !== "En attente").slice(0, 6)} expandedRow={expandedRow} setExpandedRow={setExpandedRow}
                   toggleSort={toggleSort} SortIcon={SortIcon} onStatusChange={updateStatus} onDelete={(id) => confirm("Supprimer la course ?", "Cette action est irréversible.", "Supprimer", () => deleteRide(id))}
-                  onToggleBilling={toggleBilling} statusDropdownId={statusDropdownId} setStatusDropdownId={setStatusDropdownId} dropdownRef={dropdownRef} />
+                  onToggleBilling={toggleBilling} onReview={setReviewRide} statusDropdownId={statusDropdownId} setStatusDropdownId={setStatusDropdownId} dropdownRef={dropdownRef} />
               </div>
             </>
           )}
@@ -731,7 +839,7 @@ export default function AdminPage() {
               ) : (
                 <RidesTable rides={filtered} expandedRow={expandedRow} setExpandedRow={setExpandedRow}
                   toggleSort={toggleSort} SortIcon={SortIcon} onStatusChange={updateStatus} onDelete={(id) => confirm("Supprimer la course ?", "Cette action est irréversible.", "Supprimer", () => deleteRide(id))}
-                  onToggleBilling={toggleBilling} statusDropdownId={statusDropdownId} setStatusDropdownId={setStatusDropdownId} dropdownRef={dropdownRef} />
+                  onToggleBilling={toggleBilling} onReview={setReviewRide} statusDropdownId={statusDropdownId} setStatusDropdownId={setStatusDropdownId} dropdownRef={dropdownRef} />
               )}
             </div>
           )}
@@ -982,6 +1090,9 @@ export default function AdminPage() {
       {showCreateModal && token && (
         <CreateRideModal users={users} token={token} onClose={() => setShowCreateModal(false)} onCreated={() => { setShowCreateModal(false); fetchData(); }} />
       )}
+      {reviewRide && token && (
+        <ReviewSmsModal ride={reviewRide} token={token} onClose={() => setReviewRide(null)} />
+      )}
       {confirmAction && (
         <ConfirmModal title={confirmAction.title} message={confirmAction.message} confirmLabel={confirmAction.label} danger={confirmAction.danger}
           onConfirm={() => { confirmAction.action(); setConfirmAction(null); }} onCancel={() => setConfirmAction(null)} />
@@ -991,7 +1102,7 @@ export default function AdminPage() {
 }
 
 // ─── RIDES TABLE ──────────────────────────────────────────────────────────────
-function RidesTable({ rides, expandedRow, setExpandedRow, toggleSort, SortIcon, onStatusChange, onDelete, onToggleBilling, statusDropdownId, setStatusDropdownId, dropdownRef }: {
+function RidesTable({ rides, expandedRow, setExpandedRow, toggleSort, SortIcon, onStatusChange, onDelete, onToggleBilling, onReview, statusDropdownId, setStatusDropdownId, dropdownRef }: {
   rides: Ride[];
   expandedRow: string | null;
   setExpandedRow: (id: string | null) => void;
@@ -1000,6 +1111,7 @@ function RidesTable({ rides, expandedRow, setExpandedRow, toggleSort, SortIcon, 
   onStatusChange: (id: string, status: string) => void;
   onDelete: (id: string) => void;
   onToggleBilling: (ride: Ride) => void;
+  onReview?: (ride: Ride) => void;
   statusDropdownId: string | null;
   setStatusDropdownId: (id: string | null) => void;
   dropdownRef: React.RefObject<HTMLDivElement | null>;
@@ -1090,6 +1202,11 @@ function RidesTable({ rides, expandedRow, setExpandedRow, toggleSort, SortIcon, 
                       className={`p-1.5 rounded-lg transition-colors ${ride.statuFacturation === "Facturé" ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>
                       <CreditCard size={12} />
                     </button>
+                    {ride.status === "Terminée" && ride.patientPhone && onReview && (
+                      <button onClick={(e) => { e.stopPropagation(); onReview(ride); }} title="Demander un avis client" className="p-1.5 bg-amber-50 hover:bg-amber-100 text-amber-600 rounded-lg transition-colors">
+                        <Star size={12} />
+                      </button>
+                    )}
                     <button onClick={() => onDelete(ride._id)} title="Supprimer" className="p-1.5 bg-red-50 hover:bg-red-100 text-red-500 rounded-lg transition-colors"><Trash2 size={12} /></button>
                     <button onClick={() => setExpandedRow(expandedRow === ride._id ? null : ride._id)} className="p-1.5 text-slate-400 hover:text-slate-600">
                       <ChevronDown size={14} className={`transition-transform ${expandedRow === ride._id ? "rotate-180" : ""}`} />
@@ -1103,8 +1220,28 @@ function RidesTable({ rides, expandedRow, setExpandedRow, toggleSort, SortIcon, 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs mb-3">
                       <div><p className="font-bold text-slate-400 uppercase tracking-wider mb-1 text-[10px]">Départ</p><p className="text-slate-800">{ride.startLocation}</p></div>
                       <div><p className="font-bold text-slate-400 uppercase tracking-wider mb-1 text-[10px]">Destination</p><p className="text-slate-800">{ride.endLocation || "Non précisé"}</p></div>
-                      <div><p className="font-bold text-slate-400 uppercase tracking-wider mb-1 text-[10px]">Date & heure</p><p className="text-slate-800">{new Date(ride.date).toLocaleDateString("fr-FR")} à {new Date(ride.date).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}</p></div>
+                      <div>
+                        <p className="font-bold text-slate-400 uppercase tracking-wider mb-1 text-[10px]">Date prévue</p>
+                        <p className="text-slate-800">{new Date(ride.date).toLocaleDateString("fr-FR")} à {new Date(ride.date).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}</p>
+                      </div>
                       <div><p className="font-bold text-slate-400 uppercase tracking-wider mb-1 text-[10px]">Chauffeur</p><p className="text-slate-800">{typeof ride.chauffeurId === "object" && ride.chauffeurId?.fullName ? ride.chauffeurId.fullName : "Non assigné"}</p></div>
+                      {ride.startTime && (
+                        <div>
+                          <p className="font-bold text-slate-400 uppercase tracking-wider mb-1 text-[10px]">Heure de début</p>
+                          <p className="text-slate-800 font-semibold">{new Date(ride.startTime).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}</p>
+                        </div>
+                      )}
+                      {ride.endTime && (
+                        <div>
+                          <p className="font-bold text-slate-400 uppercase tracking-wider mb-1 text-[10px]">Heure de fin</p>
+                          <p className="text-slate-800 font-semibold">{new Date(ride.endTime).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}</p>
+                          {ride.startTime && (
+                            <p className="text-[10px] text-slate-400 mt-0.5">
+                              Durée : {Math.round((new Date(ride.endTime).getTime() - new Date(ride.startTime).getTime()) / 60000)} min
+                            </p>
+                          )}
+                        </div>
+                      )}
                       {ride.price ? <div><p className="font-bold text-slate-400 uppercase tracking-wider mb-1 text-[10px]">Montant CPAM</p><p className="text-slate-800 font-bold">{ride.price.toFixed(2)} €</p></div> : null}
                       {ride.realDistance ? <div><p className="font-bold text-slate-400 uppercase tracking-wider mb-1 text-[10px]">Distance réelle</p><p className="text-slate-800">{ride.realDistance} km</p></div> : null}
                       {ride.tolls ? <div><p className="font-bold text-slate-400 uppercase tracking-wider mb-1 text-[10px]">Péages</p><p className="text-slate-800">{ride.tolls.toFixed(2)} €</p></div> : null}
@@ -1114,6 +1251,14 @@ function RidesTable({ rides, expandedRow, setExpandedRow, toggleSort, SortIcon, 
                         </button>
                       </div>
                     </div>
+                    {ride.status === "Terminée" && ride.patientPhone && onReview && (
+                      <button
+                        onClick={() => onReview(ride)}
+                        className="mt-3 flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-black rounded-xl transition-colors"
+                      >
+                        <Star size={13} />Demander un avis client par SMS
+                      </button>
+                    )}
                     {ride.notes && <div><p className="font-bold text-slate-400 uppercase tracking-wider mb-1 text-[10px]">Notes</p><p className="text-slate-800 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs">{ride.notes}</p></div>}
                     {ride.cancelReason && <div className="mt-2"><p className="font-bold text-red-400 uppercase tracking-wider mb-1 text-[10px]">Motif annulation</p><p className="text-red-700 bg-red-50 border border-red-200 rounded-xl px-3 py-2 text-xs">{ride.cancelReason}</p></div>}
                   </td>
