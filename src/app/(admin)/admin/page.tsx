@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   Lock, LogOut, RefreshCw, CheckCircle2, XCircle, Clock,
   Globe, Smartphone, BarChart3, Users, Car, TrendingUp,
@@ -285,6 +285,7 @@ export default function AdminPage() {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [billing, setBilling] = useState<BillingReport | null>(null);
   const [loading, setLoading] = useState(false);
+  const [dataError, setDataError] = useState<string | null>(null);
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
 
   const [tab, setTab] = useState<Tab>("dashboard");
@@ -334,19 +335,25 @@ export default function AdminPage() {
   const fetchData = useCallback(async () => {
     if (!token) return;
     setLoading(true);
+    setDataError(null);
     try {
       const [rr, sr, ur] = await Promise.all([
         authFetch(API("rides")),
         authFetch(API("stats")),
         authFetch(API("users")),
       ]);
-      if (rr.status === 401) { handleLogout(); return; }
+      if (rr.status === 401 || sr.status === 401 || ur.status === 401) { handleLogout(); return; }
+      if (!rr.ok) throw new Error(`Courses: ${rr.status} ${rr.statusText}`);
+      if (!sr.ok) throw new Error(`Stats: ${sr.status} ${sr.statusText}`);
+      if (!ur.ok) throw new Error(`Utilisateurs: ${ur.status} ${ur.statusText}`);
       const [rd, sd, ud] = await Promise.all([rr.json(), sr.json(), ur.json()]);
       setRides(Array.isArray(rd) ? rd : []);
-      setStats(sd);
+      setStats(sd && typeof sd === "object" && !sd.message ? sd : null);
       setUsers(Array.isArray(ud) ? ud : []);
       setLastRefresh(new Date());
-    } catch { /* silent */ }
+    } catch (err: unknown) {
+      setDataError(err instanceof Error ? err.message : "Erreur de chargement");
+    }
     finally { setLoading(false); }
   }, [token, authFetch]);
 
@@ -598,6 +605,19 @@ export default function AdminPage() {
 
         <div className="flex-1 px-8 py-6 space-y-6">
 
+          {/* Error banner */}
+          {dataError && (
+            <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 flex items-start gap-3">
+              <AlertTriangle size={16} className="text-red-500 shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p className="text-red-800 font-bold text-sm">Erreur de chargement</p>
+                <p className="text-red-600 text-xs mt-0.5">{dataError}</p>
+                <p className="text-red-400 text-xs mt-1">Vérifiez que le serveur backend est bien démarré et redéployé.</p>
+              </div>
+              <button onClick={fetchData} className="text-red-600 hover:text-red-800 text-xs font-bold underline shrink-0">Réessayer</button>
+            </div>
+          )}
+
           {/* ═══════════════ DASHBOARD ═══════════════ */}
           {tab === "dashboard" && (
             <>
@@ -617,7 +637,7 @@ export default function AdminPage() {
               </div>
 
               {/* 7-day chart */}
-              {stats && stats.dailyRides.length > 0 && (
+              {stats && (stats.dailyRides?.length ?? 0) > 0 && (
                 <div className="bg-white rounded-2xl border border-slate-200 p-6">
                   <div className="flex items-center justify-between mb-5">
                     <h2 className="font-black text-slate-900 text-sm flex items-center gap-2"><BarChart3 size={16} className="text-blue-500" />Courses — 7 derniers jours</h2>
@@ -1009,8 +1029,8 @@ function RidesTable({ rides, expandedRow, setExpandedRow, toggleSort, SortIcon, 
         </thead>
         <tbody className="divide-y divide-slate-50">
           {rides.map(ride => (
-            <>
-              <tr key={ride._id} className="hover:bg-slate-50 transition-colors">
+            <React.Fragment key={ride._id}>
+              <tr className="hover:bg-slate-50 transition-colors">
                 <td className="px-5 py-3.5 cursor-pointer" onClick={() => setExpandedRow(expandedRow === ride._id ? null : ride._id)}>
                   <p className="font-semibold text-slate-900 text-sm">{ride.patientName}</p>
                   {ride.patientPhone && (
@@ -1099,7 +1119,7 @@ function RidesTable({ rides, expandedRow, setExpandedRow, toggleSort, SortIcon, 
                   </td>
                 </tr>
               )}
-            </>
+            </React.Fragment>
           ))}
         </tbody>
       </table>
