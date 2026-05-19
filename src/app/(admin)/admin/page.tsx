@@ -40,6 +40,7 @@ interface Ride {
   cancelReason?: string;
   isTpmr?: boolean;
   isRoundTrip?: boolean;
+  bonTransport?: string;
   chauffeurId?: { _id?: string; fullName?: string; email?: string } | null;
   startTime?: string;
   endTime?: string;
@@ -279,6 +280,185 @@ function CreateRideModal({ users, onClose, onCreated, token }: {
   );
 }
 
+// ─── EDIT RIDE MODAL ─────────────────────────────────────────────────────────
+function EditRideModal({ ride, users, token, onClose, onSaved }: {
+  ride: Ride; users: AppUser[]; token: string;
+  onClose: () => void; onSaved: (updated: Ride) => void;
+}) {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const d = new Date(ride.date);
+  const [form, setForm] = useState({
+    patientName:      ride.patientName,
+    patientPhone:     ride.patientPhone || "",
+    startLocation:    ride.startLocation,
+    endLocation:      ride.endLocation || "",
+    date:             `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`,
+    time:             `${pad(d.getHours())}:${pad(d.getMinutes())}`,
+    type:             ride.type || "Consultation",
+    status:           ride.status,
+    notes:            ride.notes || "",
+    cancelReason:     ride.cancelReason || "",
+    chauffeurId:      (typeof ride.chauffeurId === "object" ? ride.chauffeurId?._id : "") || "",
+    price:            ride.price != null ? String(ride.price) : "",
+    realDistance:     ride.realDistance != null ? String(ride.realDistance) : "",
+    tolls:            ride.tolls != null ? String(ride.tolls) : "",
+    bonTransport:     ride.bonTransport || "",
+    statuFacturation: ride.statuFacturation || "Non facturé",
+    isRoundTrip:      ride.isRoundTrip || false,
+    isTpmr:           ride.isTpmr || false,
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const set = (k: string, v: string | boolean) => setForm(f => ({ ...f, [k]: v }));
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault(); setError(""); setLoading(true);
+    try {
+      const payload: Record<string, unknown> = {
+        ...form,
+        date: new Date(`${form.date}T${form.time || "08:00"}:00`),
+        price:        form.price        ? parseFloat(form.price)        : 0,
+        realDistance: form.realDistance ? parseFloat(form.realDistance) : undefined,
+        tolls:        form.tolls        ? parseFloat(form.tolls)        : 0,
+        chauffeurId:  form.chauffeurId  || null,
+      };
+      delete payload.time;
+      const res = await fetch(API(`rides/${ride._id}`), {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
+      onSaved(data);
+    } catch (err: unknown) { setError(err instanceof Error ? err.message : "Erreur"); }
+    finally { setLoading(false); }
+  }
+
+  const inp  = "w-full bg-slate-50 border border-slate-200 focus:border-blue-400 text-slate-800 rounded-xl px-3 py-2 text-sm outline-none transition-colors";
+  const lbl  = "block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1";
+  const sect = "border-b border-slate-100 pb-4 mb-4";
+
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center px-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[92vh] flex flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-blue-100 rounded-xl flex items-center justify-center"><Edit3 size={16} className="text-blue-600" /></div>
+            <div>
+              <h3 className="font-black text-slate-900 text-sm">Modifier la course</h3>
+              <p className="text-slate-400 text-xs">{ride.patientName} · {fmt(ride.date)}</p>
+            </div>
+          </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600"><X size={20} /></button>
+        </div>
+
+        {/* Body */}
+        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto px-6 py-5 space-y-0">
+
+          {/* Patient */}
+          <div className={sect}>
+            <p className="text-xs font-black text-slate-600 uppercase tracking-widest mb-3">Patient</p>
+            <div className="grid grid-cols-2 gap-3">
+              <div><label className={lbl}>Nom *</label><input required value={form.patientName} onChange={e => set("patientName", e.target.value)} className={inp} /></div>
+              <div><label className={lbl}>Téléphone</label><input value={form.patientPhone} onChange={e => set("patientPhone", e.target.value)} placeholder="06 XX XX XX XX" className={inp} /></div>
+            </div>
+          </div>
+
+          {/* Trajet */}
+          <div className={sect}>
+            <p className="text-xs font-black text-slate-600 uppercase tracking-widest mb-3">Trajet</p>
+            <div className="space-y-3">
+              <div><label className={lbl}>Départ *</label><input required value={form.startLocation} onChange={e => set("startLocation", e.target.value)} className={inp} /></div>
+              <div><label className={lbl}>Destination</label><input value={form.endLocation} onChange={e => set("endLocation", e.target.value)} className={inp} /></div>
+              <div className="grid grid-cols-3 gap-3">
+                <div><label className={lbl}>Date *</label><input required type="date" value={form.date} onChange={e => set("date", e.target.value)} className={inp} /></div>
+                <div><label className={lbl}>Heure</label><input type="time" value={form.time} onChange={e => set("time", e.target.value)} className={inp} /></div>
+                <div>
+                  <label className={lbl}>Type</label>
+                  <select value={form.type} onChange={e => set("type", e.target.value)} className={inp}>
+                    {["Consultation","Dialyse","Traitement","Hospit","HDJ","Aller","Retour","VSL","Ambulance"].map(t => <option key={t}>{t}</option>)}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Gestion */}
+          <div className={sect}>
+            <p className="text-xs font-black text-slate-600 uppercase tracking-widest mb-3">Gestion</p>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className={lbl}>Statut</label>
+                <select value={form.status} onChange={e => set("status", e.target.value)} className={inp}>
+                  {["En attente","À venir","En cours","Terminée","Annulée"].map(s => <option key={s}>{s}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className={lbl}>Chauffeur</label>
+                <select value={form.chauffeurId} onChange={e => set("chauffeurId", e.target.value)} className={inp}>
+                  <option value="">Non assigné</option>
+                  {users.map(u => <option key={u._id} value={u._id}>{u.fullName}</option>)}
+                </select>
+              </div>
+            </div>
+            {form.status === "Annulée" && (
+              <div className="mt-3"><label className={lbl}>Motif d'annulation</label><input value={form.cancelReason} onChange={e => set("cancelReason", e.target.value)} placeholder="Raison de l'annulation…" className={inp} /></div>
+            )}
+            <div className="flex gap-4 mt-3">
+              {([["isRoundTrip","Aller-retour"],["isTpmr","Patient TPMR"]] as [string,string][]).map(([k,label]) => (
+                <label key={k} className="flex items-center gap-2 cursor-pointer select-none">
+                  <div onClick={() => set(k, !form[k as keyof typeof form])}
+                    className={`w-9 h-5 rounded-full transition-colors relative ${form[k as keyof typeof form] ? "bg-blue-500" : "bg-slate-200"}`}>
+                    <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-all ${form[k as keyof typeof form] ? "left-[18px]" : "left-0.5"}`} />
+                  </div>
+                  <span className="text-xs font-semibold text-slate-600">{label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* CPAM */}
+          <div className={sect}>
+            <p className="text-xs font-black text-slate-600 uppercase tracking-widest mb-3">Données CPAM</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div><label className={lbl}>Prix CPAM (€)</label><input type="number" step="0.01" min="0" value={form.price} onChange={e => set("price", e.target.value)} placeholder="0.00" className={inp} /></div>
+              <div><label className={lbl}>Distance réelle (km)</label><input type="number" step="0.1" min="0" value={form.realDistance} onChange={e => set("realDistance", e.target.value)} placeholder="0" className={inp} /></div>
+              <div><label className={lbl}>Péages (€)</label><input type="number" step="0.01" min="0" value={form.tolls} onChange={e => set("tolls", e.target.value)} placeholder="0.00" className={inp} /></div>
+              <div>
+                <label className={lbl}>Statut facturation</label>
+                <select value={form.statuFacturation} onChange={e => set("statuFacturation", e.target.value)} className={inp}>
+                  <option>Non facturé</option><option>Facturé</option>
+                </select>
+              </div>
+            </div>
+            <div className="mt-3"><label className={lbl}>N° Bon transport</label><input value={form.bonTransport} onChange={e => set("bonTransport", e.target.value)} placeholder="Ex : 12345678" className={inp} /></div>
+          </div>
+
+          {/* Notes */}
+          <div className="pb-2">
+            <p className="text-xs font-black text-slate-600 uppercase tracking-widest mb-3">Notes</p>
+            <textarea value={form.notes} onChange={e => set("notes", e.target.value)} rows={3} placeholder="Notes internes, informations complémentaires…" className={`${inp} resize-none`} />
+          </div>
+
+          {error && <p className="text-red-500 text-xs bg-red-50 border border-red-200 rounded-xl px-3 py-2">{error}</p>}
+        </form>
+
+        {/* Footer */}
+        <div className="flex gap-3 px-6 py-4 border-t border-slate-100 shrink-0">
+          <button type="button" onClick={onClose} className="flex-1 border border-slate-200 text-slate-700 font-bold py-2.5 rounded-xl hover:bg-slate-50 text-sm transition-colors">Annuler</button>
+          <button onClick={handleSubmit as unknown as React.MouseEventHandler} disabled={loading} className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-black py-2.5 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
+            {loading ? <RefreshCw size={14} className="animate-spin" /> : <Check size={14} />}
+            {loading ? "Enregistrement…" : "Enregistrer les modifications"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── REVIEW SMS MODAL ────────────────────────────────────────────────────────
 function ReviewSmsModal({ ride, token, onClose }: { ride: Ride; token: string; onClose: () => void }) {
   const [text, setText] = useState(() => buildReviewSms(ride.patientName));
@@ -409,6 +589,7 @@ export default function AdminPage() {
   const [patientSearch, setPatientSearch] = useState("");
 
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [editRide, setEditRide] = useState<Ride | null>(null);
   const [reviewRide, setReviewRide] = useState<Ride | null>(null);
   const [confirmAction, setConfirmAction] = useState<null | { title: string; message: string; label: string; danger?: boolean; action: () => void }>(null);
   const [statusDropdownId, setStatusDropdownId] = useState<string | null>(null);
@@ -795,7 +976,7 @@ export default function AdminPage() {
                 </div>
                 <RidesTable rides={rides.filter(r => r.status !== "En attente").slice(0, 6)} expandedRow={expandedRow} setExpandedRow={setExpandedRow}
                   toggleSort={toggleSort} SortIcon={SortIcon} onStatusChange={updateStatus} onDelete={(id) => confirm("Supprimer la course ?", "Cette action est irréversible.", "Supprimer", () => deleteRide(id))}
-                  onToggleBilling={toggleBilling} onReview={setReviewRide} statusDropdownId={statusDropdownId} setStatusDropdownId={setStatusDropdownId} dropdownRef={dropdownRef} />
+                  onToggleBilling={toggleBilling} onReview={setReviewRide} onEdit={setEditRide} statusDropdownId={statusDropdownId} setStatusDropdownId={setStatusDropdownId} dropdownRef={dropdownRef} />
               </div>
             </>
           )}
@@ -839,7 +1020,7 @@ export default function AdminPage() {
               ) : (
                 <RidesTable rides={filtered} expandedRow={expandedRow} setExpandedRow={setExpandedRow}
                   toggleSort={toggleSort} SortIcon={SortIcon} onStatusChange={updateStatus} onDelete={(id) => confirm("Supprimer la course ?", "Cette action est irréversible.", "Supprimer", () => deleteRide(id))}
-                  onToggleBilling={toggleBilling} onReview={setReviewRide} statusDropdownId={statusDropdownId} setStatusDropdownId={setStatusDropdownId} dropdownRef={dropdownRef} />
+                  onToggleBilling={toggleBilling} onReview={setReviewRide} onEdit={setEditRide} statusDropdownId={statusDropdownId} setStatusDropdownId={setStatusDropdownId} dropdownRef={dropdownRef} />
               )}
             </div>
           )}
@@ -1090,6 +1271,10 @@ export default function AdminPage() {
       {showCreateModal && token && (
         <CreateRideModal users={users} token={token} onClose={() => setShowCreateModal(false)} onCreated={() => { setShowCreateModal(false); fetchData(); }} />
       )}
+      {editRide && token && (
+        <EditRideModal ride={editRide} users={users} token={token} onClose={() => setEditRide(null)}
+          onSaved={(updated) => { setRides(prev => prev.map(r => r._id === updated._id ? { ...r, ...updated } : r)); setEditRide(null); }} />
+      )}
       {reviewRide && token && (
         <ReviewSmsModal ride={reviewRide} token={token} onClose={() => setReviewRide(null)} />
       )}
@@ -1102,7 +1287,7 @@ export default function AdminPage() {
 }
 
 // ─── RIDES TABLE ──────────────────────────────────────────────────────────────
-function RidesTable({ rides, expandedRow, setExpandedRow, toggleSort, SortIcon, onStatusChange, onDelete, onToggleBilling, onReview, statusDropdownId, setStatusDropdownId, dropdownRef }: {
+function RidesTable({ rides, expandedRow, setExpandedRow, toggleSort, SortIcon, onStatusChange, onDelete, onToggleBilling, onReview, onEdit, statusDropdownId, setStatusDropdownId, dropdownRef }: {
   rides: Ride[];
   expandedRow: string | null;
   setExpandedRow: (id: string | null) => void;
@@ -1112,6 +1297,7 @@ function RidesTable({ rides, expandedRow, setExpandedRow, toggleSort, SortIcon, 
   onDelete: (id: string) => void;
   onToggleBilling: (ride: Ride) => void;
   onReview?: (ride: Ride) => void;
+  onEdit?: (ride: Ride) => void;
   statusDropdownId: string | null;
   setStatusDropdownId: (id: string | null) => void;
   dropdownRef: React.RefObject<HTMLDivElement | null>;
@@ -1202,6 +1388,11 @@ function RidesTable({ rides, expandedRow, setExpandedRow, toggleSort, SortIcon, 
                       className={`p-1.5 rounded-lg transition-colors ${ride.statuFacturation === "Facturé" ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>
                       <CreditCard size={12} />
                     </button>
+                    {onEdit && (
+                      <button onClick={(e) => { e.stopPropagation(); onEdit(ride); }} title="Modifier la course" className="p-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors">
+                        <Edit3 size={12} />
+                      </button>
+                    )}
                     {ride.status === "Terminée" && ride.patientPhone && onReview && (
                       <button onClick={(e) => { e.stopPropagation(); onReview(ride); }} title="Demander un avis client" className="p-1.5 bg-amber-50 hover:bg-amber-100 text-amber-600 rounded-lg transition-colors">
                         <Star size={12} />
