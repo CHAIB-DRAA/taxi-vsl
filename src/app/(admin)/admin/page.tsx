@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-const GOOGLE_REVIEW_URL = "https://g.page/r/VOTRE_ID_GOOGLE/review"; // ← à mettre à jour
+const GOOGLE_REVIEW_URL = "https://g.page/r/Cbh2nxTvVS7cEBM/review";
 
 function buildReviewSms(patientName: string): string {
   const prenom = patientName.split(" ")[0];
