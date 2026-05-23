@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getArticleBySlug, articles } from "@/lib/articles";
+import { siteConfig } from "../../../../../lib/siteConfig";
 
 export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
@@ -25,6 +26,7 @@ export default function Image({ params }: Props) {
   const title = post?.title ?? "Taxi Conventionné CPAM Toulouse";
   const category = post?.category ?? "Guide";
   const color = CATEGORY_COLORS[category] ?? "#3b82f6";
+  const { brand, contact } = siteConfig;
 
   return new ImageResponse(
     (
@@ -82,7 +84,7 @@ export default function Image({ params }: Props) {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             <div style={{ fontSize: 22, fontWeight: 800, color: "#eab308", display: "flex" }}>
-              Occitanie Médi Mobility
+              {brand.legalName}
             </div>
             <div style={{ fontSize: 15, color: "#64748b", display: "flex" }}>
               Taxi conventionné CPAM • Tiers payant intégral
@@ -99,7 +101,7 @@ export default function Image({ params }: Props) {
               display: "flex",
             }}
           >
-            07 72 33 98 92
+            {contact.phoneDisplay}
           </div>
         </div>
       </div>

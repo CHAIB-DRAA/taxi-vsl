@@ -3,26 +3,28 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import LocalBusinessSchema from "../components/seo/LocalBusinessSchema";
+import { siteConfig } from "../../lib/siteConfig";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const { domain, brand, seo, geo, google } = siteConfig;
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.taxi-31-toulouse.fr"),
+  metadataBase: new URL(domain),
 
   title: {
-    default: "Taxi Conventionné CPAM Toulouse | Transport Médical & Courses Privées",
-    template: "%s | Taxi 31 Toulouse — Occitanie Médi Mobility",
+    default: seo.title,
+    template: seo.titleTemplate,
   },
 
-  description:
-    "Taxi VSL conventionné CPAM à Toulouse et en Occitanie. Transport médical (dialyse, chimiothérapie, ALD) avec tiers payant intégral — 0€ d'avance. Courses privées : Aéroport Blagnac, Gare Matabiau, événements. Disponible 24h/24.",
+  description: seo.description,
 
-  authors: [{ name: "OCCITANIE MEDI MOBILITY" }],
-  creator: "OCCITANIE MEDI MOBILITY",
-  publisher: "OCCITANIE MEDI MOBILITY",
+  authors: [{ name: brand.legalName }],
+  creator: brand.legalName,
+  publisher: brand.legalName,
 
   verification: {
-    google: "ETCwhGEYjo9LoL4TK82q9VWvXsOc5TTg8gg0WJzOZI",
+    google: google.searchConsole,
   },
 
   robots: {
@@ -38,11 +40,10 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Taxi Conventionné CPAM Toulouse — Occitanie Médi Mobility",
-    description:
-      "Transport médical VSL remboursé CPAM (dialyse, chimio, ALD) et courses privées (aéroport, gare, mariages) à Toulouse et en Occitanie. Tiers payant intégral — 0€ d'avance.",
-    url: "https://www.taxi-31-toulouse.fr",
-    siteName: "Taxi 31 Toulouse",
+    title: seo.ogTitle,
+    description: seo.ogDescription,
+    url: domain,
+    siteName: brand.shortName,
     locale: "fr_FR",
     type: "website",
     images: [
@@ -50,24 +51,23 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Taxi Conventionné CPAM Toulouse — Occitanie Médi Mobility",
+        alt: seo.ogTitle,
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Taxi Conventionné CPAM Toulouse — Occitanie Médi Mobility",
-    description:
-      "Transport médical VSL et courses privées à Toulouse. Tiers payant intégral, 0€ d'avance. Disponible 24h/24.",
+    title: seo.twitterTitle,
+    description: seo.twitterDescription,
     images: ["/og-image.jpg"],
   },
 
   other: {
-    "geo.region": "FR-OCC",
-    "geo.placename": "Toulouse",
-    "geo.position": "43.6047;1.4442",
-    ICBM: "43.6047, 1.4442",
+    "geo.region":   geo.metaRegion,
+    "geo.placename": geo.metaCity,
+    "geo.position": geo.metaPosition,
+    ICBM:           geo.metaICBM,
   },
 };
 
@@ -79,7 +79,7 @@ export default function RootLayout({
       <head>
         <Script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=AW-17844653906"
+          src={`https://www.googletagmanager.com/gtag/js?id=${google.adsId}`}
           strategy="afterInteractive"
         />
         <Script id="google-ads-init" strategy="afterInteractive">
@@ -87,7 +87,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'AW-17844653906');
+            gtag('config', '${google.adsId}');
           `}
         </Script>
         <LocalBusinessSchema />

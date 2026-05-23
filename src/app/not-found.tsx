@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Phone, Home, ArrowLeft } from "lucide-react";
+import { siteConfig } from "../../lib/siteConfig";
 
 export default function NotFound() {
   return (
@@ -18,7 +19,7 @@ export default function NotFound() {
             <Home size={18} /> Retour à l'accueil
           </Link>
           <a
-            href="tel:0772339892"
+            href={`tel:${siteConfig.contact.phone}`}
             className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold transition-all"
           >
             <Phone size={18} /> Nous appeler

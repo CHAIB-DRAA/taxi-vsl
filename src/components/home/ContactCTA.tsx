@@ -1,4 +1,7 @@
 import { Phone, Mail, MessageSquare, MapPin, ShieldCheck } from 'lucide-react';
+import { siteConfig } from '../../../lib/siteConfig';
+
+const { contact } = siteConfig;
 
 export default function ContactCTA() {
   return (
@@ -25,18 +28,18 @@ export default function ContactCTA() {
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-14">
           <a
-            href="tel:0772339892"
+            href={`tel:${contact.phone}`}
             className="relative w-full md:w-auto min-w-[260px] bg-slate-900 text-white px-8 py-5 rounded-2xl font-black text-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-3 shadow-2xl ring-4 ring-yellow-400/40"
           >
             <Phone className="text-yellow-400 animate-pulse" size={24} />
-            07 72 33 98 92
+            {contact.phoneDisplay}
             <div className="absolute -top-3 -right-3 bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded-full border-2 border-slate-900 uppercase tracking-wide shadow-sm">
               24h/24
             </div>
           </a>
 
           <a
-            href="sms:0772339892?body=Bonjour, je souhaite réserver un taxi pour..."
+            href={`sms:${contact.phone}?body=${encodeURIComponent(contact.smsBody)}`}
             className="w-full md:w-auto min-w-[260px] bg-white text-slate-900 px-8 py-5 rounded-2xl font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-3 shadow-xl border-2 border-slate-900"
           >
             <MessageSquare className="text-blue-600" size={22} />
@@ -44,7 +47,7 @@ export default function ContactCTA() {
           </a>
 
           <a
-            href="mailto:contact@taxi-31-toulouse.fr"
+            href={`mailto:${contact.email}`}
             className="w-full md:w-auto min-w-[260px] bg-transparent border-2 border-slate-900 text-slate-900 px-8 py-5 rounded-2xl font-bold text-lg hover:bg-slate-900 hover:text-white transition-all flex items-center justify-center gap-3"
           >
             <Mail size={20} />

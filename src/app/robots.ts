@@ -1,7 +1,8 @@
 import { MetadataRoute } from "next";
+import { siteConfig } from "../../lib/siteConfig";
 
 export default function robots(): MetadataRoute.Robots {
-  const base = "https://www.taxi-31-toulouse.fr";
+  const base = siteConfig.domain;
 
   return {
     rules: [

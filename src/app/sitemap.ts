@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { articles } from "@/lib/articles";
+import { siteConfig } from "../../lib/siteConfig";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://www.taxi-31-toulouse.fr";
+  const base = siteConfig.domain;
 
   const TODAY = new Date();
 

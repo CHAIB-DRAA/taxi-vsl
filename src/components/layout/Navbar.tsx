@@ -3,6 +3,9 @@
 import Link from 'next/link';
 import { Phone, MapPin, Menu, X, HeartPulse, Car } from 'lucide-react';
 import { useState } from 'react';
+import { siteConfig } from '../../../lib/siteConfig';
+
+const { contact, brand } = siteConfig;
 
 const navLinks = [
   { href: '/transport-medical', label: 'Transport Médical', icon: HeartPulse },
@@ -27,10 +30,10 @@ export default function Navbar() {
             </div>
             <div className="flex flex-col leading-none">
               <span className="text-xl font-black text-slate-900 tracking-tight">
-                Taxi<span className="text-yellow-500">31</span>Toulouse
+                Taxi<span className="text-yellow-500">{brand.highlight}</span>Toulouse
               </span>
               <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-widest mt-0.5">
-                Conventionné CPAM
+                {brand.tagline}
               </span>
             </div>
           </Link>
@@ -49,11 +52,11 @@ export default function Navbar() {
 
             <div className="flex items-center gap-3 ml-2">
               <a
-                href="tel:0772339892"
+                href={`tel:${contact.phone}`}
                 className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-bold text-sm transition-all hover:scale-105 shadow-md shadow-blue-600/20"
               >
                 <Phone size={16} strokeWidth={2.5} />
-                07 72 33 98 92
+                {contact.phoneDisplay}
               </a>
               <a
                 href="/#reserver"
@@ -90,11 +93,11 @@ export default function Navbar() {
           ))}
           <div className="pt-4 flex flex-col gap-3 border-t border-slate-100">
             <a
-              href="tel:0772339892"
+              href={`tel:${contact.phone}`}
               className="flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-3 rounded-xl font-bold"
               onClick={() => setOpen(false)}
             >
-              <Phone size={18} /> 07 72 33 98 92
+              <Phone size={18} /> {contact.phoneDisplay}
             </a>
             <a
               href="/#reserver"

@@ -1,5 +1,8 @@
 import { Phone, ShieldCheck, Check, Star, MessageSquare, HeartPulse, Car } from 'lucide-react';
 import Link from 'next/link';
+import { siteConfig } from '../../../lib/siteConfig';
+
+const { contact } = siteConfig;
 
 export default function Hero() {
   return (
@@ -69,17 +72,17 @@ export default function Hero() {
           {/* CTA principaux */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <a
-              href="tel:0772339892"
+              href={`tel:${contact.phone}`}
               className="group relative w-full sm:w-auto min-w-[260px] flex items-center justify-center gap-3 py-4 px-8 bg-yellow-500 hover:bg-yellow-400 text-slate-950 rounded-xl font-black text-xl transition-all shadow-[0_0_25px_rgba(234,179,8,0.35)] hover:shadow-[0_0_35px_rgba(234,179,8,0.55)] active:scale-95"
             >
               <Phone size={22} strokeWidth={2.5} className="animate-pulse" />
-              07 72 33 98 92
+              {contact.phoneDisplay}
               <div className="absolute -top-3 right-4 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm animate-bounce">
                 DISPO 24H
               </div>
             </a>
             <a
-              href="sms:0772339892?body=Bonjour, je voudrais réserver un taxi..."
+              href={`sms:${contact.phone}?body=${encodeURIComponent(contact.smsBody)}`}
               className="w-full sm:w-auto min-w-[260px] flex items-center justify-center gap-3 py-4 px-8 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white rounded-xl font-bold text-lg transition-all"
             >
               <MessageSquare size={20} />

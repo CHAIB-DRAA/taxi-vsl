@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Phone, Plane, Train, Heart, Briefcase, CheckCircle2, ArrowRight, Star } from "lucide-react";
 import StickyMobileBar from "../../../components/layout/StickyMobileBar";
+import { siteConfig } from "../../../../lib/siteConfig";
+
+const { contact } = siteConfig;
 
 export const metadata: Metadata = {
   title: "Taxi Privé Toulouse — Aéroport Blagnac, Gare, Mariage & Business",
@@ -115,14 +118,14 @@ export default function CoursesPrivees() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:0772339892"
+              href={`tel:${contact.phone}`}
               className="flex items-center justify-center gap-3 bg-yellow-500 hover:bg-yellow-400 text-slate-900 px-8 py-4 rounded-xl font-black text-xl transition-all shadow-xl"
             >
               <Phone size={22} strokeWidth={2.5} />
-              07 72 33 98 92
+              {contact.phoneDisplay}
             </a>
             <a
-              href="sms:0772339892?body=Bonjour, je souhaite une course privée..."
+              href={`sms:${contact.phone}?body=${encodeURIComponent(contact.smsBody)}`}
               className="flex items-center justify-center gap-2 border border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-xl font-bold transition-all"
             >
               Devis par SMS
@@ -202,10 +205,10 @@ export default function CoursesPrivees() {
           <h2 className="text-3xl font-black text-slate-900 mb-4">Réservez votre course privée</h2>
           <p className="text-slate-700 mb-8">Appelez-nous ou envoyez un SMS. Nous confirmons en quelques minutes.</p>
           <a
-            href="tel:0772339892"
+            href={`tel:${contact.phone}`}
             className="inline-flex items-center gap-3 bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 rounded-xl font-black text-xl transition-all shadow-xl"
           >
-            <Phone size={22} /> 07 72 33 98 92
+            <Phone size={22} /> {contact.phoneDisplay}
           </a>
         </div>
       </section>

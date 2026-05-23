@@ -8,7 +8,8 @@ import {
   ChevronDown, ChevronUp, Search, Filter, Bell, Settings,
   FileText, Activity, AlertTriangle, Plus, Trash2, Check,
   X, Edit3, CreditCard, UserCircle, Receipt, ChevronRight,
-  Download, ArrowUpDown, Star, MessageSquare, Copy,
+  Download, ArrowUpDown, Star, MessageSquare, Copy, Save,
+  Palette, Building2, Link2, Rocket, Tag, CheckCircle, Loader2,
 } from "lucide-react";
 
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
@@ -82,7 +83,7 @@ interface BillingReport {
   summary: { count: number; totalKm: number; totalAmount: number; totalTolls: number };
 }
 
-type Tab = "dashboard" | "rides" | "pending" | "patients" | "chauffeurs" | "facturation";
+type Tab = "dashboard" | "rides" | "pending" | "patients" | "chauffeurs" | "facturation" | "config";
 type SortKey = "date" | "patientName" | "status" | "source" | "price";
 type PageMode = "checking" | "setup" | "login" | "dashboard";
 
@@ -575,6 +576,14 @@ export default function AdminPage() {
   const [dataError, setDataError] = useState<string | null>(null);
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
 
+  // Site config
+  const [siteConfig, setSiteConfig] = useState<Record<string, string> | null>(null);
+  const [configLoading, setConfigLoading] = useState(false);
+  const [configSaving, setConfigSaving] = useState(false);
+  const [configSaved, setConfigSaved] = useState(false);
+  const [configError, setConfigError] = useState<string | null>(null);
+  const [deploying, setDeploying] = useState(false);
+
   const [tab, setTab] = useState<Tab>("dashboard");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -664,9 +673,48 @@ export default function AdminPage() {
     setBilling(data);
   }, [token, authFetch, billingFrom, billingTo, billingStatus]);
 
+  const fetchSiteConfig = useCallback(async () => {
+    if (!token) return;
+    setConfigLoading(true);
+    try {
+      const res = await authFetch(API("site-config"));
+      if (res.ok) setSiteConfig(await res.json());
+    } catch { /* silent */ }
+    finally { setConfigLoading(false); }
+  }, [token, authFetch]);
+
+  async function saveSiteConfig(patch: Record<string, string>) {
+    setConfigSaving(true); setConfigError(null); setConfigSaved(false);
+    try {
+      const res = await authFetch(API("site-config"), {
+        method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(patch),
+      });
+      if (!res.ok) throw new Error("Erreur lors de la sauvegarde");
+      const updated = await res.json();
+      setSiteConfig(updated);
+      setConfigSaved(true);
+      setTimeout(() => setConfigSaved(false), 3000);
+    } catch (err: unknown) {
+      setConfigError(err instanceof Error ? err.message : "Erreur");
+    }
+    finally { setConfigSaving(false); }
+  }
+
+  async function deployVercel() {
+    const hookUrl = siteConfig?.vercelDeployHook;
+    if (!hookUrl) { setConfigError("Aucun webhook Vercel configuré. Ajoutez l'URL dans la section Déploiement."); return; }
+    setDeploying(true);
+    try {
+      await fetch(hookUrl, { method: "POST" });
+      alert("✅ Déploiement lancé ! Le site sera mis à jour dans 2-3 minutes.");
+    } catch { setConfigError("Impossible de contacter le webhook Vercel."); }
+    finally { setDeploying(false); }
+  }
+
   useEffect(() => { if (mode === "dashboard") fetchData(); }, [mode, fetchData]);
   useEffect(() => { if (tab === "patients" && patients.length === 0) fetchPatients(); }, [tab, patients.length, fetchPatients]);
   useEffect(() => { if (tab === "facturation") fetchBilling(); }, [tab, fetchBilling]);
+  useEffect(() => { if (tab === "config" && !siteConfig) fetchSiteConfig(); }, [tab, siteConfig, fetchSiteConfig]);
 
   // ── Auth forms ──
   async function handleSetup(e: React.FormEvent) {
@@ -803,12 +851,13 @@ export default function AdminPage() {
 
   // ─── DASHBOARD ────────────────────────────────────────────────────────────────
   const navItems = [
-    { id: "dashboard",    label: "Vue d'ensemble",  icon: Activity },
+    { id: "dashboard",    label: "Vue d'ensemble",     icon: Activity },
     { id: "rides",        label: "Toutes les courses", icon: Car },
-    { id: "pending",      label: "En attente",       icon: Bell, badge: pendingWeb.length },
-    { id: "patients",     label: "Patients",         icon: UserCircle },
-    { id: "chauffeurs",   label: "Chauffeurs",       icon: Users },
-    { id: "facturation",  label: "Facturation CPAM", icon: Receipt },
+    { id: "pending",      label: "En attente",          icon: Bell, badge: pendingWeb.length },
+    { id: "patients",     label: "Patients",            icon: UserCircle },
+    { id: "chauffeurs",   label: "Chauffeurs",          icon: Users },
+    { id: "facturation",  label: "Facturation CPAM",    icon: Receipt },
+    { id: "config",       label: "Configuration",       icon: Settings },
   ] as const;
 
   const colorMap: Record<string, { icon: string; bg: string }> = {
@@ -833,6 +882,7 @@ export default function AdminPage() {
     dashboard: "Vue d'ensemble", rides: "Toutes les courses",
     pending: "Demandes en attente", patients: "Patients",
     chauffeurs: "Chauffeurs", facturation: "Facturation CPAM",
+    config: "Configuration du site",
   };
 
   return (
@@ -1261,6 +1311,256 @@ export default function AdminPage() {
                   )}
                 </div>
               )}
+            </div>
+          )}
+
+          {/* ── CONFIGURATION ── */}
+          {tab === "config" && (
+            <div className="p-6 space-y-6">
+              {configError && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">{configError}</div>
+              )}
+              {configSaved && (
+                <div className="bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
+                  <CheckCircle size={16} /> Configuration sauvegardée avec succès.
+                </div>
+              )}
+              {configLoading ? (
+                <div className="flex items-center justify-center py-20">
+                  <Loader2 size={32} className="animate-spin text-blue-500" />
+                </div>
+              ) : siteConfig ? (
+                <>
+                  {/* Contact */}
+                  <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+                    <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-100 bg-slate-50">
+                      <Phone size={16} className="text-blue-500" />
+                      <h3 className="font-semibold text-slate-800 text-sm">Contact</h3>
+                    </div>
+                    <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {([
+                        ["phone", "Téléphone (brut, ex: 0772339892)"],
+                        ["phoneDisplay", "Téléphone affiché (ex: 07 72 33 98 92)"],
+                        ["phoneE164", "Téléphone E.164 (ex: +33772339892)"],
+                        ["email", "Email"],
+                        ["whatsapp", "Lien WhatsApp"],
+                        ["smsBody", "Corps du SMS par défaut"],
+                      ] as [string, string][]).map(([key, label]) => (
+                        <div key={key} className="flex flex-col gap-1">
+                          <label className="text-xs font-medium text-slate-500">{label}</label>
+                          <input
+                            className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            value={siteConfig[key] ?? ""}
+                            onChange={e => setSiteConfig(prev => prev ? { ...prev, [key]: e.target.value } : prev)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Marque */}
+                  <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+                    <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-100 bg-slate-50">
+                      <Tag size={16} className="text-violet-500" />
+                      <h3 className="font-semibold text-slate-800 text-sm">Marque & Domaine</h3>
+                    </div>
+                    <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {([
+                        ["brandLegalName", "Raison sociale"],
+                        ["brandShortName", "Nom court (affiché)"],
+                        ["brandHighlight", "Chiffre mis en valeur (ex: 31)"],
+                        ["brandTagline", "Tagline principale"],
+                        ["brandTaglineAlt", "Tagline alternative"],
+                        ["brandCpamLabel", "Label CPAM"],
+                        ["domain", "Domaine (ex: https://www.mon-site.fr)"],
+                      ] as [string, string][]).map(([key, label]) => (
+                        <div key={key} className="flex flex-col gap-1">
+                          <label className="text-xs font-medium text-slate-500">{label}</label>
+                          <input
+                            className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            value={siteConfig[key] ?? ""}
+                            onChange={e => setSiteConfig(prev => prev ? { ...prev, [key]: e.target.value } : prev)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Style */}
+                  <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+                    <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-100 bg-slate-50">
+                      <Palette size={16} className="text-pink-500" />
+                      <h3 className="font-semibold text-slate-800 text-sm">Style & Couleurs</h3>
+                    </div>
+                    <div className="p-5 grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {([
+                        ["styleAccentColor", "Couleur accent (jaune)"],
+                        ["stylePrimaryColor", "Couleur principale (bleu)"],
+                        ["styleDarkColor", "Couleur sombre (fond)"],
+                      ] as [string, string][]).map(([key, label]) => (
+                        <div key={key} className="flex flex-col gap-2">
+                          <label className="text-xs font-medium text-slate-500">{label}</label>
+                          <div className="flex items-center gap-3">
+                            <input
+                              type="color"
+                              className="w-10 h-10 rounded-lg border border-slate-200 cursor-pointer"
+                              value={siteConfig[key] ?? "#000000"}
+                              onChange={e => setSiteConfig(prev => prev ? { ...prev, [key]: e.target.value } : prev)}
+                            />
+                            <input
+                              className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                              value={siteConfig[key] ?? ""}
+                              onChange={e => setSiteConfig(prev => prev ? { ...prev, [key]: e.target.value } : prev)}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Adresse & Géo */}
+                  <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+                    <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-100 bg-slate-50">
+                      <Building2 size={16} className="text-emerald-500" />
+                      <h3 className="font-semibold text-slate-800 text-sm">Adresse & Géolocalisation</h3>
+                    </div>
+                    <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {([
+                        ["addressStreet", "Rue"],
+                        ["addressCity", "Ville"],
+                        ["addressPostalCode", "Code postal"],
+                        ["addressRegion", "Région (ex: Haute-Garonne)"],
+                        ["addressDisplay", "Zone affichée (ex: Toulouse & Occitanie)"],
+                        ["addressDisplaySub", "Sous-zone (ex: Haute-Garonne (31))"],
+                        ["geoLat", "Latitude GPS"],
+                        ["geoLng", "Longitude GPS"],
+                        ["geoMetaCity", "Ville méta (ex: Toulouse)"],
+                        ["geoMetaRegion", "Région méta (ex: FR-OCC)"],
+                        ["geoMetaPos", "Position méta (ex: 43.6047;1.4442)"],
+                      ] as [string, string][]).map(([key, label]) => (
+                        <div key={key} className="flex flex-col gap-1">
+                          <label className="text-xs font-medium text-slate-500">{label}</label>
+                          <input
+                            className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            value={siteConfig[key] ?? ""}
+                            onChange={e => setSiteConfig(prev => prev ? { ...prev, [key]: e.target.value } : prev)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* SEO */}
+                  <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+                    <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-100 bg-slate-50">
+                      <Search size={16} className="text-orange-500" />
+                      <h3 className="font-semibold text-slate-800 text-sm">SEO</h3>
+                    </div>
+                    <div className="p-5 grid grid-cols-1 gap-4">
+                      {([
+                        ["seoTitle", "Titre principal (balise title)"],
+                        ["seoTitleTemplate", "Template titre (ex: %s | Taxi 31 Toulouse)"],
+                        ["seoDescription", "Description méta"],
+                        ["seoOgTitle", "Titre Open Graph / Twitter"],
+                        ["seoOgDescription", "Description Open Graph / Twitter"],
+                        ["seoLocalBizName", "Nom du commerce local (schema.org)"],
+                        ["seoLocalBizDesc", "Description commerce local (schema.org)"],
+                      ] as [string, string][]).map(([key, label]) => (
+                        <div key={key} className="flex flex-col gap-1">
+                          <label className="text-xs font-medium text-slate-500">{label}</label>
+                          {key.includes("Description") || key.includes("Desc") ? (
+                            <textarea
+                              rows={2}
+                              className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300 resize-none"
+                              value={siteConfig[key] ?? ""}
+                              onChange={e => setSiteConfig(prev => prev ? { ...prev, [key]: e.target.value } : prev)}
+                            />
+                          ) : (
+                            <input
+                              className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                              value={siteConfig[key] ?? ""}
+                              onChange={e => setSiteConfig(prev => prev ? { ...prev, [key]: e.target.value } : prev)}
+                            />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Google */}
+                  <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+                    <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-100 bg-slate-50">
+                      <Link2 size={16} className="text-blue-400" />
+                      <h3 className="font-semibold text-slate-800 text-sm">Google & Tracking</h3>
+                    </div>
+                    <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {([
+                        ["googleAdsId", "Google Ads ID (ex: AW-XXXXXXXXX)"],
+                        ["googleSearchConsole", "Search Console vérification"],
+                        ["googleCid", "Google CID (Place ID numérique)"],
+                        ["googleMapsUrl", "Lien Google Maps"],
+                        ["googleReviewUrl", "Lien avis Google"],
+                        ["googleSameAs", "sameAs Google Page"],
+                      ] as [string, string][]).map(([key, label]) => (
+                        <div key={key} className="flex flex-col gap-1">
+                          <label className="text-xs font-medium text-slate-500">{label}</label>
+                          <input
+                            className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            value={siteConfig[key] ?? ""}
+                            onChange={e => setSiteConfig(prev => prev ? { ...prev, [key]: e.target.value } : prev)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Déploiement */}
+                  <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+                    <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-100 bg-slate-50">
+                      <Rocket size={16} className="text-indigo-500" />
+                      <h3 className="font-semibold text-slate-800 text-sm">Déploiement</h3>
+                    </div>
+                    <div className="p-5 space-y-4">
+                      <div className="flex flex-col gap-1">
+                        <label className="text-xs font-medium text-slate-500">Vercel Deploy Hook URL</label>
+                        <input
+                          type="password"
+                          className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                          value={siteConfig["vercelDeployHook"] ?? ""}
+                          onChange={e => setSiteConfig(prev => prev ? { ...prev, vercelDeployHook: e.target.value } : prev)}
+                          placeholder="https://api.vercel.com/v1/integrations/deploy/..."
+                        />
+                        <p className="text-xs text-slate-400">Vercel → Settings → Git → Deploy Hooks. Déclenche un rebuild du site avec la nouvelle config.</p>
+                      </div>
+                      <button
+                        onClick={deployVercel}
+                        disabled={deploying || !siteConfig["vercelDeployHook"]}
+                        className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-colors"
+                      >
+                        {deploying ? <Loader2 size={16} className="animate-spin" /> : <Rocket size={16} />}
+                        {deploying ? "Déploiement en cours…" : "Déployer le site"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Save button */}
+                  <div className="flex items-center justify-end gap-4 pt-2">
+                    {configSaved && (
+                      <span className="text-sm text-emerald-600 font-medium flex items-center gap-1.5">
+                        <CheckCircle size={15} /> Sauvegardé
+                      </span>
+                    )}
+                    <button
+                      onClick={() => saveSiteConfig(siteConfig)}
+                      disabled={configSaving}
+                      className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition-colors shadow-sm"
+                    >
+                      {configSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
+                      {configSaving ? "Sauvegarde…" : "Sauvegarder la configuration"}
+                    </button>
+                  </div>
+                </>
+              ) : null}
             </div>
           )}
 

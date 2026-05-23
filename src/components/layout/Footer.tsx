@@ -1,5 +1,8 @@
 import { MapPin, Phone, Mail, ShieldCheck, HeartPulse, Car, BookOpen } from 'lucide-react';
 import Link from 'next/link';
+import { siteConfig } from '../../../lib/siteConfig';
+
+const { contact, brand, address } = siteConfig;
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -17,7 +20,7 @@ export default function Footer() {
                 <MapPin className="h-5 w-5 text-slate-900" />
               </div>
               <span className="text-xl font-black text-white tracking-tight">
-                Taxi<span className="text-yellow-500">31</span>Toulouse
+                Taxi<span className="text-yellow-500">{brand.highlight}</span>Toulouse
               </span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
@@ -25,7 +28,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-2 text-yellow-400 font-semibold text-sm bg-slate-800/60 p-3 rounded-xl border border-slate-700 w-fit">
               <ShieldCheck size={18} />
-              Agréé CPAM Haute-Garonne
+              {brand.cpamLabel}
             </div>
           </div>
 
@@ -99,26 +102,26 @@ export default function Footer() {
             <ul className="space-y-5">
               <li className="flex items-start gap-3 text-slate-400 text-sm">
                 <MapPin className="text-yellow-500 shrink-0 mt-0.5" size={18} />
-                <span>Toulouse & Occitanie<br /><span className="text-slate-500">Haute-Garonne (31)</span></span>
+                <span>{address.display}<br /><span className="text-slate-500">{address.displaySub}</span></span>
               </li>
               <li>
-                <a href="tel:0772339892" className="flex items-center gap-3 group">
+                <a href={`tel:${contact.phone}`} className="flex items-center gap-3 group">
                   <Phone className="text-yellow-500 shrink-0" size={18} />
                   <div>
                     <span className="text-xs text-slate-500 block">Disponible 24h/24</span>
                     <span className="text-lg font-black text-white group-hover:text-yellow-400 transition-colors">
-                      07 72 33 98 92
+                      {contact.phoneDisplay}
                     </span>
                   </div>
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:contact@taxi-31-toulouse.fr"
+                  href={`mailto:${contact.email}`}
                   className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors text-sm"
                 >
                   <Mail className="text-yellow-500 shrink-0" size={18} />
-                  contact@taxi-31-toulouse.fr
+                  {contact.email}
                 </a>
               </li>
             </ul>
@@ -127,7 +130,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-          <p>© {year} Occitanie Médi Mobility — Taxi Conventionné CPAM Toulouse. Tous droits réservés.</p>
+          <p>© {year} {brand.legalName} — {brand.shortName} Conventionné CPAM. Tous droits réservés.</p>
           <div className="flex gap-6">
             <Link href="/mentions-legales" className="hover:text-slate-300 transition-colors">Mentions Légales</Link>
             <Link href="/politique-confidentialite" className="hover:text-slate-300 transition-colors">Confidentialité</Link>

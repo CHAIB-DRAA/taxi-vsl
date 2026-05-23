@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Phone, CheckCircle2, AlertCircle, Info, Shield, CreditCard, HeartPulse, Car, Zap } from "lucide-react";
 import Link from "next/link";
+import { siteConfig } from "../../../../lib/siteConfig";
+
+const { contact } = siteConfig;
 
 export const metadata: Metadata = {
   title: "Tarifs Taxi VSL Toulouse | Transport Médical & Courses Privées | Taxi31",
@@ -50,11 +53,11 @@ export default function TarifsPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:0772339892"
+              href={`tel:${contact.phone}`}
               className="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-black px-7 py-3.5 rounded-2xl transition-all hover:scale-105 shadow-lg shadow-yellow-500/25"
             >
               <Phone size={18} />
-              Devis gratuit : 07 72 33 98 92
+              Devis gratuit : {contact.phoneDisplay}
             </a>
             <Link
               href="/#reserver"
@@ -208,7 +211,7 @@ export default function TarifsPage() {
               },
               {
                 q: "Puis-je demander un devis avant ma course ?",
-                a: "Oui, appelez-nous au 07 72 33 98 92 ou réservez via le formulaire en ligne. Nous vous confirmons le tarif estimé avant la course, surtout pour les longues distances.",
+                a: `Oui, appelez-nous au ${contact.phoneDisplay} ou réservez via le formulaire en ligne. Nous vous confirmons le tarif estimé avant la course, surtout pour les longues distances.`,
               },
             ].map((item, i) => (
               <div key={i} className="bg-white border border-slate-200 rounded-2xl p-6 hover:border-blue-200 transition-colors">
@@ -231,11 +234,11 @@ export default function TarifsPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:0772339892"
+              href={`tel:${contact.phone}`}
               className="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-black px-8 py-4 rounded-2xl transition-all hover:scale-105 shadow-xl shadow-yellow-500/25"
             >
               <Phone size={20} />
-              07 72 33 98 92
+              {contact.phoneDisplay}
             </a>
             <Link
               href="/#reserver"

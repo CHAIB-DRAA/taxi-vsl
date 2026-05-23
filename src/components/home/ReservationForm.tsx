@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { Phone, MapPin, Calendar, Clock, User, CheckCircle2, AlertCircle, Loader2, ChevronDown, Zap } from "lucide-react";
+import { siteConfig } from '../../../lib/siteConfig';
+
+const { contact } = siteConfig;
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -78,11 +81,11 @@ export default function ReservationForm() {
               Votre demande a bien été reçue. Le chauffeur vous contacte par SMS pour confirmer le créneau.
             </p>
             <a
-              href="tel:0772339892"
+              href={`tel:${contact.phone}`}
               className="inline-flex items-center gap-3 bg-yellow-500 hover:bg-yellow-400 text-slate-900 px-8 py-4 rounded-2xl font-black text-lg transition-colors"
             >
               <Phone size={20} />
-              Urgence : 07 72 33 98 92
+              Urgence : {contact.phoneDisplay}
             </a>
           </div>
         </div>
@@ -297,11 +300,11 @@ export default function ReservationForm() {
           <div className="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-slate-500 text-sm">Confirmation par SMS sous 2h — 7j/7</p>
             <a
-              href="tel:0772339892"
+              href={`tel:${contact.phone}`}
               className="flex items-center gap-2 text-yellow-400 hover:text-yellow-300 font-bold text-sm transition-colors"
             >
               <Phone size={15} />
-              Urgence : 07 72 33 98 92
+              Urgence : {contact.phoneDisplay}
             </a>
           </div>
         </div>

@@ -1,11 +1,13 @@
 import { ImageResponse } from "next/og";
+import { siteConfig } from "../../../lib/siteConfig";
 
 export const runtime = "edge";
-export const alt = "Taxi Conventionné CPAM Toulouse — Occitanie Médi Mobility";
+export const alt = siteConfig.seo.ogTitle;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function Image() {
+  const { brand, contact } = siteConfig;
   return new ImageResponse(
     (
       <div
@@ -65,7 +67,7 @@ export default function Image() {
             display: "flex",
           }}
         >
-          Occitanie Médi Mobility
+          {brand.legalName}
         </div>
 
         {/* Services */}
@@ -93,7 +95,7 @@ export default function Image() {
             display: "flex",
           }}
         >
-          07 72 33 98 92 — Disponible 24h/24
+          {contact.phoneDisplay} — Disponible 24h/24
         </div>
       </div>
     ),

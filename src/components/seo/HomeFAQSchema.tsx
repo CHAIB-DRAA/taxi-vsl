@@ -1,8 +1,11 @@
+import { siteConfig } from "../../../lib/siteConfig";
+
 export default function HomeFAQSchema() {
+  const { contact, domain } = siteConfig;
   const faqItems = [
     {
       question: "Comment réserver un taxi conventionné CPAM à Toulouse ?",
-      answer: "Munissez-vous d'une Prescription Médicale de Transport (PMT) signée par votre médecin, puis appelez-nous au 07 72 33 98 92. Nous aurons besoin de votre numéro de sécurité sociale, de la date et du lieu de votre rendez-vous médical."
+      answer: `Munissez-vous d'une Prescription Médicale de Transport (PMT) signée par votre médecin, puis appelez-nous au ${contact.phoneDisplay}. Nous aurons besoin de votre numéro de sécurité sociale, de la date et du lieu de votre rendez-vous médical.`
     },
     {
       question: "Dois-je avancer les frais de transport médical ?",
@@ -37,7 +40,7 @@ export default function HomeFAQSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "@id": "https://www.taxi-31-toulouse.fr/#faq",
+    "@id": `${domain}/#faq`,
     "mainEntity": faqItems.map(item => ({
       "@type": "Question",
       "name": item.question,

@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Phone, HeartPulse, ShieldCheck, CheckCircle2, ArrowRight, FileText, Clock } from "lucide-react";
 import StickyMobileBar from "../../../components/layout/StickyMobileBar";
+import { siteConfig } from "../../../../lib/siteConfig";
+
+const { contact } = siteConfig;
 
 export const metadata: Metadata = {
   title: "Transport Médical Conventionné CPAM Toulouse — VSL & TAP 0€ d'avance",
@@ -65,11 +68,11 @@ export default function TransportMedical() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:0772339892"
+              href={`tel:${contact.phone}`}
               className="flex items-center justify-center gap-3 bg-yellow-500 hover:bg-yellow-400 text-slate-900 px-8 py-4 rounded-xl font-black text-xl transition-all shadow-xl"
             >
               <Phone size={22} strokeWidth={2.5} />
-              07 72 33 98 92
+              {contact.phoneDisplay}
             </a>
             <Link
               href="/blog/guide-taxi-vsl-conventionne-cpam-toulouse"
@@ -91,7 +94,7 @@ export default function TransportMedical() {
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             {[
               { n: "1", t: "Votre médecin prescrit", d: "Il rédige une Prescription Médicale de Transport (PMT) mentionnant votre ALD et la destination." },
-              { n: "2", t: "Vous appelez", d: "Un appel au 07 72 33 98 92 suffit. Nous réservons, nous nous souvenons de vos habitudes." },
+              { n: "2", t: "Vous appelez", d: "Un appel au {contact.phoneDisplay} suffit. Nous réservons, nous nous souvenons de vos habitudes." },
               { n: "3", t: "Nous venons vous chercher", d: "À l'heure convenue, à votre domicile ou au lieu de départ de votre choix." },
               { n: "4", t: "Nous vous accompagnons", d: "Jusqu'à l'entrée de votre service si besoin. Nous attendons si votre RDV déborde." },
               { n: "5", t: "Zéro démarche", d: "Nous télétransmettons la facturation à la CPAM. Vous ne payez rien, vous ne faites rien." },
@@ -250,10 +253,10 @@ export default function TransportMedical() {
           <h2 className="text-3xl font-black text-white mb-4">Prêt à réserver votre transport médical ?</h2>
           <p className="text-slate-400 mb-8">Un appel ou un SMS suffit. Nous vous rappelons pour confirmer et organiser vos trajets.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:0772339892" className="flex items-center justify-center gap-3 bg-yellow-500 hover:bg-yellow-400 text-slate-900 px-8 py-4 rounded-xl font-black text-xl transition-all">
-              <Phone size={22} /> 07 72 33 98 92
+            <a href={`tel:${contact.phone}`} className="flex items-center justify-center gap-3 bg-yellow-500 hover:bg-yellow-400 text-slate-900 px-8 py-4 rounded-xl font-black text-xl transition-all">
+              <Phone size={22} /> {contact.phoneDisplay}
             </a>
-            <a href="sms:0772339892?body=Bonjour, je souhaite un transport médical..." className="flex items-center justify-center gap-2 border border-slate-600 text-white hover:bg-slate-800 px-8 py-4 rounded-xl font-bold transition-all">
+            <a href={`sms:${contact.phone}?body=${encodeURIComponent(contact.smsBody)}`} className="flex items-center justify-center gap-2 border border-slate-600 text-white hover:bg-slate-800 px-8 py-4 rounded-xl font-bold transition-all">
               Envoyer un SMS
             </a>
           </div>

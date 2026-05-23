@@ -1,13 +1,16 @@
 import Link from 'next/link';
 import { Phone, FileText, MapPin, ArrowRight } from 'lucide-react';
+import { siteConfig } from '../../../lib/siteConfig';
+
+const { contact } = siteConfig;
 
 const faqs = [
   {
     question: 'Comment réserver un taxi conventionné à Toulouse ?',
-    answer: 'Il vous faut d\'abord une Prescription Médicale de Transport (PMT) signée par votre médecin. Ensuite, appelez-nous au 07 72 33 98 92 avec votre numéro de sécurité sociale et la date de votre rendez-vous. Nous nous occupons du reste.',
+    answer: `Il vous faut d'abord une Prescription Médicale de Transport (PMT) signée par votre médecin. Ensuite, appelez-nous au ${contact.phoneDisplay} avec votre numéro de sécurité sociale et la date de votre rendez-vous. Nous nous occupons du reste.`,
     action: {
-      label: 'Appeler le 07 72 33 98 92',
-      href: 'tel:0772339892',
+      label: `Appeler le ${contact.phoneDisplay}`,
+      href: `tel:${contact.phone}`,
       icon: Phone,
     },
   },
@@ -119,10 +122,10 @@ export default function FAQ() {
             Une question non couverte ici ? Envoyez-nous un SMS, nous répondons en moins de 10 minutes.
           </p>
           <a
-            href="sms:0772339892"
+            href={`sms:${contact.phone}`}
             className="inline-block text-yellow-700 font-black hover:text-yellow-800 underline underline-offset-2"
           >
-            Envoyer un SMS au 07 72 33 98 92
+            Envoyer un SMS au {contact.phoneDisplay}
           </a>
         </div>
 

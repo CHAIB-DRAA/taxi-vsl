@@ -1,4 +1,5 @@
 import { Star, ExternalLink } from 'lucide-react';
+import { siteConfig } from '../../../lib/siteConfig';
 
 export default function GoogleTrust() {
   return (
@@ -12,7 +13,7 @@ export default function GoogleTrust() {
       <p className="text-white text-2xl font-black mb-1">5.0 / 5</p>
       <p className="text-slate-300 text-xs mb-3">Basé sur les avis Google</p>
       <a
-        href="https://g.page/r/Cbh2nxTvVS7cEAE/review"
+        href={siteConfig.google.reviewUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-1 text-blue-300 text-xs hover:text-white transition-colors"

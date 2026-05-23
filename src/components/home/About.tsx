@@ -1,6 +1,9 @@
 import { ShieldCheck, Clock, Heart, Award, Phone } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { siteConfig } from '../../../lib/siteConfig';
+
+const { contact, brand } = siteConfig;
 
 const values = [
   {
@@ -50,7 +53,7 @@ export default function About() {
                   <Award className="h-6 w-6 text-slate-900" />
                 </div>
                 <div>
-                  <p className="font-black text-slate-900 text-sm">Occitanie Médi Mobility</p>
+                  <p className="font-black text-slate-900 text-sm">{brand.legalName}</p>
                   <p className="text-slate-500 text-xs">Taxi VSL conventionné CPAM — Toulouse</p>
                 </div>
               </div>
@@ -101,10 +104,10 @@ export default function About() {
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <a
-                href="tel:0772339892"
+                href={`tel:${contact.phone}`}
                 className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold transition-all"
               >
-                <Phone size={18} /> 07 72 33 98 92
+                <Phone size={18} /> {contact.phoneDisplay}
               </a>
               <Link
                 href="/a-propos"

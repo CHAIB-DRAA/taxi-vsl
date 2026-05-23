@@ -1,20 +1,6 @@
-const CITIES_31 = [
-  "Toulouse","Muret","Colomiers","Tournefeuille","Blagnac","Plaisance-du-Touch",
-  "Cugnaux","Balma","Ramonville-Saint-Agne","Castanet-Tolosan","Fonsorbes",
-  "L'Union","Saint-Orens-de-Gameville","Saint-Jean","Castelginest","Portet-sur-Garonne",
-  "Auterive","Revel","Saint-Lys","Léguevin","Frouzins","Grenade","Aussonne",
-  "Cornebarrieu","Launaguet","Aucamville","Fronton","Villemur-sur-Tarn","Beauzelle",
-  "Bruguières","Fenouillet","Saint-Jory","Gratentour","Montastruc-la-Conseillère",
-  "Verfeil","Carbonne","Cazères","Rieumes","Seysses","Eaunes","Labarthe-sur-Lèze",
-  "Pins-Justaret","Roques","Saubens","Mondonville","Pibrac","Brax","Lherm",
-  "Labège","Escalquens","Lanta","Caraman","Nailloux","Villefranche-de-Lauragais",
-  "Montgiscard","L'Isle-Jourdain","Cintegabelle","Rieux-Volvestre"
-];
+import { siteConfig } from "../../../lib/siteConfig";
 
-const REGIONAL_CITIES = [
-  "Pamiers","Foix","Saint-Girons","Albi","Castres","Montauban","Auch","Tarbes",
-  "Cahors","Carcassonne","Rodez","Millau","Mende","Figeac","Lourdes","Narbonne"
-];
+const { domain, brand, contact, address, geo, google, seo, cities31, regionalCities } = siteConfig;
 
 export default function LocalBusinessSchema() {
   const schema = {
@@ -22,23 +8,23 @@ export default function LocalBusinessSchema() {
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://www.taxi-31-toulouse.fr/#organization",
-        "name": "OCCITANIE MEDI MOBILITY",
-        "alternateName": "Taxi 31 Toulouse",
-        "url": "https://www.taxi-31-toulouse.fr",
+        "@id": `${domain}/#organization`,
+        "name": brand.legalName,
+        "alternateName": brand.shortName,
+        "url": domain,
         "logo": {
           "@type": "ImageObject",
-          "url": "https://www.taxi-31-toulouse.fr/logo.png",
+          "url": `${domain}/logo.png`,
           "width": 300,
           "height": 100
         },
         "sameAs": [
-          "https://g.page/r/Cbh2nxTvVS7cEAE",
-          "https://www.taxi-31-toulouse.fr"
+          google.sameAsGPage,
+          domain,
         ],
         "contactPoint": {
           "@type": "ContactPoint",
-          "telephone": "+33772339892",
+          "telephone": contact.phoneE164,
           "contactType": "customer service",
           "areaServed": "FR",
           "availableLanguage": ["French"],
@@ -53,28 +39,28 @@ export default function LocalBusinessSchema() {
       },
       {
         "@type": ["TaxiService", "LocalBusiness"],
-        "@id": "https://www.taxi-31-toulouse.fr/#localbusiness",
-        "name": "Taxi Conventionné CPAM Toulouse — Occitanie Médi Mobility",
-        "description": "Taxi conventionné CPAM et VSL en Occitanie. Transport médical assis (ALD, chimiothérapie, dialyse, radiothérapie) avec tiers payant intégral — 0€ d'avance. Courses privées : aéroport Toulouse-Blagnac, gare Matabiau, mariages, événements. Disponible 24h/24.",
-        "url": "https://www.taxi-31-toulouse.fr",
-        "telephone": "+33772339892",
-        "email": "contact@taxi-31-toulouse.fr",
+        "@id": `${domain}/#localbusiness`,
+        "name": seo.localBusinessName,
+        "description": seo.localBusinessDescription,
+        "url": domain,
+        "telephone": contact.phoneE164,
+        "email": contact.email,
         "priceRange": "€€",
         "currenciesAccepted": "EUR",
         "paymentAccepted": "Cash, Carte bancaire, Tiers payant CPAM",
-        "hasMap": "https://maps.google.com/?cid=15905025186406049849",
+        "hasMap": google.mapsUrl,
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "6 rue Buissonnière Bat A",
-          "addressLocality": "Fonbeauzard",
-          "postalCode": "31140",
-          "addressRegion": "Haute-Garonne",
-          "addressCountry": "FR"
+          "streetAddress": address.street,
+          "addressLocality": address.city,
+          "postalCode": address.postalCode,
+          "addressRegion": address.region,
+          "addressCountry": address.country,
         },
         "geo": {
           "@type": "GeoCoordinates",
-          "latitude": "43.6843",
-          "longitude": "1.4230"
+          "latitude": geo.lat,
+          "longitude": geo.lng,
         },
         "areaServed": [
           { "@type": "AdministrativeArea", "name": "Occitanie" },
@@ -88,8 +74,8 @@ export default function LocalBusinessSchema() {
           { "@type": "AdministrativeArea", "name": "Aude", "identifier": "11" },
           { "@type": "AdministrativeArea", "name": "Aveyron", "identifier": "12" },
           { "@type": "AdministrativeArea", "name": "Lozère", "identifier": "48" },
-          ...CITIES_31.map(name => ({ "@type": "City", "name": name })),
-          ...REGIONAL_CITIES.map(name => ({ "@type": "City", "name": name })),
+          ...[...cities31].map(name => ({ "@type": "City", "name": name })),
+          ...[...regionalCities].map(name => ({ "@type": "City", "name": name })),
         ],
         "openingHoursSpecification": [
           "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"
@@ -101,7 +87,7 @@ export default function LocalBusinessSchema() {
         })),
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
-          "name": "Services Occitanie Médi Mobility",
+          "name": `Services ${brand.legalName}`,
           "itemListElement": [
             {
               "@type": "Offer",

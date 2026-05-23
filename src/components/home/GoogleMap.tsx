@@ -1,4 +1,7 @@
+import { siteConfig } from '../../../lib/siteConfig';
+
 export default function GoogleMap() {
+  const { brand } = siteConfig;
   return (
     <section className="py-12 bg-slate-900">
       <div className="max-w-7xl mx-auto px-4">
@@ -15,7 +18,7 @@ export default function GoogleMap() {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Occitanie Médi Mobility — Taxi VSL Toulouse sur Google Maps"
+            title={`${brand.legalName} — Taxi VSL Toulouse sur Google Maps`}
           />
         </div>
       </div>

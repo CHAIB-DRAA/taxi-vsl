@@ -1,9 +1,10 @@
 import { MessageCircle } from 'lucide-react';
+import { siteConfig } from '../../../lib/siteConfig';
 
 export default function WhatsAppButton() {
   return (
     <a
-      href="https://wa.me/33772339892"
+      href={siteConfig.contact.whatsapp}
       target="_blank"
       rel="noopener noreferrer"
       className="hidden md:flex fixed bottom-6 right-6 z-50 items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-5 py-3 rounded-full shadow-lg hover:shadow-green-500/40 transition-all hover:scale-110"

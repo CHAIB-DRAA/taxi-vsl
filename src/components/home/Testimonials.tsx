@@ -1,4 +1,7 @@
 import { Star } from 'lucide-react';
+import { siteConfig } from '../../../lib/siteConfig';
+
+const { brand, google } = siteConfig;
 
 const reviews = [
   {
@@ -61,7 +64,7 @@ const reviews = [
     name: 'Cabinet Bertrand',
     location: 'Toulouse',
     service: 'Transport Business',
-    content: 'Nous faisons appel à Occitanie Médi Mobility pour accueillir nos clients internationaux à l\'aéroport. Discrétion, ponctualité, présentation impeccable. La facturation mensuelle simplifie notre comptabilité.',
+    content: `Nous faisons appel à ${brand.legalName} pour accueillir nos clients internationaux à l'aéroport. Discrétion, ponctualité, présentation impeccable. La facturation mensuelle simplifie notre comptabilité.`,
     rating: 5,
     time: 'il y a 6 mois',
     initials: 'CB',
@@ -99,7 +102,7 @@ export default function Testimonials() {
             <span className="text-slate-500 text-sm ml-1">/ 5 — Note Google</span>
           </div>
           <p className="text-slate-500 max-w-xl mx-auto text-base">
-            Des patients en traitement médical, des voyageurs pressés, des familles — tous font confiance à Occitanie Médi Mobility.
+            Des patients en traitement médical, des voyageurs pressés, des familles — tous font confiance à {brand.legalName}.
           </p>
         </div>
 
@@ -145,7 +148,7 @@ export default function Testimonials() {
 
         <div className="mt-10 text-center">
           <a
-            href="https://g.page/r/Cbh2nxTvVS7cEAE/review"
+            href={google.reviewUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 text-slate-700 hover:text-slate-900 font-semibold px-6 py-3 rounded-xl transition-all shadow-sm text-sm"
