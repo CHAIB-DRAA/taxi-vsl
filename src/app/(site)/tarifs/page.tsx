@@ -9,9 +9,23 @@ export const metadata: Metadata = {
   title: "Tarifs Taxi VSL Toulouse | Transport Médical & Courses Privées | Taxi31",
   description: "Consultez les tarifs taxi VSL conventionné CPAM à Toulouse. Transport médical pris en charge à 100% avec prescription. Courses privées, aéroport, longue distance. Devis gratuit.",
   keywords: ["tarifs taxi toulouse", "prix taxi VSL", "tarif transport médical CPAM", "taxi conventionné prix", "tarif navette aéroport toulouse"],
+  alternates: {
+    canonical: "https://www.taxi-31-toulouse.fr/tarifs",
+  },
   openGraph: {
     title: "Tarifs Taxi VSL & Transport Médical — Toulouse",
     description: "Tarifs clairs pour votre transport médical conventionné CPAM ou votre course privée depuis Toulouse.",
+    url: "https://www.taxi-31-toulouse.fr/tarifs",
+    type: "website",
+    siteName: "Taxi 31 Toulouse",
+    locale: "fr_FR",
+    images: [{ url: "https://www.taxi-31-toulouse.fr/og-image.jpg", width: 1200, height: 630, alt: "Tarifs Taxi VSL Conventionné CPAM Toulouse" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tarifs Taxi VSL & Transport Médical — Toulouse",
+    description: "Tarifs clairs pour votre transport médical conventionné CPAM ou votre course privée depuis Toulouse.",
+    images: ["https://www.taxi-31-toulouse.fr/og-image.jpg"],
   },
 };
 
@@ -32,9 +46,61 @@ const privateItems = [
   { label: "Transport nuit (20h–7h)", price: "+25 %", note: "Supplément appliqué" },
 ];
 
+const tarifsFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://www.taxi-31-toulouse.fr/tarifs#faq",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Mon transport est-il remboursé par la CPAM ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, si vous avez une prescription médicale de transport. Le remboursement est de 65% pour la majorité des patients et de 100% (sans avance de frais) pour les ALD, dialyse, chimiothérapie et autres cas d'exonération."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qui peut bénéficier du transport à 100% ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Patients en Affection Longue Durée (ALD 30), dialysés, sous chimiothérapie, hospitalisés ou bénéficiaires de la Complémentaire Santé Solidaire (CSS). La mutuelle prend en charge le reste pour les autres."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il avancer les frais pour le transport médical ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, pour les patients exonérés à 100%. Nous établissons directement la feuille de soins avec la CPAM. Pour les patients avec ticket modérateur, une avance partielle peut être demandée selon votre couverture mutuelle."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment est calculé le prix d'un trajet ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le tarif est calculé par le taximètre certifié : prise en charge fixe + kilomètres parcourus + temps d'attente éventuel. Les suppléments de nuit et weekend s'appliquent selon les horaires définis par l'arrêté préfectoral."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je demander un devis avant ma course ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, appelez-nous au 07 72 33 98 92 ou réservez via le formulaire en ligne. Nous vous confirmons le tarif estimé avant la course, surtout pour les longues distances."
+      }
+    }
+  ]
+};
+
 export default function TarifsPage() {
   return (
     <main className="min-h-screen bg-slate-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(tarifsFaqSchema) }}
+      />
 
       {/* Hero */}
       <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-20 px-4 relative overflow-hidden">

@@ -32,8 +32,8 @@ export const metadata: Metadata = {
 };
 
 const hospitals = [
-  { name: "CHU Purpan", spec: "Neurologie, Pédiatrie, Traumatologie", slug: "taxi-vsl-hopital-purpan-chu-toulouse" },
-  { name: "Hôpital Rangueil", spec: "Cardiologie, Greffe rénale, Dialyse", slug: "taxi-vsl-hopital-rangueil-toulouse" },
+  { name: "CHU Purpan", spec: "Neurologie, Pédiatrie, Traumatologie", slug: "taxi-vsl-hopital-purpan-chu" },
+  { name: "Hôpital Rangueil", spec: "Cardiologie, Greffe rénale, Dialyse", slug: "taxi-vsl-hopital-rangueil" },
   { name: "Oncopole Claudius Regaud", spec: "Chimiothérapie, Radiothérapie, Immunothérapie", slug: "taxi-vsl-oncopole-chimiotherapie-toulouse" },
   { name: "Clinique Pasteur", spec: "Cardiologie interventionnelle", slug: null },
   { name: "Clinique de l'Union", spec: "Dialyse, Chirurgie", slug: null },

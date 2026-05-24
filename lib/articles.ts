@@ -141,7 +141,8 @@ const hospitalData: HospitalInfo[] = [
   { name: "Clinique des Cèdres", shortName: "Clinique des Cèdres", spec: "chirurgie orthopédique, rééducation, maternité", location: "Cornebarrieu, nord-ouest de Toulouse", detail: "Clinique privée multidisciplinaire du nord-ouest toulousain, réputée pour son service de chirurgie orthopédique et sa maternité" },
   { name: "Clinique Croix du Sud", shortName: "Clinique Croix du Sud", spec: "oncologie médicale, maternité, chirurgie", location: "Quint-Fonsegrives, est de Toulouse", detail: "Établissement privé situé à l'est de l'agglomération, la Clinique Croix du Sud propose un plateau technique complet incluant un service d'oncologie" },
   { name: "Hôpital Larrey", shortName: "Hôpital Larrey", spec: "pneumologie, ORL, dermatologie, médecine interne", location: "avenue de Lombez, Toulouse", detail: "Site du CHU de Toulouse dédié à la pneumologie et à l'ORL, l'Hôpital Larrey reçoit les patients atteints de pathologies respiratoires complexes" },
-  { name: "Clinique d'Occitanie", shortName: "Clinique d'Occitanie Muret", spec: "chirurgie générale, urgences, médecine, maternité", location: "Muret, 20 km au sud de Toulouse", detail: "Principal établissement de santé du bassin muretain, la Clinique d'Occitanie propose un service d'urgences ouvert 24h/24 et couvre les besoins de tout le Volvestre" },
+  { name: "Clinique d'Occitanie Muret", shortName: "Clinique d'Occitanie Muret", spec: "chirurgie générale, urgences, médecine, maternité", location: "Muret, 20 km au sud de Toulouse", detail: "Principal établissement de santé du bassin muretain, la Clinique d'Occitanie propose un service d'urgences ouvert 24h/24 et couvre les besoins de tout le Volvestre" },
+  { name: "Oncopole Claudius Regaud", shortName: "Oncopole Claudius Regaud", spec: "chimiothérapie, radiothérapie, immunothérapie, hémato-oncologie", location: "Toulouse, campus de l'Institut Universitaire du Cancer", detail: "L'Institut Universitaire du Cancer de Toulouse — Oncopole est l'un des plus grands centres de lutte contre le cancer en France, regroupant soins, recherche et enseignement sur un campus dédié" },
 ];
 
 // ─── CONTENT GENERATORS ───────────────────────────────────────────────────────
@@ -269,7 +270,7 @@ function generateHospitalContent(h: HospitalInfo): string {
 // ─── GENERATED ARTICLES ───────────────────────────────────────────────────────
 
 const cityArticles: Article[] = cityData.map((city) => ({
-  slug: `taxi-conventionne-vsl-${createSlug(city.name)}`,
+  slug: `taxi-conventionne-${createSlug(city.name)}`,
   title: `Taxi Conventionné à ${city.name} : VSL CPAM & Courses Privées`,
   description: `Taxi VSL conventionné CPAM depuis ${city.name} vers les hôpitaux de Toulouse. Tiers payant intégral 0€ d'avance. Dialyse, chimiothérapie, aéroport Blagnac. Disponible 24h/24.`,
   date: "2025-03-01",
@@ -279,7 +280,7 @@ const cityArticles: Article[] = cityData.map((city) => ({
 }));
 
 const regionalArticles: Article[] = regionalCityData.map((city) => ({
-  slug: `taxi-vsl-${createSlug(city.name)}-${createSlug(city.dept)}-toulouse`,
+  slug: `vsl-taxi-conventionne-${createSlug(city.name)}`,
   title: `Taxi VSL ${city.name} (${city.deptNum}) → Toulouse : Transport Médical Longue Distance`,
   description: `Transport médical conventionné CPAM depuis ${city.name} en ${city.dept} vers les hôpitaux de Toulouse. Longue distance remboursable sur prescription médicale. Confort Peugeot 5008 GT.`,
   date: "2025-03-10",
@@ -289,7 +290,7 @@ const regionalArticles: Article[] = regionalCityData.map((city) => ({
 }));
 
 const hospitalArticles: Article[] = hospitalData.map((h) => ({
-  slug: `taxi-vsl-${createSlug(h.name)}-toulouse`,
+  slug: `taxi-vsl-${createSlug(h.name)}`,
   title: `Taxi VSL ${h.shortName} Toulouse : Transport Médical Conventionné CPAM`,
   description: `Transport médical conventionné vers ${h.shortName} à Toulouse. Spécialités : ${h.spec.split(",")[0]}. Tiers payant CPAM intégral, dépose prioritaire. Disponible 24h/24.`,
   date: "2025-02-25",
@@ -417,7 +418,7 @@ const detailedArticles: Article[] = [
 `,
   },
   {
-    slug: "taxi-vsl-hopital-purpan-chu-toulouse",
+    slug: "taxi-vsl-hopital-purpan-chu",
     title: "Taxi VSL Conventionné CHU Purpan Toulouse : Accès & Prise en Charge",
     description: "Transport médical remboursé vers le CHU Purpan de Toulouse. Accès aux urgences, pavillons pédiatriques, neurologie et traumatologie. Tiers payant, 0€ d'avance.",
     date: "2025-02-10",
@@ -446,7 +447,7 @@ const detailedArticles: Article[] = [
 `,
   },
   {
-    slug: "taxi-vsl-hopital-rangueil-toulouse",
+    slug: "taxi-vsl-hopital-rangueil",
     title: "Taxi VSL Hôpital Rangueil Toulouse : Cardiologie, Greffe & Dialyse",
     description: "Transport médical conventionné vers l'Hôpital Rangueil-Larrey de Toulouse. Cardiologie, transplantation rénale, dialyse. Prise en charge CPAM, tiers payant.",
     date: "2025-02-15",
