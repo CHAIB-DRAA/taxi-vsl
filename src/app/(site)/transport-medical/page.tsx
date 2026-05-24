@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Phone, HeartPulse, ShieldCheck, CheckCircle2, ArrowRight, FileText, Clock } from "lucide-react";
 import StickyMobileBar from "../../../components/layout/StickyMobileBar";
+import ServiceSchema from "../../../components/seo/ServiceSchema";
 import { siteConfig } from "../../../../lib/siteConfig";
 
 const { contact } = siteConfig;
@@ -51,6 +52,13 @@ const soins = [
 export default function TransportMedical() {
   return (
     <main className="min-h-screen bg-white pt-24 pb-32 md:pb-16">
+      <ServiceSchema
+        name="Transport Médical Conventionné CPAM Toulouse — VSL & TAP"
+        description="Taxi VSL agréé par la CPAM de la Haute-Garonne. Transport médical assis (chimiothérapie, dialyse, ALD, radiothérapie) avec tiers payant intégral depuis toute l'Occitanie vers les hôpitaux de Toulouse — 0€ d'avance."
+        url="https://www.taxi-31-toulouse.fr/transport-medical"
+        serviceType="Medical Transport"
+        isMedical
+      />
 
       {/* Hero */}
       <section className="bg-gradient-to-br from-blue-900 to-slate-900 py-20 px-4">

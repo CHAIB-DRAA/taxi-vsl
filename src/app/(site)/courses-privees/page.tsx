@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Phone, Plane, Train, Heart, Briefcase, CheckCircle2, ArrowRight, Star } from "lucide-react";
 import StickyMobileBar from "../../../components/layout/StickyMobileBar";
+import ServiceSchema from "../../../components/seo/ServiceSchema";
 import { siteConfig } from "../../../../lib/siteConfig";
 
 const { contact } = siteConfig;
@@ -100,6 +101,12 @@ const services = [
 export default function CoursesPrivees() {
   return (
     <main className="min-h-screen bg-white pt-24 pb-32 md:pb-16">
+      <ServiceSchema
+        name="Taxi Privé Toulouse — Aéroport Blagnac, Gare Matabiau, Mariage & Business"
+        description="Taxi privé à Toulouse disponible 24h/24 : navette Aéroport Toulouse-Blagnac dès 4h du matin, Gare Matabiau avec suivi des retards, transport mariage et événements, déplacements professionnels. Tarif fixe garanti à la réservation."
+        url="https://www.taxi-31-toulouse.fr/courses-privees"
+        serviceType="Private Car Service"
+      />
 
       {/* Hero */}
       <section className="bg-gradient-to-br from-slate-900 to-blue-950 py-20 px-4">

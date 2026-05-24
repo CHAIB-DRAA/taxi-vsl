@@ -18,25 +18,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}/transport-medical`,
       lastModified: TODAY,
       changeFrequency: "monthly",
-      priority: 0.95,
+      priority: 1.0,
     },
     {
       url: `${base}/courses-privees`,
       lastModified: TODAY,
       changeFrequency: "monthly",
-      priority: 0.9,
+      priority: 1.0,
     },
     {
-      url: `${base}/blog`,
+      url: `${base}/reserver`,
       lastModified: TODAY,
-      changeFrequency: "weekly",
-      priority: 0.85,
+      changeFrequency: "monthly",
+      priority: 1.0,
+    },
+    {
+      url: `${base}/tarifs`,
+      lastModified: TODAY,
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${base}/a-propos`,
       lastModified: new Date("2026-05-17"),
       changeFrequency: "yearly",
-      priority: 0.6,
+      priority: 0.8,
+    },
+    {
+      url: `${base}/blog`,
+      lastModified: TODAY,
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
     {
       url: `${base}/mentions-legales`,
@@ -52,52 +64,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const blogPages: MetadataRoute.Sitemap = articles.map((article) => {
-    let priority = 0.7;
-    let freq: MetadataRoute.Sitemap[number]["changeFrequency"] = "monthly";
-
-    switch (article.category) {
-      case "Guide":
-        priority = 0.9;
-        freq = "monthly";
-        break;
-      case "Hôpitaux":
-        priority = 0.85;
-        freq = "monthly";
-        break;
-      case "Transport Médical":
-        priority = 0.8;
-        freq = "monthly";
-        break;
-      case "Courses Privées":
-        priority = 0.8;
-        freq = "monthly";
-        break;
-      case "Trajets":
-        priority = 0.75;
-        freq = "monthly";
-        break;
-      case "Villes":
-        priority = 0.7;
-        freq = "monthly";
-        break;
-      case "Comparaisons":
-        priority = 0.85;
-        freq = "monthly";
-        break;
-      case "Spécialités":
-        priority = 0.85;
-        freq = "monthly";
-        break;
-    }
-
-    return {
-      url: `${base}/blog/${article.slug}`,
-      lastModified: new Date(article.date),
-      changeFrequency: freq,
-      priority,
-    };
-  });
+  const blogPages: MetadataRoute.Sitemap = articles.map((article) => ({
+    url: `${base}/blog/${article.slug}`,
+    lastModified: new Date(article.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
 
   const all = [...staticPages, ...blogPages];
   return all.filter((p, i, self) => i === self.findIndex((q) => q.url === p.url));
