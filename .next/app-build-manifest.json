@@ -6,7 +6,7 @@
       "static/chunks/117-b9dc9d2cea3c1bed.js",
       "static/chunks/main-app-70b5c1e3a56cccc2.js",
       "static/chunks/972-240aa854befe7aeb.js",
-      "static/chunks/app/not-found-ef374442f3cf3ccf.js"
+      "static/chunks/app/not-found-bc79614b3a12002b.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack-9d964d8cb0d81fe9.js",
@@ -20,88 +20,8 @@
       "static/chunks/fd9d1056-b13fbc93183e029c.js",
       "static/chunks/117-b9dc9d2cea3c1bed.js",
       "static/chunks/main-app-70b5c1e3a56cccc2.js",
-      "static/css/2a8a6f75a85e1b22.css",
+      "static/css/ca4cbdb32389851b.css",
       "static/chunks/app/layout-f96a97e27bf01317.js"
-    ],
-    "/(admin)/admin/page": [
-      "static/chunks/webpack-9d964d8cb0d81fe9.js",
-      "static/chunks/fd9d1056-b13fbc93183e029c.js",
-      "static/chunks/117-b9dc9d2cea3c1bed.js",
-      "static/chunks/main-app-70b5c1e3a56cccc2.js",
-      "static/chunks/208-6d7f0f01e66ae147.js",
-      "static/chunks/app/(admin)/admin/page-867f1c146c1fcc08.js"
-    ],
-    "/(admin)/layout": [
-      "static/chunks/webpack-9d964d8cb0d81fe9.js",
-      "static/chunks/fd9d1056-b13fbc93183e029c.js",
-      "static/chunks/117-b9dc9d2cea3c1bed.js",
-      "static/chunks/main-app-70b5c1e3a56cccc2.js",
-      "static/chunks/app/(admin)/layout-7fde4cd39b52f63f.js"
-    ],
-    "/(site)/mentions-legales/page": [
-      "static/chunks/webpack-9d964d8cb0d81fe9.js",
-      "static/chunks/fd9d1056-b13fbc93183e029c.js",
-      "static/chunks/117-b9dc9d2cea3c1bed.js",
-      "static/chunks/main-app-70b5c1e3a56cccc2.js",
-      "static/chunks/972-240aa854befe7aeb.js",
-      "static/chunks/app/(site)/mentions-legales/page-8fea9c683cbc8432.js"
-    ],
-    "/(site)/layout": [
-      "static/chunks/webpack-9d964d8cb0d81fe9.js",
-      "static/chunks/fd9d1056-b13fbc93183e029c.js",
-      "static/chunks/117-b9dc9d2cea3c1bed.js",
-      "static/chunks/main-app-70b5c1e3a56cccc2.js",
-      "static/chunks/972-240aa854befe7aeb.js",
-      "static/chunks/app/(site)/layout-b17f15a11c75dde6.js"
-    ],
-    "/(site)/courses-privees/page": [
-      "static/chunks/webpack-9d964d8cb0d81fe9.js",
-      "static/chunks/fd9d1056-b13fbc93183e029c.js",
-      "static/chunks/117-b9dc9d2cea3c1bed.js",
-      "static/chunks/main-app-70b5c1e3a56cccc2.js",
-      "static/chunks/972-240aa854befe7aeb.js",
-      "static/chunks/app/(site)/courses-privees/page-83541a8f052b58f0.js"
-    ],
-    "/(site)/blog/page": [
-      "static/chunks/webpack-9d964d8cb0d81fe9.js",
-      "static/chunks/fd9d1056-b13fbc93183e029c.js",
-      "static/chunks/117-b9dc9d2cea3c1bed.js",
-      "static/chunks/main-app-70b5c1e3a56cccc2.js",
-      "static/chunks/972-240aa854befe7aeb.js",
-      "static/chunks/app/(site)/blog/page-10387d2ad905892e.js"
-    ],
-    "/(site)/page": [
-      "static/chunks/webpack-9d964d8cb0d81fe9.js",
-      "static/chunks/fd9d1056-b13fbc93183e029c.js",
-      "static/chunks/117-b9dc9d2cea3c1bed.js",
-      "static/chunks/main-app-70b5c1e3a56cccc2.js",
-      "static/chunks/972-240aa854befe7aeb.js",
-      "static/chunks/878-24b3b4dd8f365bb7.js",
-      "static/chunks/app/(site)/page-659c0d9fb05660c1.js"
-    ],
-    "/(site)/politique-confidentialite/page": [
-      "static/chunks/webpack-9d964d8cb0d81fe9.js",
-      "static/chunks/fd9d1056-b13fbc93183e029c.js",
-      "static/chunks/117-b9dc9d2cea3c1bed.js",
-      "static/chunks/main-app-70b5c1e3a56cccc2.js",
-      "static/chunks/972-240aa854befe7aeb.js",
-      "static/chunks/app/(site)/politique-confidentialite/page-4d598e14b7c8f867.js"
-    ],
-    "/(site)/tarifs/page": [
-      "static/chunks/webpack-9d964d8cb0d81fe9.js",
-      "static/chunks/fd9d1056-b13fbc93183e029c.js",
-      "static/chunks/117-b9dc9d2cea3c1bed.js",
-      "static/chunks/main-app-70b5c1e3a56cccc2.js",
-      "static/chunks/972-240aa854befe7aeb.js",
-      "static/chunks/app/(site)/tarifs/page-fc3ed3e2f1d57f47.js"
-    ],
-    "/(site)/transport-medical/page": [
-      "static/chunks/webpack-9d964d8cb0d81fe9.js",
-      "static/chunks/fd9d1056-b13fbc93183e029c.js",
-      "static/chunks/117-b9dc9d2cea3c1bed.js",
-      "static/chunks/main-app-70b5c1e3a56cccc2.js",
-      "static/chunks/972-240aa854befe7aeb.js",
-      "static/chunks/app/(site)/transport-medical/page-911260c89abb51b0.js"
     ],
     "/(site)/a-propos/page": [
       "static/chunks/webpack-9d964d8cb0d81fe9.js",
@@ -111,13 +31,93 @@
       "static/chunks/878-24b3b4dd8f365bb7.js",
       "static/chunks/app/(site)/a-propos/page-bf8a678aceda7ffc.js"
     ],
+    "/(site)/layout": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-b13fbc93183e029c.js",
+      "static/chunks/117-b9dc9d2cea3c1bed.js",
+      "static/chunks/main-app-70b5c1e3a56cccc2.js",
+      "static/chunks/972-240aa854befe7aeb.js",
+      "static/chunks/app/(site)/layout-28368fc3680ef498.js"
+    ],
+    "/(admin)/admin/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-b13fbc93183e029c.js",
+      "static/chunks/117-b9dc9d2cea3c1bed.js",
+      "static/chunks/main-app-70b5c1e3a56cccc2.js",
+      "static/chunks/494-e727a85fe32fbfcc.js",
+      "static/chunks/app/(admin)/admin/page-7928396fd0c5632a.js"
+    ],
+    "/(admin)/layout": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-b13fbc93183e029c.js",
+      "static/chunks/117-b9dc9d2cea3c1bed.js",
+      "static/chunks/main-app-70b5c1e3a56cccc2.js",
+      "static/chunks/app/(admin)/layout-7fde4cd39b52f63f.js"
+    ],
     "/(site)/blog/[slug]/page": [
       "static/chunks/webpack-9d964d8cb0d81fe9.js",
       "static/chunks/fd9d1056-b13fbc93183e029c.js",
       "static/chunks/117-b9dc9d2cea3c1bed.js",
       "static/chunks/main-app-70b5c1e3a56cccc2.js",
       "static/chunks/972-240aa854befe7aeb.js",
-      "static/chunks/app/(site)/blog/[slug]/page-10ea914199941779.js"
+      "static/chunks/app/(site)/blog/[slug]/page-7bdac783d1a0e4b5.js"
+    ],
+    "/(site)/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-b13fbc93183e029c.js",
+      "static/chunks/117-b9dc9d2cea3c1bed.js",
+      "static/chunks/main-app-70b5c1e3a56cccc2.js",
+      "static/chunks/972-240aa854befe7aeb.js",
+      "static/chunks/878-24b3b4dd8f365bb7.js",
+      "static/chunks/app/(site)/page-fc7fc39881a14e0d.js"
+    ],
+    "/(site)/mentions-legales/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-b13fbc93183e029c.js",
+      "static/chunks/117-b9dc9d2cea3c1bed.js",
+      "static/chunks/main-app-70b5c1e3a56cccc2.js",
+      "static/chunks/972-240aa854befe7aeb.js",
+      "static/chunks/app/(site)/mentions-legales/page-a6235a63d5509c17.js"
+    ],
+    "/(site)/politique-confidentialite/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-b13fbc93183e029c.js",
+      "static/chunks/117-b9dc9d2cea3c1bed.js",
+      "static/chunks/main-app-70b5c1e3a56cccc2.js",
+      "static/chunks/972-240aa854befe7aeb.js",
+      "static/chunks/app/(site)/politique-confidentialite/page-54167e96881c0db2.js"
+    ],
+    "/(site)/courses-privees/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-b13fbc93183e029c.js",
+      "static/chunks/117-b9dc9d2cea3c1bed.js",
+      "static/chunks/main-app-70b5c1e3a56cccc2.js",
+      "static/chunks/972-240aa854befe7aeb.js",
+      "static/chunks/app/(site)/courses-privees/page-f6688b06e4b1e2e1.js"
+    ],
+    "/(site)/blog/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-b13fbc93183e029c.js",
+      "static/chunks/117-b9dc9d2cea3c1bed.js",
+      "static/chunks/main-app-70b5c1e3a56cccc2.js",
+      "static/chunks/972-240aa854befe7aeb.js",
+      "static/chunks/app/(site)/blog/page-3c954b71389a3bd3.js"
+    ],
+    "/(site)/tarifs/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-b13fbc93183e029c.js",
+      "static/chunks/117-b9dc9d2cea3c1bed.js",
+      "static/chunks/main-app-70b5c1e3a56cccc2.js",
+      "static/chunks/972-240aa854befe7aeb.js",
+      "static/chunks/app/(site)/tarifs/page-0eae7a5ba2ff8806.js"
+    ],
+    "/(site)/transport-medical/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-b13fbc93183e029c.js",
+      "static/chunks/117-b9dc9d2cea3c1bed.js",
+      "static/chunks/main-app-70b5c1e3a56cccc2.js",
+      "static/chunks/972-240aa854befe7aeb.js",
+      "static/chunks/app/(site)/transport-medical/page-745fe1ea4840d57d.js"
     ]
   }
 }
